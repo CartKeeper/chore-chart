@@ -3626,6 +3626,16 @@
     </div>
   </div>
 
+  <!-- In-App Reminder Modal -->
+  <div class="modal-overlay" id="reminder-popup-modal">
+    <div class="modal" style="text-align: center;">
+      <div style="font-size: 48px; margin-bottom: 16px;">😴</div>
+      <div class="modal-title" id="reminder-popup-title">Bedtime Reminder</div>
+      <div id="reminder-popup-message" style="background: rgba(30, 41, 59, 0.8); border-radius: 12px; padding: 16px; margin: 16px 0; text-align: left; white-space: pre-line; font-size: 15px; line-height: 1.6; color: #e2e8f0;"></div>
+      <button class="btn btn-primary btn-lg" onclick="dismissReminder()" style="width: 100%;">Got it!</button>
+    </div>
+  </div>
+
   <!-- Help Modal -->
   <div class="modal-overlay" id="help-modal">
     <div class="modal">
@@ -5431,6 +5441,7 @@
       renderMoneyMakersList();
       initPinInputs();
       checkNotificationStatus();
+      checkInAppReminders();
     }
 
     // Check and update notification UI state
@@ -5508,6 +5519,52 @@
         // Currently disabled - enable
         await enableNotifications();
       }
+    };
+
+    // Check for in-app reminders when app opens
+    async function checkInAppReminders() {
+      if (!currentUser) return;
+
+      try {
+        const reminders = await getChildReminders(currentUser.id);
+        if (!reminders || reminders.length === 0) return;
+
+        const now = new Date();
+        const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+        for (const reminder of reminders) {
+          if (!reminder.reminder_time) continue;
+
+          // Parse reminder time
+          const [hours, mins] = reminder.reminder_time.split(':').map(Number);
+          const reminderMinutes = hours * 60 + mins;
+
+          // Check if within 30 minute window (before or after)
+          const diff = Math.abs(currentMinutes - reminderMinutes);
+          if (diff <= 30 || diff >= (24 * 60 - 30)) {
+            // Check if we already showed this reminder today
+            const today = now.toDateString();
+            const shownKey = `reminder_shown_${reminder.id}_${today}`;
+            if (localStorage.getItem(shownKey)) continue;
+
+            // Show the reminder
+            const title = reminder.reminder_type === 'nightly' ? '😴 Bedtime Reminder' : '⏰ Reminder';
+            document.getElementById('reminder-popup-title').textContent = title;
+            document.getElementById('reminder-popup-message').textContent = reminder.message || 'Time to check your tasks!';
+            showModal('reminder-popup-modal');
+
+            // Mark as shown for today
+            localStorage.setItem(shownKey, 'true');
+            break; // Only show one reminder at a time
+          }
+        }
+      } catch (e) {
+        console.error('Error checking reminders:', e);
+      }
+    }
+
+    window.dismissReminder = function() {
+      closeModal('reminder-popup-modal');
     };
 
     function renderDayTabs() {

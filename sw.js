@@ -1,5 +1,5 @@
 // Service Worker for Chore Chart PWA
-const CACHE_NAME = 'chore-chart-v32';
+const CACHE_NAME = 'chore-chart-v33';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
