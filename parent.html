@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0f0f1a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Parent Portal">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.svg">
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/parent-portal.css">
+  <title>Chore Chart - Parent Portal</title>
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <!-- PIN Entry Screen -->
+  <div id="pinScreen" class="screen active">
+    <div class="container">
+      <div class="pin-screen">
+        <h1 class="pin-title" id="pinTitle">Enter PIN</h1>
+        <div class="pin-dots">
+          <div class="pin-dot"></div>
+          <div class="pin-dot"></div>
+          <div class="pin-dot"></div>
+          <div class="pin-dot"></div>
+        </div>
+        <div class="pin-keypad">
+          <button class="pin-key" data-key="1">1</button>
+          <button class="pin-key" data-key="2">2</button>
+          <button class="pin-key" data-key="3">3</button>
+          <button class="pin-key" data-key="4">4</button>
+          <button class="pin-key" data-key="5">5</button>
+          <button class="pin-key" data-key="6">6</button>
+          <button class="pin-key" data-key="7">7</button>
+          <button class="pin-key" data-key="8">8</button>
+          <button class="pin-key" data-key="9">9</button>
+          <button class="pin-key action" data-key="clear">Clear</button>
+          <button class="pin-key" data-key="0">0</button>
+          <button class="pin-key action" data-key="back">&#9003;</button>
+        </div>
+        <p id="pinError" class="text-muted mt-lg" style="color: var(--accent-red); display: none;"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Setup Wizard Screen -->
+  <div id="setupScreen" class="screen">
+    <div class="container">
+      <!-- Progress -->
+      <div class="wizard-progress">
+        <div class="wizard-progress-step current" data-step="1"></div>
+        <div class="wizard-progress-step" data-step="2"></div>
+        <div class="wizard-progress-step" data-step="3"></div>
+      </div>
+
+      <!-- Step 1: Family Name -->
+      <div class="wizard-step active" data-step="1">
+        <h2 class="wizard-title">Create Your Family</h2>
+        <p class="wizard-description">What should we call your family?</p>
+        <div class="input-group">
+          <label for="familyName">Family Name</label>
+          <input type="text" id="familyName" class="input" placeholder="e.g., The Smith Family">
+        </div>
+        <button class="btn btn-primary btn-lg" style="width: 100%;" id="wizardStep1Next">Continue</button>
+      </div>
+
+      <!-- Step 2: Create PIN -->
+      <div class="wizard-step" data-step="2">
+        <h2 class="wizard-title">Create a PIN</h2>
+        <p class="wizard-description">This PIN protects the parent portal.</p>
+        <div class="pin-dots" style="justify-content: center;">
+          <div class="pin-dot"></div>
+          <div class="pin-dot"></div>
+          <div class="pin-dot"></div>
+          <div class="pin-dot"></div>
+        </div>
+        <div class="pin-keypad" style="margin: 0 auto;">
+          <button class="pin-key" data-key="1">1</button>
+          <button class="pin-key" data-key="2">2</button>
+          <button class="pin-key" data-key="3">3</button>
+          <button class="pin-key" data-key="4">4</button>
+          <button class="pin-key" data-key="5">5</button>
+          <button class="pin-key" data-key="6">6</button>
+          <button class="pin-key" data-key="7">7</button>
+          <button class="pin-key" data-key="8">8</button>
+          <button class="pin-key" data-key="9">9</button>
+          <button class="pin-key action" data-key="clear">Clear</button>
+          <button class="pin-key" data-key="0">0</button>
+          <button class="pin-key action" data-key="back">&#9003;</button>
+        </div>
+        <p id="pinSetupStatus" class="text-muted mt-md text-center"></p>
+      </div>
+
+      <!-- Step 3: Add Children -->
+      <div class="wizard-step" data-step="3">
+        <h2 class="wizard-title">Add Your Children</h2>
+        <p class="wizard-description">Who will be completing chores?</p>
+
+        <div id="childrenList" class="list mb-md"></div>
+
+        <div class="card mb-md">
+          <div class="input-group">
+            <label>Child's Name</label>
+            <input type="text" id="newChildName" class="input" placeholder="Enter name">
+          </div>
+          <div class="input-group">
+            <label>Avatar</label>
+            <div class="icon-picker" id="avatarPicker"></div>
+          </div>
+          <button class="btn btn-secondary" style="width: 100%;" id="addChildBtn">Add Child</button>
+        </div>
+
+        <button class="btn btn-primary btn-lg" style="width: 100%;" id="wizardFinish">Finish Setup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Dashboard Screen -->
+  <div id="dashboardScreen" class="screen">
+    <div class="container container-wide">
+      <!-- Header -->
+      <header class="parent-header">
+        <h1 id="familyNameHeader">Family Dashboard</h1>
+        <div class="header-actions">
+          <button class="btn btn-sm btn-secondary" id="linkDeviceBtn">Link Device</button>
+          <button class="btn btn-sm btn-secondary" id="settingsBtn">Settings</button>
+        </div>
+      </header>
+
+      <!-- Navigation -->
+      <nav class="parent-nav">
+        <button class="parent-nav-item active" data-view="dashboard">Dashboard</button>
+        <button class="parent-nav-item" data-view="chores">Chores</button>
+        <button class="parent-nav-item" data-view="assignments">Assignments</button>
+        <button class="parent-nav-item" data-view="reminders">Reminders</button>
+        <button class="parent-nav-item" data-view="earnings">Earnings</button>
+      </nav>
+
+      <!-- Child Selector -->
+      <div class="child-selector" id="childSelector"></div>
+
+      <!-- Dashboard View -->
+      <div id="dashboardView" class="view active">
+        <div class="dashboard-stats">
+          <div class="stat-card highlight">
+            <div class="stat-value" id="statWeeklyXP">0</div>
+            <div class="stat-label">Weekly XP</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="statRank">F</div>
+            <div class="stat-label">Current Rank</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="statStreak">0</div>
+            <div class="stat-label">Day Streak</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="statCompletions">0</div>
+            <div class="stat-label">This Week</div>
+          </div>
+        </div>
+
+        <!-- Weekly Progress Chart -->
+        <div class="progress-chart">
+          <h3 class="mb-md">This Week's Progress</h3>
+          <div class="week-grid" id="weekGrid"></div>
+        </div>
+
+        <!-- Recent Activity -->
+        <h3 class="mb-md">Recent Activity</h3>
+        <div class="activity-feed" id="activityFeed">
+          <div class="empty-state">
+            <div class="empty-state-icon">📋</div>
+            <p>No recent activity</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chores View -->
+      <div id="choresView" class="view">
+        <div class="section-header mb-md">
+          <h3>Chore Templates</h3>
+          <button class="btn btn-sm btn-primary" id="addChoreBtn">+ Add Chore</button>
+        </div>
+
+        <div id="choreTemplatesList" class="list"></div>
+      </div>
+
+      <!-- Assignments View -->
+      <div id="assignmentsView" class="view">
+        <div class="section-header mb-md">
+          <h3>Chore Assignments</h3>
+          <button class="btn btn-sm btn-primary" id="addAssignmentBtn">+ Assign Chore</button>
+        </div>
+
+        <div id="assignmentsList" class="assignment-grid"></div>
+      </div>
+
+      <!-- Reminders View -->
+      <div id="remindersView" class="view">
+        <div class="section-header mb-md">
+          <h3>Reminders</h3>
+          <button class="btn btn-sm btn-primary" id="addReminderBtn">+ Add Reminder</button>
+        </div>
+
+        <div id="remindersList" class="reminder-list"></div>
+      </div>
+
+      <!-- Earnings View -->
+      <div id="earningsView" class="view">
+        <h3 class="mb-md">Weekly Earnings</h3>
+
+        <table class="earnings-table">
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>XP</th>
+              <th>Rank</th>
+              <th>Earnings</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="earningsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help Button (required per CLAUDE.md) -->
+  <button id="helpBtn" class="help-btn" title="Help">
+    <span>🛟</span>
+  </button>
+
+  <!-- Help Modal -->
+  <div id="helpModal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Parent Portal Help</h3>
+        <button class="modal-close" onclick="closeModal('helpModal')">&times;</button>
+      </div>
+      <div class="modal-content">
+        <h4>Getting Started</h4>
+        <p class="text-muted mb-md">1. Create chore templates (reusable chore definitions)<br>
+        2. Assign chores to children with schedules<br>
+        3. Generate a link code for the child's device<br>
+        4. Monitor progress from the dashboard</p>
+
+        <h4>Link a Device</h4>
+        <p class="text-muted mb-md">Click "Link Device" to generate a 6-digit code. Your child enters this code on their device to connect.</p>
+
+        <h4>Earnings System</h4>
+        <p class="text-muted mb-md">Children earn XP for completing chores. Weekly XP determines their rank and pay:<br>
+        S (500+ XP) = $10 | A (400+) = $8 | B (300+) = $6<br>
+        C (200+) = $4 | D (100+) = $2 | F = $0</p>
+
+        <h4>Streaks</h4>
+        <p class="text-muted">Streaks give bonus multipliers: 3-day (+10%), 7-day (+25%), 14-day (+50%), 30-day (+100%)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Link Device Modal -->
+  <div id="linkModal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Link a Device</h3>
+        <button class="modal-close" onclick="closeModal('linkModal')">&times;</button>
+      </div>
+      <div class="link-code-display">
+        <p>Have your child enter this code on their device:</p>
+        <div class="link-code" id="linkCodeDisplay">------</div>
+        <p class="link-code-expires">
+          Expires in <span class="link-code-timer" id="linkCodeTimer">15:00</span>
+        </p>
+      </div>
+      <button class="btn btn-secondary" style="width: 100%;" id="regenerateCodeBtn">Generate New Code</button>
+    </div>
+  </div>
+
+  <!-- Add Chore Modal -->
+  <div id="choreModal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="choreModalTitle">Add Chore</h3>
+        <button class="modal-close" onclick="closeModal('choreModal')">&times;</button>
+      </div>
+      <div class="input-group">
+        <label>Chore Name</label>
+        <input type="text" id="choreName" class="input" placeholder="e.g., Make bed">
+      </div>
+      <div class="input-group">
+        <label>Description (optional)</label>
+        <input type="text" id="choreDescription" class="input" placeholder="Additional details">
+      </div>
+      <div class="input-group">
+        <label>XP Value</label>
+        <input type="number" id="choreXP" class="input" value="10" min="1" max="100">
+      </div>
+      <div class="input-group">
+        <label>Icon</label>
+        <div class="icon-picker" id="choreIconPicker"></div>
+      </div>
+      <input type="hidden" id="choreEditId">
+      <button class="btn btn-primary" style="width: 100%;" id="saveChoreBtn">Save Chore</button>
+    </div>
+  </div>
+
+  <!-- Add Assignment Modal -->
+  <div id="assignmentModal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Assign Chore</h3>
+        <button class="modal-close" onclick="closeModal('assignmentModal')">&times;</button>
+      </div>
+      <div class="input-group">
+        <label>Select Chore</label>
+        <select id="assignmentChore" class="input"></select>
+      </div>
+      <div class="input-group">
+        <label>Assign To</label>
+        <select id="assignmentChild" class="input"></select>
+      </div>
+      <div class="input-group">
+        <label>Schedule</label>
+        <select id="assignmentSchedule" class="input">
+          <option value="daily">Daily</option>
+          <option value="weekly">Specific Days</option>
+        </select>
+      </div>
+      <div class="input-group" id="dayPickerGroup" style="display: none;">
+        <label>Select Days</label>
+        <div class="day-picker">
+          <button class="day-picker-btn" data-day="0">Sun</button>
+          <button class="day-picker-btn" data-day="1">Mon</button>
+          <button class="day-picker-btn" data-day="2">Tue</button>
+          <button class="day-picker-btn" data-day="3">Wed</button>
+          <button class="day-picker-btn" data-day="4">Thu</button>
+          <button class="day-picker-btn" data-day="5">Fri</button>
+          <button class="day-picker-btn" data-day="6">Sat</button>
+        </div>
+      </div>
+      <div class="input-group">
+        <label style="display: flex; align-items: center; gap: 8px;">
+          <input type="checkbox" id="assignmentNightly"> Mark as Nightly Patrol
+        </label>
+      </div>
+      <button class="btn btn-primary" style="width: 100%;" id="saveAssignmentBtn">Assign Chore</button>
+    </div>
+  </div>
+
+  <!-- Add Reminder Modal -->
+  <div id="reminderModal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Add Reminder</h3>
+        <button class="modal-close" onclick="closeModal('reminderModal')">&times;</button>
+      </div>
+      <div class="input-group">
+        <label>For Child</label>
+        <select id="reminderChild" class="input"></select>
+      </div>
+      <div class="input-group">
+        <label>Time</label>
+        <input type="time" id="reminderTime" class="input" value="20:00">
+      </div>
+      <div class="input-group">
+        <label>Type</label>
+        <select id="reminderType" class="input">
+          <option value="nightly">Nightly Reminder</option>
+          <option value="morning">Morning Reminder</option>
+          <option value="custom">Custom</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Message (optional)</label>
+        <input type="text" id="reminderMessage" class="input" placeholder="e.g., Time to do your chores!">
+      </div>
+      <button class="btn btn-primary" style="width: 100%;" id="saveReminderBtn">Save Reminder</button>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script type="module">
+    import {
+      supabase,
+      getCurrentUser,
+      setCurrentUser,
+      getCurrentFamily,
+      setCurrentFamily,
+      createFamily,
+      getFamilyById,
+      generateFamilyLinkCode,
+      createUser,
+      getFamilyMembers,
+      getChildren,
+      createChoreTemplate,
+      getChoreTemplates,
+      updateChoreTemplate,
+      deleteChoreTemplate,
+      createChoreAssignment,
+      getChildAssignments,
+      deleteChoreAssignment,
+      getWeeklyCompletions,
+      getWeeklyXP,
+      createReminder,
+      getChildReminders,
+      updateReminder,
+      deleteReminder,
+      getOrCreateWeeklyEarnings,
+      markEarningsPaid,
+      subscribeToCompletions
+    } from './js/supabase-client.js';
+
+    import {
+      getRankInfo,
+      calculateWeeklyEarnings,
+      getWeekStart,
+      formatDate,
+      getShortDayName,
+      getDayName,
+      DEFAULT_CHORE_ICONS,
+      DEFAULT_AVATARS
+    } from './js/constants.js';
+
+    // App State
+    const PARENT_KEY = 'chore_chart_parent';
+    let currentParent = null;
+    let currentFamily = null;
+    let selectedChildId = null;
+    let children = [];
+    let choreTemplates = [];
+    let assignments = [];
+    let reminders = [];
+    let setupPin = '';
+    let confirmPin = '';
+    let isConfirming = false;
+    let setupChildren = [];
+    let selectedAvatar = '🧒';
+    let selectedChoreIcon = '✨';
+    let selectedDays = new Set();
+    let linkCodeTimer = null;
+
+    // DOM Elements
+    const pinScreen = document.getElementById('pinScreen');
+    const setupScreen = document.getElementById('setupScreen');
+    const dashboardScreen = document.getElementById('dashboardScreen');
+
+    // Initialize
+    async function init() {
+      // Check for existing parent session
+      const savedParent = localStorage.getItem(PARENT_KEY);
+      if (savedParent) {
+        currentParent = JSON.parse(savedParent);
+        currentFamily = getCurrentFamily();
+        if (currentFamily) {
+          showDashboard();
+          await loadDashboardData();
+          return;
+        }
+      }
+
+      // Check if family exists (returning user needs PIN)
+      const savedFamily = getCurrentFamily();
+      if (savedFamily) {
+        showPinScreen('Enter PIN');
+      } else {
+        // New user - show setup
+        showSetupScreen();
+      }
+    }
+
+    // Screen management
+    function showScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
+    }
+
+    function showPinScreen(title) {
+      document.getElementById('pinTitle').textContent = title;
+      showScreen('pinScreen');
+      setupPinKeypad(document.querySelector('#pinScreen .pin-keypad'), handlePinEntry);
+    }
+
+    function showSetupScreen() {
+      showScreen('setupScreen');
+      renderAvatarPicker();
+    }
+
+    function showDashboard() {
+      showScreen('dashboardScreen');
+      document.getElementById('familyNameHeader').textContent = currentFamily?.name || 'Family Dashboard';
+    }
+
+    // PIN handling
+    function setupPinKeypad(keypad, callback) {
+      let pin = '';
+      const dots = keypad.closest('.screen, .wizard-step').querySelectorAll('.pin-dot');
+
+      keypad.querySelectorAll('.pin-key').forEach(key => {
+        key.onclick = () => {
+          const value = key.dataset.key;
+
+          if (value === 'clear') {
+            pin = '';
+          } else if (value === 'back') {
+            pin = pin.slice(0, -1);
+          } else if (pin.length < 4) {
+            pin += value;
+          }
+
+          // Update dots
+          dots.forEach((dot, i) => {
+            dot.classList.toggle('filled', i < pin.length);
+          });
+
+          // Check for complete PIN
+          if (pin.length === 4) {
+            callback(pin);
+            pin = '';
+            dots.forEach(dot => dot.classList.remove('filled'));
+          }
+        };
+      });
+    }
+
+    async function handlePinEntry(pin) {
+      const savedFamily = getCurrentFamily();
+      if (!savedFamily) return;
+
+      // Get parent user and verify PIN
+      const members = await getFamilyMembers(savedFamily.id);
+      const parent = members.find(m => m.type === 'parent');
+
+      if (!parent) {
+        showError('No parent account found');
+        return;
+      }
+
+      // Simple PIN check (in production, use proper hashing)
+      if (parent.pin_hash === pin) {
+        currentParent = parent;
+        currentFamily = savedFamily;
+        localStorage.setItem(PARENT_KEY, JSON.stringify(parent));
+        showDashboard();
+        await loadDashboardData();
+      } else {
+        showError('Incorrect PIN');
+      }
+    }
+
+    function showError(message) {
+      const error = document.getElementById('pinError');
+      error.textContent = message;
+      error.style.display = 'block';
+      setTimeout(() => error.style.display = 'none', 3000);
+    }
+
+    // Setup Wizard
+    function renderAvatarPicker() {
+      const picker = document.getElementById('avatarPicker');
+      picker.innerHTML = DEFAULT_AVATARS.map(avatar => `
+        <button class="icon-option ${avatar === selectedAvatar ? 'selected' : ''}" data-avatar="${avatar}">
+          ${avatar}
+        </button>
+      `).join('');
+
+      picker.querySelectorAll('.icon-option').forEach(btn => {
+        btn.onclick = () => {
+          picker.querySelectorAll('.icon-option').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          selectedAvatar = btn.dataset.avatar;
+        };
+      });
+    }
+
+    // Step 1: Family Name
+    document.getElementById('wizardStep1Next').onclick = () => {
+      const name = document.getElementById('familyName').value.trim();
+      if (!name) {
+        showToast('Please enter a family name', 'error');
+        return;
+      }
+
+      // Move to step 2
+      goToWizardStep(2);
+      setupPinKeypad(document.querySelector('[data-step="2"] .pin-keypad'), handleSetupPin);
+    };
+
+    function goToWizardStep(step) {
+      document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
+      document.querySelector(`.wizard-step[data-step="${step}"]`).classList.add('active');
+
+      document.querySelectorAll('.wizard-progress-step').forEach(s => {
+        const stepNum = parseInt(s.dataset.step);
+        s.classList.remove('current', 'completed');
+        if (stepNum < step) s.classList.add('completed');
+        if (stepNum === step) s.classList.add('current');
+      });
+    }
+
+    function handleSetupPin(pin) {
+      const status = document.getElementById('pinSetupStatus');
+
+      if (!isConfirming) {
+        setupPin = pin;
+        isConfirming = true;
+        status.textContent = 'Confirm your PIN';
+      } else {
+        if (pin === setupPin) {
+          status.textContent = 'PIN set!';
+          setTimeout(() => goToWizardStep(3), 500);
+        } else {
+          status.textContent = 'PINs do not match. Try again.';
+          isConfirming = false;
+          setupPin = '';
+        }
+      }
+    }
+
+    // Step 3: Add Children
+    document.getElementById('addChildBtn').onclick = () => {
+      const name = document.getElementById('newChildName').value.trim();
+      if (!name) {
+        showToast('Please enter a name', 'error');
+        return;
+      }
+
+      setupChildren.push({ name, avatar: selectedAvatar });
+      document.getElementById('newChildName').value = '';
+      renderSetupChildren();
+    };
+
+    function renderSetupChildren() {
+      const container = document.getElementById('childrenList');
+      container.innerHTML = setupChildren.map((child, i) => `
+        <div class="list-item">
+          <div class="avatar">${child.avatar}</div>
+          <div style="flex: 1;">${child.name}</div>
+          <button class="btn btn-sm btn-danger" onclick="removeSetupChild(${i})">Remove</button>
+        </div>
+      `).join('');
+    }
+
+    window.removeSetupChild = (index) => {
+      setupChildren.splice(index, 1);
+      renderSetupChildren();
+    };
+
+    // Finish Setup
+    document.getElementById('wizardFinish').onclick = async () => {
+      if (setupChildren.length === 0) {
+        showToast('Please add at least one child', 'error');
+        return;
+      }
+
+      try {
+        const familyName = document.getElementById('familyName').value.trim();
+
+        // Create family
+        const family = await createFamily(familyName);
+        currentFamily = family;
+        setCurrentFamily(family);
+
+        // Create parent user
+        const parent = await createUser({
+          familyId: family.id,
+          type: 'parent',
+          name: 'Parent',
+          pinHash: setupPin
+        });
+        currentParent = parent;
+        localStorage.setItem(PARENT_KEY, JSON.stringify(parent));
+
+        // Create children
+        for (const child of setupChildren) {
+          await createUser({
+            familyId: family.id,
+            type: 'child',
+            name: child.name,
+            avatar: child.avatar
+          });
+        }
+
+        showToast('Family created successfully!', 'success');
+        showDashboard();
+        await loadDashboardData();
+      } catch (error) {
+        showToast('Error creating family: ' + error.message, 'error');
+      }
+    };
+
+    // Dashboard Data Loading
+    async function loadDashboardData() {
+      if (!currentFamily) return;
+
+      // Load children
+      children = await getChildren(currentFamily.id);
+      renderChildSelector();
+
+      if (children.length > 0 && !selectedChildId) {
+        selectedChildId = children[0].id;
+      }
+
+      // Load chore templates
+      choreTemplates = await getChoreTemplates(currentFamily.id);
+
+      // Load data for selected child
+      await loadChildData();
+
+      // Setup real-time subscription
+      subscribeToCompletions(currentFamily.id, handleNewCompletion);
+    }
+
+    function renderChildSelector() {
+      const container = document.getElementById('childSelector');
+      container.innerHTML = children.map(child => `
+        <div class="child-selector-item ${child.id === selectedChildId ? 'active' : ''}" data-child-id="${child.id}">
+          <div class="avatar">${child.avatar || '🧒'}</div>
+          <div class="child-selector-name">${child.name}</div>
+        </div>
+      `).join('');
+
+      container.querySelectorAll('.child-selector-item').forEach(item => {
+        item.onclick = async () => {
+          selectedChildId = item.dataset.childId;
+          container.querySelectorAll('.child-selector-item').forEach(i => i.classList.remove('active'));
+          item.classList.add('active');
+          await loadChildData();
+        };
+      });
+    }
+
+    async function loadChildData() {
+      if (!selectedChildId) return;
+
+      const child = children.find(c => c.id === selectedChildId);
+      if (!child) return;
+
+      const weekStart = formatDate(getWeekStart());
+
+      // Load weekly data
+      const weeklyXP = await getWeeklyXP(selectedChildId, weekStart);
+      const rankInfo = getRankInfo(weeklyXP);
+      const completions = await getWeeklyCompletions(selectedChildId, weekStart);
+
+      // Update stats
+      document.getElementById('statWeeklyXP').textContent = weeklyXP;
+      document.getElementById('statRank').textContent = rankInfo.rank;
+      document.getElementById('statStreak').textContent = child.current_streak || 0;
+      document.getElementById('statCompletions').textContent = completions.length;
+
+      // Render week grid
+      renderWeekGrid(completions);
+
+      // Load assignments
+      assignments = await getChildAssignments(selectedChildId);
+
+      // Load reminders
+      reminders = await getChildReminders(selectedChildId);
+
+      // Render activity feed
+      renderActivityFeed(completions);
+    }
+
+    function renderWeekGrid(completions) {
+      const container = document.getElementById('weekGrid');
+      const today = new Date();
+      const weekStart = getWeekStart(today);
+
+      // Count completions by day
+      const countsByDay = {};
+      completions.forEach(c => {
+        const day = new Date(c.completed_at).getDay();
+        countsByDay[day] = (countsByDay[day] || 0) + 1;
+      });
+
+      const days = [];
+      for (let i = 0; i < 7; i++) {
+        const date = new Date(weekStart);
+        date.setDate(date.getDate() + i);
+        days.push({
+          dayNum: i,
+          isToday: formatDate(date) === formatDate(today),
+          count: countsByDay[i] || 0
+        });
+      }
+
+      container.innerHTML = days.map(d => `
+        <div class="week-day ${d.isToday ? 'today' : ''}">
+          <div class="week-day-name">${getShortDayName(d.dayNum)}</div>
+          <div class="week-day-completions">${d.count}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderActivityFeed(completions) {
+      const container = document.getElementById('activityFeed');
+
+      if (completions.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">📋</div>
+            <p>No recent activity</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Sort by most recent
+      const sorted = [...completions].sort((a, b) =>
+        new Date(b.completed_at) - new Date(a.completed_at)
+      ).slice(0, 10);
+
+      container.innerHTML = sorted.map(c => {
+        const chore = c.chore_assignments?.chore_templates;
+        const time = new Date(c.completed_at).toLocaleString();
+        return `
+          <div class="activity-item">
+            <div class="activity-icon">${chore?.icon || '✨'}</div>
+            <div class="activity-content">
+              <div class="activity-text">Completed: ${chore?.name || 'Unknown'}</div>
+              <div class="activity-time">${time}</div>
+            </div>
+            <div class="badge badge-xp">+${c.xp_earned} XP</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function handleNewCompletion(completion) {
+      if (completion.child_id === selectedChildId) {
+        loadChildData(); // Refresh data
+        showToast('New chore completed!', 'success');
+      }
+    }
+
+    // Navigation
+    document.querySelectorAll('.parent-nav-item').forEach(item => {
+      item.onclick = () => {
+        document.querySelectorAll('.parent-nav-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+
+        const view = item.dataset.view;
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        document.getElementById(`${view}View`).classList.add('active');
+
+        // Load view-specific data
+        if (view === 'chores') renderChoreTemplates();
+        if (view === 'assignments') renderAssignments();
+        if (view === 'reminders') renderReminders();
+        if (view === 'earnings') renderEarnings();
+      };
+    });
+
+    // Chore Templates
+    function renderChoreTemplates() {
+      const container = document.getElementById('choreTemplatesList');
+
+      if (choreTemplates.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">📝</div>
+            <p>No chores created yet</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = choreTemplates.map(chore => `
+        <div class="list-item">
+          <div class="chore-icon">${chore.icon || '✨'}</div>
+          <div style="flex: 1;">
+            <div style="font-weight: 500;">${chore.name}</div>
+            <div class="text-sm text-muted">${chore.xp_value} XP</div>
+          </div>
+          <button class="btn btn-sm btn-secondary" onclick="editChore('${chore.id}')">Edit</button>
+          <button class="btn btn-sm btn-danger" onclick="deleteChoreTemplate('${chore.id}')">Delete</button>
+        </div>
+      `).join('');
+    }
+
+    document.getElementById('addChoreBtn').onclick = () => {
+      document.getElementById('choreModalTitle').textContent = 'Add Chore';
+      document.getElementById('choreName').value = '';
+      document.getElementById('choreDescription').value = '';
+      document.getElementById('choreXP').value = '10';
+      document.getElementById('choreEditId').value = '';
+      selectedChoreIcon = '✨';
+      renderChoreIconPicker();
+      openModal('choreModal');
+    };
+
+    function renderChoreIconPicker() {
+      const picker = document.getElementById('choreIconPicker');
+      picker.innerHTML = DEFAULT_CHORE_ICONS.map(icon => `
+        <button class="icon-option ${icon === selectedChoreIcon ? 'selected' : ''}" data-icon="${icon}">
+          ${icon}
+        </button>
+      `).join('');
+
+      picker.querySelectorAll('.icon-option').forEach(btn => {
+        btn.onclick = () => {
+          picker.querySelectorAll('.icon-option').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          selectedChoreIcon = btn.dataset.icon;
+        };
+      });
+    }
+
+    window.editChore = (id) => {
+      const chore = choreTemplates.find(c => c.id === id);
+      if (!chore) return;
+
+      document.getElementById('choreModalTitle').textContent = 'Edit Chore';
+      document.getElementById('choreName').value = chore.name;
+      document.getElementById('choreDescription').value = chore.description || '';
+      document.getElementById('choreXP').value = chore.xp_value;
+      document.getElementById('choreEditId').value = id;
+      selectedChoreIcon = chore.icon || '✨';
+      renderChoreIconPicker();
+      openModal('choreModal');
+    };
+
+    window.deleteChoreTemplate = async (id) => {
+      if (!confirm('Delete this chore template?')) return;
+
+      try {
+        await deleteChoreTemplate(id);
+        choreTemplates = await getChoreTemplates(currentFamily.id);
+        renderChoreTemplates();
+        showToast('Chore deleted', 'success');
+      } catch (error) {
+        showToast('Error deleting chore: ' + error.message, 'error');
+      }
+    };
+
+    document.getElementById('saveChoreBtn').onclick = async () => {
+      const name = document.getElementById('choreName').value.trim();
+      const description = document.getElementById('choreDescription').value.trim();
+      const xpValue = parseInt(document.getElementById('choreXP').value);
+      const editId = document.getElementById('choreEditId').value;
+
+      if (!name) {
+        showToast('Please enter a chore name', 'error');
+        return;
+      }
+
+      try {
+        if (editId) {
+          await updateChoreTemplate(editId, {
+            name,
+            description,
+            xp_value: xpValue,
+            icon: selectedChoreIcon
+          });
+        } else {
+          await createChoreTemplate({
+            familyId: currentFamily.id,
+            name,
+            description,
+            xpValue,
+            icon: selectedChoreIcon,
+            createdBy: currentParent.id
+          });
+        }
+
+        choreTemplates = await getChoreTemplates(currentFamily.id);
+        renderChoreTemplates();
+        closeModal('choreModal');
+        showToast('Chore saved', 'success');
+      } catch (error) {
+        showToast('Error saving chore: ' + error.message, 'error');
+      }
+    };
+
+    // Assignments
+    function renderAssignments() {
+      const container = document.getElementById('assignmentsList');
+
+      if (assignments.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">📋</div>
+            <p>No assignments yet</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = assignments.map(a => {
+        const template = a.chore_templates;
+        let schedule = a.recurrence_type === 'daily' ? 'Daily' :
+          a.day_of_week !== null ? getDayName(a.day_of_week) : 'One-time';
+
+        return `
+          <div class="assignment-card">
+            <div class="assignment-header">
+              <div class="assignment-icon">${template?.icon || '✨'}</div>
+              <div class="assignment-info">
+                <div class="assignment-name">${template?.name || 'Unknown'}</div>
+                <div class="assignment-xp">${template?.xp_value || 0} XP</div>
+              </div>
+              <button class="btn btn-sm btn-danger" onclick="deleteAssignment('${a.id}')">Delete</button>
+            </div>
+            <div class="assignment-days">
+              <span class="day-chip ${a.recurrence_type === 'daily' ? 'daily' : ''}">${schedule}</span>
+              ${a.is_nightly ? '<span class="day-chip">🌙 Nightly</span>' : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    document.getElementById('addAssignmentBtn').onclick = () => {
+      // Populate dropdowns
+      document.getElementById('assignmentChore').innerHTML = choreTemplates.map(c =>
+        `<option value="${c.id}">${c.icon} ${c.name}</option>`
+      ).join('');
+
+      document.getElementById('assignmentChild').innerHTML = children.map(c =>
+        `<option value="${c.id}">${c.avatar} ${c.name}</option>`
+      ).join('');
+
+      selectedDays.clear();
+      document.querySelectorAll('.day-picker-btn').forEach(b => b.classList.remove('selected'));
+      document.getElementById('dayPickerGroup').style.display = 'none';
+
+      openModal('assignmentModal');
+    };
+
+    document.getElementById('assignmentSchedule').onchange = (e) => {
+      document.getElementById('dayPickerGroup').style.display =
+        e.target.value === 'weekly' ? 'block' : 'none';
+    };
+
+    document.querySelectorAll('.day-picker-btn').forEach(btn => {
+      btn.onclick = () => {
+        const day = parseInt(btn.dataset.day);
+        if (selectedDays.has(day)) {
+          selectedDays.delete(day);
+          btn.classList.remove('selected');
+        } else {
+          selectedDays.add(day);
+          btn.classList.add('selected');
+        }
+      };
+    });
+
+    document.getElementById('saveAssignmentBtn').onclick = async () => {
+      const templateId = document.getElementById('assignmentChore').value;
+      const childId = document.getElementById('assignmentChild').value;
+      const schedule = document.getElementById('assignmentSchedule').value;
+      const isNightly = document.getElementById('assignmentNightly').checked;
+
+      if (!templateId || !childId) {
+        showToast('Please select a chore and child', 'error');
+        return;
+      }
+
+      try {
+        if (schedule === 'daily') {
+          await createChoreAssignment({
+            templateId,
+            childId,
+            recurrenceType: 'daily',
+            isNightly
+          });
+        } else {
+          // Create one assignment per selected day
+          for (const day of selectedDays) {
+            await createChoreAssignment({
+              templateId,
+              childId,
+              dayOfWeek: day,
+              recurrenceType: 'weekly',
+              isNightly
+            });
+          }
+        }
+
+        assignments = await getChildAssignments(selectedChildId);
+        renderAssignments();
+        closeModal('assignmentModal');
+        showToast('Chore assigned', 'success');
+      } catch (error) {
+        showToast('Error assigning chore: ' + error.message, 'error');
+      }
+    };
+
+    window.deleteAssignment = async (id) => {
+      if (!confirm('Remove this assignment?')) return;
+
+      try {
+        await deleteChoreAssignment(id);
+        assignments = await getChildAssignments(selectedChildId);
+        renderAssignments();
+        showToast('Assignment removed', 'success');
+      } catch (error) {
+        showToast('Error removing assignment: ' + error.message, 'error');
+      }
+    };
+
+    // Reminders
+    function renderReminders() {
+      const container = document.getElementById('remindersList');
+
+      if (reminders.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">⏰</div>
+            <p>No reminders set</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = reminders.map(r => `
+        <div class="reminder-item">
+          <div class="reminder-time">${formatTime(r.reminder_time)}</div>
+          <div class="reminder-info">
+            <div class="reminder-type">${r.reminder_type}</div>
+            <div class="reminder-message">${r.message || 'Time to do your chores!'}</div>
+          </div>
+          <div class="reminder-toggle ${r.is_active ? 'active' : ''}" onclick="toggleReminder('${r.id}', ${!r.is_active})"></div>
+        </div>
+      `).join('');
+    }
+
+    function formatTime(time) {
+      const [h, m] = time.split(':');
+      const hour = parseInt(h);
+      const ampm = hour >= 12 ? 'PM' : 'AM';
+      const hour12 = hour % 12 || 12;
+      return `${hour12}:${m} ${ampm}`;
+    }
+
+    document.getElementById('addReminderBtn').onclick = () => {
+      document.getElementById('reminderChild').innerHTML = children.map(c =>
+        `<option value="${c.id}" ${c.id === selectedChildId ? 'selected' : ''}>${c.avatar} ${c.name}</option>`
+      ).join('');
+
+      openModal('reminderModal');
+    };
+
+    document.getElementById('saveReminderBtn').onclick = async () => {
+      const childId = document.getElementById('reminderChild').value;
+      const time = document.getElementById('reminderTime').value;
+      const type = document.getElementById('reminderType').value;
+      const message = document.getElementById('reminderMessage').value.trim();
+
+      try {
+        await createReminder({
+          childId,
+          reminderTime: time,
+          reminderType: type,
+          message,
+          createdBy: currentParent.id
+        });
+
+        reminders = await getChildReminders(selectedChildId);
+        renderReminders();
+        closeModal('reminderModal');
+        showToast('Reminder created', 'success');
+      } catch (error) {
+        showToast('Error creating reminder: ' + error.message, 'error');
+      }
+    };
+
+    window.toggleReminder = async (id, active) => {
+      try {
+        await updateReminder(id, { is_active: active });
+        reminders = await getChildReminders(selectedChildId);
+        renderReminders();
+      } catch (error) {
+        showToast('Error updating reminder: ' + error.message, 'error');
+      }
+    };
+
+    // Earnings
+    async function renderEarnings() {
+      const container = document.getElementById('earningsTableBody');
+      const child = children.find(c => c.id === selectedChildId);
+      if (!child) return;
+
+      // Get last 4 weeks
+      const weeks = [];
+      for (let i = 0; i < 4; i++) {
+        const date = new Date();
+        date.setDate(date.getDate() - (i * 7));
+        weeks.push(formatDate(getWeekStart(date)));
+      }
+
+      let html = '';
+      for (const weekStart of weeks) {
+        const weeklyXP = await getWeeklyXP(selectedChildId, weekStart);
+        const earnings = calculateWeeklyEarnings(weeklyXP, child.current_streak || 0);
+        const record = await getOrCreateWeeklyEarnings(selectedChildId, weekStart);
+
+        html += `
+          <tr>
+            <td>${weekStart}</td>
+            <td>${weeklyXP}</td>
+            <td><span class="badge-rank badge-rank-${earnings.rank.toLowerCase()}">${earnings.rank}</span></td>
+            <td class="earnings-total">$${earnings.total.toFixed(2)}</td>
+            <td>
+              ${record.paid_at
+                ? '<span class="paid-badge">Paid</span>'
+                : `<button class="btn btn-sm btn-success" onclick="markPaid('${record.id}')">Mark Paid</button>`
+              }
+            </td>
+          </tr>
+        `;
+      }
+
+      container.innerHTML = html;
+    }
+
+    window.markPaid = async (id) => {
+      try {
+        await markEarningsPaid(id, currentParent.id);
+        renderEarnings();
+        showToast('Marked as paid', 'success');
+      } catch (error) {
+        showToast('Error: ' + error.message, 'error');
+      }
+    };
+
+    // Link Device
+    document.getElementById('linkDeviceBtn').onclick = () => {
+      generateLinkCode();
+      openModal('linkModal');
+    };
+
+    document.getElementById('regenerateCodeBtn').onclick = generateLinkCode;
+
+    async function generateLinkCode() {
+      try {
+        const code = await generateFamilyLinkCode(currentFamily.id);
+        document.getElementById('linkCodeDisplay').textContent = code;
+
+        // Start timer
+        if (linkCodeTimer) clearInterval(linkCodeTimer);
+        let seconds = 15 * 60;
+
+        linkCodeTimer = setInterval(() => {
+          seconds--;
+          const mins = Math.floor(seconds / 60);
+          const secs = seconds % 60;
+          document.getElementById('linkCodeTimer').textContent =
+            `${mins}:${secs.toString().padStart(2, '0')}`;
+
+          if (seconds <= 0) {
+            clearInterval(linkCodeTimer);
+            document.getElementById('linkCodeDisplay').textContent = '------';
+          }
+        }, 1000);
+      } catch (error) {
+        showToast('Error generating code: ' + error.message, 'error');
+      }
+    }
+
+    // Modal helpers
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+    }
+
+    window.closeModal = function(id) {
+      document.getElementById(id).classList.remove('active');
+      if (id === 'linkModal' && linkCodeTimer) {
+        clearInterval(linkCodeTimer);
+      }
+    };
+
+    // Close modals on overlay click
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.onclick = (e) => {
+        if (e.target === overlay) {
+          overlay.classList.remove('active');
+        }
+      };
+    });
+
+    // Help button
+    document.getElementById('helpBtn').onclick = () => openModal('helpModal');
+
+    // Toast notifications
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `toast toast-${type}`;
+      toast.textContent = message;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 4000);
+    }
+
+    // Register service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('SW registered'))
+        .catch(err => console.log('SW registration failed:', err));
+    }
+
+    // Start
+    init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0f0f1a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Quest Log">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <title>Carter's Quest Log</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+      min-height: 100vh;
+      color: #e2e8f0;
+      padding: 16px;
+      padding-bottom: 100px;
+    }
+    
+    .grid-bg {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: 
+        linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+      border-radius: 20px;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+    
+    .header-tag {
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: #60a5fa;
+      margin-bottom: 8px;
+    }
+    
+    .header h1 {
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #f472b6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .header p {
+      color: #94a3b8;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+    
+    /* Tab Navigation */
+    .tab-nav {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 6px;
+      border-radius: 14px;
+      border: 1px solid rgba(59, 130, 246, 0.1);
+    }
+    
+    .tab-btn {
+      flex: 1;
+      padding: 12px 8px;
+      border: none;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: transparent;
+      color: #64748b;
+    }
+    
+    .tab-btn.active {
+      background: linear-gradient(135deg, #3b82f6, #60a5fa);
+      color: white;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    
+    .stat-card {
+      border-radius: 14px;
+      padding: 14px 10px;
+      text-align: center;
+    }
+    
+    .stat-card.level {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.05) 100%);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+    
+    .stat-card.xp {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 100%);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    
+    .stat-card.rank {
+      border-radius: 14px;
+      padding: 14px 10px;
+      text-align: center;
+    }
+    
+    .stat-label {
+      font-size: 9px;
+      letter-spacing: 2px;
+      margin-bottom: 2px;
+    }
+    
+    .stat-value {
+      font-size: 32px;
+      font-weight: 900;
+    }
+    
+    .stat-card.level .stat-label { color: #86efac; }
+    .stat-card.level .stat-value { color: #22c55e; }
+    .stat-card.xp .stat-label { color: #93c5fd; }
+    .stat-card.xp .stat-value { color: #3b82f6; font-size: 26px; }
+    .stat-card.rank .stat-label { color: #c4b5fd; }
+    .stat-card.rank .stat-value { font-size: 16px; }
+    
+    .progress-bar {
+      height: 5px;
+      background: rgba(59, 130, 246, 0.2);
+      border-radius: 3px;
+      margin-top: 6px;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #3b82f6, #60a5fa);
+      border-radius: 3px;
+      transition: width 0.5s ease;
+    }
+    
+    .progress-text {
+      font-size: 9px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+    
+    /* Wallet Section */
+    .wallet-card {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(16, 185, 129, 0.1) 100%);
+      border: 2px solid rgba(34, 197, 94, 0.3);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .wallet-card::before {
+      content: '$';
+      position: absolute;
+      right: -10px;
+      top: -20px;
+      font-size: 120px;
+      font-weight: 900;
+      color: rgba(34, 197, 94, 0.1);
+      pointer-events: none;
+    }
+    
+    .wallet-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    
+    .wallet-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #86efac;
+      letter-spacing: 1px;
+    }
+    
+    .wallet-amount {
+      font-size: 48px;
+      font-weight: 900;
+      color: #22c55e;
+      text-shadow: 0 0 30px rgba(34, 197, 94, 0.5);
+    }
+    
+    .wallet-breakdown {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(34, 197, 94, 0.2);
+    }
+    
+    .wallet-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+    
+    .wallet-row-label {
+      color: #94a3b8;
+    }
+    
+    .wallet-row-value {
+      font-weight: 700;
+      color: #e2e8f0;
+    }
+    
+    .wallet-row-value.bonus {
+      color: #fbbf24;
+    }
+    
+    .wallet-row-value.multiplier {
+      color: #a855f7;
+    }
+    
+    .streak-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      padding: 10px;
+      background: rgba(168, 85, 247, 0.15);
+      border-radius: 10px;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+    }
+    
+    .streak-flames {
+      font-size: 18px;
+    }
+    
+    .streak-text {
+      font-size: 12px;
+      color: #c4b5fd;
+    }
+    
+    .streak-text strong {
+      color: #a855f7;
+    }
+    
+    .streak-days {
+      display: flex;
+      gap: 4px;
+      margin-left: auto;
+    }
+    
+    .streak-day {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(71, 85, 105, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+    }
+    
+    .streak-day.complete {
+      background: linear-gradient(135deg, #a855f7, #7c3aed);
+      color: white;
+    }
+    
+    /* Achievements */
+    .achievements-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .achievement-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px;
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(71, 85, 105, 0.3);
+      border-radius: 14px;
+      transition: all 0.3s;
+    }
+    
+    .achievement-card.unlocked {
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.15) 0%, rgba(251, 191, 36, 0.05) 100%);
+      border-color: rgba(234, 179, 8, 0.4);
+    }
+    
+    .achievement-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      background: rgba(71, 85, 105, 0.3);
+    }
+    
+    .achievement-card.unlocked .achievement-icon {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+    }
+    
+    .achievement-info {
+      flex: 1;
+    }
+    
+    .achievement-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #64748b;
+    }
+    
+    .achievement-card.unlocked .achievement-name {
+      color: #fbbf24;
+    }
+    
+    .achievement-desc {
+      font-size: 11px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+    
+    .achievement-reward {
+      font-size: 14px;
+      font-weight: 800;
+      color: #64748b;
+    }
+    
+    .achievement-card.unlocked .achievement-reward {
+      color: #22c55e;
+    }
+    
+    .section {
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+    
+    .section.weekly {
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+    
+    .section.nightly {
+      border: 1px solid rgba(168, 85, 247, 0.2);
+    }
+    
+    .section.achievements {
+      border: 1px solid rgba(234, 179, 8, 0.2);
+    }
+    
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    
+    .section-icon {
+      font-size: 22px;
+    }
+    
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+    
+    .section-badge {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+    
+    .section.weekly .section-badge {
+      background: rgba(234, 179, 8, 0.2);
+      color: #fbbf24;
+    }
+    
+    .section.nightly .section-badge {
+      background: rgba(168, 85, 247, 0.2);
+      color: #c4b5fd;
+    }
+    
+    .day-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 16px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    
+    .day-tab {
+      flex: 1;
+      min-width: 44px;
+      padding: 8px 4px;
+      border: none;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: rgba(59, 130, 246, 0.1);
+      color: #93c5fd;
+    }
+    
+    .day-tab.weekend {
+      background: rgba(168, 85, 247, 0.1);
+      color: #c4b5fd;
+    }
+    
+    .day-tab.active {
+      background: linear-gradient(135deg, #3b82f6, #60a5fa);
+      color: white;
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+    }
+    
+    .day-tab.weekend.active {
+      background: linear-gradient(135deg, #a855f7, #c084fc);
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+    }
+    
+    .quests-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .quest-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid rgba(71, 85, 105, 0.3);
+      background: rgba(30, 41, 59, 0.5);
+    }
+    
+    .quest-item.completed {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(34, 197, 94, 0.1) 100%);
+      border-color: rgba(34, 197, 94, 0.4);
+    }
+    
+    .quest-icon {
+      font-size: 28px;
+      width: 40px;
+      text-align: center;
+    }
+    
+    .quest-info {
+      flex: 1;
+    }
+    
+    .quest-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #e2e8f0;
+    }
+    
+    .quest-item.completed .quest-name {
+      color: #86efac;
+    }
+    
+    .quest-desc {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+    
+    .quest-xp {
+      font-size: 12px;
+      font-weight: 700;
+      color: #fbbf24;
+      background: rgba(234, 179, 8, 0.15);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+    
+    .quest-item.completed .quest-xp {
+      color: #4ade80;
+      background: rgba(34, 197, 94, 0.2);
+    }
+    
+    .nightly-info {
+      font-size: 12px;
+      color: #94a3b8;
+      padding: 12px;
+      background: rgba(168, 85, 247, 0.1);
+      border-radius: 10px;
+      border-left: 3px solid #a855f7;
+      margin-bottom: 16px;
+    }
+    
+    .nightly-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    
+    .nightly-item {
+      padding: 16px 10px;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid rgba(71, 85, 105, 0.3);
+      background: rgba(30, 41, 59, 0.5);
+    }
+    
+    .nightly-item.completed {
+      background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+      border-color: #c4b5fd;
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+    }
+    
+    .nightly-icon {
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+    
+    .nightly-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: #94a3b8;
+    }
+    
+    .nightly-item.completed .nightly-label {
+      color: white;
+    }
+    
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .btn {
+      flex: 1;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+    
+    .btn-reset {
+      background: transparent;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #f87171;
+    }
+    
+    .btn-notify {
+      background: linear-gradient(135deg, #3b82f6, #60a5fa);
+      color: white;
+    }
+    
+    .btn-notify.enabled {
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+    }
+    
+    .reminder-settings {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+    
+    .reminder-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    
+    .reminder-title {
+      font-size: 14px;
+      font-weight: 700;
+    }
+    
+    .time-input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      background: rgba(30, 41, 59, 0.8);
+      color: #e2e8f0;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    
+    .install-prompt {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      padding: 16px;
+      border-top: 1px solid rgba(59, 130, 246, 0.3);
+      display: none;
+      z-index: 100;
+    }
+    
+    .install-prompt.show {
+      display: block;
+    }
+    
+    .install-content {
+      max-width: 500px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .install-text {
+      flex: 1;
+    }
+    
+    .install-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+    
+    .install-desc {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+    
+    .install-btn {
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #3b82f6, #60a5fa);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-weight: 600;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    
+    .install-close {
+      padding: 8px;
+      background: transparent;
+      border: none;
+      color: #64748b;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    
+    .toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+      z-index: 200;
+    }
+    
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+    
+    .toast.achievement {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    }
+    
+    /* Pay Scale Reference */
+    .pay-scale {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+    
+    .pay-scale-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #86efac;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .pay-tiers {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    
+    .pay-tier {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      background: rgba(30, 41, 59, 0.5);
+    }
+    
+    .pay-tier.current {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.3) 0%, rgba(34, 197, 94, 0.1) 100%);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+    }
+    
+    .pay-tier-name {
+      font-weight: 600;
+    }
+    
+    .pay-tier-range {
+      color: #64748b;
+      font-size: 11px;
+    }
+    
+    .pay-tier-amount {
+      font-weight: 800;
+      color: #22c55e;
+    }
+    
+    /* Payday Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 300;
+      padding: 20px;
+    }
+    
+    .modal-overlay.show {
+      display: flex;
+    }
+    
+    .payday-modal {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 2px solid rgba(34, 197, 94, 0.4);
+      border-radius: 24px;
+      padding: 30px;
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+      animation: modalPop 0.3s ease;
+    }
+    
+    @keyframes modalPop {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    
+    .payday-icon {
+      font-size: 60px;
+      margin-bottom: 16px;
+    }
+    
+    .payday-title {
+      font-size: 28px;
+      font-weight: 900;
+      color: #22c55e;
+      margin-bottom: 8px;
+    }
+    
+    .payday-subtitle {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+    
+    .payday-amount {
+      font-size: 56px;
+      font-weight: 900;
+      color: #22c55e;
+      text-shadow: 0 0 40px rgba(34, 197, 94, 0.5);
+      margin-bottom: 24px;
+    }
+    
+    .payday-details {
+      text-align: left;
+      background: rgba(30, 41, 59, 0.5);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+    
+    .payday-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      font-size: 13px;
+      border-bottom: 1px solid rgba(71, 85, 105, 0.3);
+    }
+    
+    .payday-row:last-child {
+      border-bottom: none;
+      font-weight: 700;
+      font-size: 16px;
+      padding-top: 12px;
+    }
+    
+    .payday-close {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+  
+  <div class="container" id="app">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-tag">⚡ QUEST LOG ⚡</div>
+      <h1>CARTER'S MISSIONS</h1>
+      <p>Complete quests. Earn XP. Get paid.</p>
+    </div>
+    
+    <!-- Tab Navigation -->
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('quests')">🎯 Quests</button>
+      <button class="tab-btn" onclick="switchTab('wallet')">💰 Wallet</button>
+      <button class="tab-btn" onclick="switchTab('achievements')">🏆 Trophies</button>
+    </div>
+    
+    <!-- QUESTS TAB -->
+    <div class="tab-content active" id="tab-quests">
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card level">
+          <div class="stat-label">LEVEL</div>
+          <div class="stat-value" id="level">1</div>
+        </div>
+        <div class="stat-card xp">
+          <div class="stat-label">TOTAL XP</div>
+          <div class="stat-value" id="xp">0</div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress" style="width: 0%"></div>
+          </div>
+          <div class="progress-text" id="progress-text">0/100 to next level</div>
+        </div>
+        <div class="stat-card rank" id="rank-card">
+          <div class="stat-label">RANK</div>
+          <div class="stat-value" id="rank">COMMON</div>
+        </div>
+      </div>
+      
+      <!-- Weekly Quests -->
+      <div class="section weekly">
+        <div class="section-header">
+          <span class="section-icon">🎯</span>
+          <span class="section-title">WEEKLY QUESTS</span>
+          <span class="section-badge">+15-35 XP</span>
+        </div>
+        
+        <div class="day-tabs" id="day-tabs"></div>
+        <div class="quests-list" id="quests-list"></div>
+      </div>
+      
+      <!-- Nightly Patrol -->
+      <div class="section nightly">
+        <div class="section-header">
+          <span class="section-icon">🌙</span>
+          <span class="section-title">NIGHTLY PATROL</span>
+          <span class="section-badge">+5 XP • 1.5x BONUS</span>
+        </div>
+        
+        <div class="nightly-info">
+          🔥 <strong>STREAK BONUS:</strong> Complete ALL nightly patrols for 7 days = 1.5x weekly pay!
+        </div>
+        
+        <div class="nightly-grid" id="nightly-grid"></div>
+      </div>
+      
+      <!-- Reminder Settings -->
+      <div class="reminder-settings">
+        <div class="reminder-header">
+          <span>🔔</span>
+          <span class="reminder-title">Nightly Reminder</span>
+        </div>
+        <input type="time" class="time-input" id="reminder-time" value="20:00">
+        <button class="btn btn-notify" id="notify-btn" onclick="toggleNotifications()">
+          🔔 Enable Reminders
+        </button>
+      </div>
+      
+      <!-- Actions -->
+      <div class="actions">
+        <button class="btn btn-reset" onclick="resetWeek()">🔄 New Week</button>
+        <button class="btn btn-notify" onclick="showPayday()">💵 View Payday</button>
+      </div>
+    </div>
+    
+    <!-- WALLET TAB -->
+    <div class="tab-content" id="tab-wallet">
+      <!-- Wallet Card -->
+      <div class="wallet-card">
+        <div class="wallet-header">
+          <span>💰</span>
+          <span class="wallet-title">THIS WEEK'S EARNINGS</span>
+        </div>
+        <div class="wallet-amount" id="wallet-amount">$0.00</div>
+        
+        <div class="wallet-breakdown">
+          <div class="wallet-row">
+            <span class="wallet-row-label">Base Pay (<span id="wallet-rank">Common</span>)</span>
+            <span class="wallet-row-value" id="wallet-base">$5.00</span>
+          </div>
+          <div class="wallet-row">
+            <span class="wallet-row-label">Streak Bonus</span>
+            <span class="wallet-row-value multiplier" id="wallet-streak">—</span>
+          </div>
+          <div class="wallet-row">
+            <span class="wallet-row-label">Achievement Bonuses</span>
+            <span class="wallet-row-value bonus" id="wallet-achievements">$0.00</span>
+          </div>
+        </div>
+        
+        <!-- Streak Indicator -->
+        <div class="streak-indicator">
+          <span class="streak-flames">🔥</span>
+          <span class="streak-text">Nightly Streak: <strong id="streak-count">0/7</strong></span>
+          <div class="streak-days" id="streak-days"></div>
+        </div>
+      </div>
+      
+      <!-- Pay Scale -->
+      <div class="pay-scale">
+        <div class="pay-scale-title">📊 PAY SCALE</div>
+        <div class="pay-tiers" id="pay-tiers"></div>
+      </div>
+      
+      <!-- Lifetime Stats -->
+      <div class="section" style="border: 1px solid rgba(59, 130, 246, 0.2);">
+        <div class="section-header">
+          <span class="section-icon">📈</span>
+          <span class="section-title">ALL-TIME STATS</span>
+        </div>
+        <div class="wallet-breakdown" style="border: none; padding: 0; margin: 0;">
+          <div class="wallet-row">
+            <span class="wallet-row-label">Total Earned</span>
+            <span class="wallet-row-value" id="lifetime-earned">$0.00</span>
+          </div>
+          <div class="wallet-row">
+            <span class="wallet-row-label">Weeks Completed</span>
+            <span class="wallet-row-value" id="lifetime-weeks">0</span>
+          </div>
+          <div class="wallet-row">
+            <span class="wallet-row-label">Perfect Weeks</span>
+            <span class="wallet-row-value" id="lifetime-perfect">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- ACHIEVEMENTS TAB -->
+    <div class="tab-content" id="tab-achievements">
+      <div class="section achievements">
+        <div class="section-header">
+          <span class="section-icon">🏆</span>
+          <span class="section-title">ACHIEVEMENTS</span>
+          <span class="section-badge" style="background: rgba(234, 179, 8, 0.2); color: #fbbf24;" id="achievement-count">0/6</span>
+        </div>
+        <div class="achievements-grid" id="achievements-grid"></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Install Prompt -->
+  <div class="install-prompt" id="install-prompt">
+    <div class="install-content">
+      <div class="install-text">
+        <div class="install-title">📱 Install Quest Log</div>
+        <div class="install-desc">Add to home screen for the full experience!</div>
+      </div>
+      <button class="install-btn" id="install-btn">Install</button>
+      <button class="install-close" onclick="dismissInstall()">✕</button>
+    </div>
+  </div>
+  
+  <!-- Toast -->
+  <div class="toast" id="toast">+XP!</div>
+  
+  <!-- Payday Modal -->
+  <div class="modal-overlay" id="payday-modal">
+    <div class="payday-modal">
+      <div class="payday-icon">💵</div>
+      <div class="payday-title">PAYDAY!</div>
+      <div class="payday-subtitle">Here's what you earned this week</div>
+      <div class="payday-amount" id="payday-amount">$0.00</div>
+      <div class="payday-details">
+        <div class="payday-row">
+          <span>Rank Achieved</span>
+          <span id="payday-rank">Common</span>
+        </div>
+        <div class="payday-row">
+          <span>Base Pay</span>
+          <span id="payday-base">$5.00</span>
+        </div>
+        <div class="payday-row">
+          <span>Streak Multiplier</span>
+          <span id="payday-multiplier">1x</span>
+        </div>
+        <div class="payday-row">
+          <span>New Achievements</span>
+          <span id="payday-achievements">$0.00</span>
+        </div>
+        <div class="payday-row">
+          <span>TOTAL</span>
+          <span id="payday-total">$5.00</span>
+        </div>
+      </div>
+      <button class="payday-close" onclick="closePayday()">Awesome! 🎉</button>
+    </div>
+  </div>
+  
+  <script>
+    // Quest definitions
+    const questDetails = {
+      trash_out: { name: "Trash Collector", desc: "Take out the trash", xp: 15, icon: "🗑️" },
+      dishes: { name: "Dish Destroyer", desc: "Put dishes away", xp: 20, icon: "🍽️" },
+      room: { name: "Room Raider", desc: "Clean your room", xp: 30, icon: "🛏️" },
+      curb: { name: "Curb Crusher", desc: "Take trash to curb", xp: 25, icon: "🏠" },
+      garage: { name: "Garage Guardian", desc: "Clear garage bags & boxes", xp: 35, icon: "📦" },
+      office: { name: "Office Overlord", desc: "Clean the office", xp: 30, icon: "💼" },
+      boxes: { name: "Box Breaker", desc: "Breakdown boxes", xp: 20, icon: "♻️" }
+    };
+    
+    const weeklySchedule = {
+      0: ['garage', 'dishes'],      // Sunday
+      1: ['trash_out', 'dishes'],   // Monday
+      2: ['office', 'boxes'],       // Tuesday
+      3: ['trash_out', 'garage'],   // Wednesday
+      4: ['dishes', 'room'],        // Thursday
+      5: ['curb', 'boxes'],         // Friday
+      6: ['room', 'office']         // Saturday
+    };
+    
+    const dayNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+    const nightlyZones = [
+      { key: 'bedroom', icon: '🛏️', label: 'YOUR ROOM' },
+      { key: 'living', icon: '📺', label: 'LIVING ROOM' },
+      { key: 'other', icon: '🏠', label: 'ELSEWHERE' }
+    ];
+    
+    // Pay scale
+    const payScale = [
+      { rank: 'Common', min: 0, max: 99, pay: 5, color: '#9CA3AF' },
+      { rank: 'Uncommon', min: 100, max: 199, pay: 10, color: '#22C55E' },
+      { rank: 'Rare', min: 200, max: 299, pay: 15, color: '#3B82F6' },
+      { rank: 'Epic', min: 300, max: 399, pay: 20, color: '#A855F7' },
+      { rank: 'Legendary', min: 400, max: 999, pay: 25, color: '#FFD700' }
+    ];
+    
+    // Achievements
+    const achievements = [
+      { id: 'first_legend', name: 'First Legend', desc: 'Reach Legendary rank for the first time', reward: 10, icon: '👑', check: (s) => calculateXP() >= 400 },
+      { id: 'on_fire', name: 'On Fire', desc: 'Complete 7-day nightly patrol streak', reward: 5, icon: '🔥', check: (s) => getNightlyStreak() === 7 },
+      { id: 'overachiever', name: 'Overachiever', desc: 'Earn 500+ XP in a single week', reward: 10, icon: '💪', check: (s) => calculateXP() >= 500 },
+      { id: 'garage_boss', name: 'Garage Boss', desc: 'Complete Garage Guardian 4 weeks in a row', reward: 15, icon: '📦', check: (s) => (s.garageStreak || 0) >= 4 },
+      { id: 'early_bird', name: 'Early Bird', desc: 'Complete all quests before Friday', reward: 5, icon: '🐦', check: (s) => checkEarlyBird() },
+      { id: 'perfectionist', name: 'Perfectionist', desc: 'Complete every single quest in a week', reward: 20, icon: '✨', check: (s) => checkPerfectWeek() }
+    ];
+    
+    // State
+    let currentDay = new Date().getDay();
+    let state = loadState();
+    let currentTab = 'quests';
+    
+    function loadState() {
+      const saved = localStorage.getItem('carter-quests-v2');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        const lastReset = new Date(parsed.lastReset || 0);
+        const now = new Date();
+        const weekStart = getWeekStart(now);
+        if (lastReset < weekStart) {
+          return handleWeekReset(parsed);
+        }
+        return parsed;
+      }
+      return getInitialState();
+    }
+    
+    function handleWeekReset(oldState) {
+      const newState = getInitialState();
+      newState.unlockedAchievements = oldState.unlockedAchievements || [];
+      newState.lifetimeEarned = oldState.lifetimeEarned || 0;
+      newState.lifetimeWeeks = (oldState.lifetimeWeeks || 0) + 1;
+      newState.lifetimePerfect = oldState.lifetimePerfect || 0;
+      newState.garageStreak = oldState.garageStreak || 0;
+      newState.notificationsEnabled = oldState.notificationsEnabled || false;
+      newState.reminderTime = oldState.reminderTime || '20:00';
+      
+      if (checkPerfectWeekFromState(oldState)) {
+        newState.lifetimePerfect++;
+      }
+      
+      const lastWeekEarnings = calculateEarningsFromState(oldState);
+      newState.lifetimeEarned += lastWeekEarnings.total;
+      
+      return newState;
+    }
+    
+    function getWeekStart(date) {
+      const d = new Date(date);
+      const day = d.getDay();
+      const diff = d.getDate() - day;
+      d.setDate(diff);
+      d.setHours(0, 0, 0, 0);
+      return d;
+    }
+    
+    function getInitialState() {
+      const weekly = {};
+      const nightly = {};
+      for (let i = 0; i < 7; i++) {
+        weekly[i] = {};
+        weeklySchedule[i].forEach(q => weekly[i][q] = false);
+        nightly[i] = { bedroom: false, living: false, other: false };
+      }
+      return { 
+        weekly, 
+        nightly, 
+        lastReset: new Date().toISOString(),
+        notificationsEnabled: false,
+        reminderTime: '20:00',
+        unlockedAchievements: [],
+        lifetimeEarned: 0,
+        lifetimeWeeks: 0,
+        lifetimePerfect: 0,
+        garageStreak: 0,
+        newAchievementBonus: 0
+      };
+    }
+    
+    function saveState() {
+      localStorage.setItem('carter-quests-v2', JSON.stringify(state));
+    }
+    
+    function calculateXP() {
+      let total = 0;
+      Object.entries(state.weekly).forEach(([day, quests]) => {
+        Object.entries(quests).forEach(([quest, done]) => {
+          if (done) total += questDetails[quest].xp;
+        });
+      });
+      Object.values(state.nightly).forEach(day => {
+        Object.values(day).forEach(done => {
+          if (done) total += 5;
+        });
+      });
+      return total;
+    }
+    
+    function getNightlyStreak() {
+      let streak = 0;
+      for (let i = 0; i < 7; i++) {
+        const day = state.nightly[i];
+        if (day.bedroom && day.living && day.other) {
+          streak++;
+        }
+      }
+      return streak;
+    }
+    
+    function checkEarlyBird() {
+      for (let i = 0; i <= 4; i++) {
+        const quests = state.weekly[i];
+        for (const done of Object.values(quests)) {
+          if (!done) return false;
+        }
+      }
+      return true;
+    }
+    
+    function checkPerfectWeek() {
+      return checkPerfectWeekFromState(state);
+    }
+    
+    function checkPerfectWeekFromState(s) {
+      for (let i = 0; i < 7; i++) {
+        const quests = s.weekly[i];
+        for (const done of Object.values(quests)) {
+          if (!done) return false;
+        }
+      }
+      for (let i = 0; i < 7; i++) {
+        const night = s.nightly[i];
+        if (!night.bedroom || !night.living || !night.other) return false;
+      }
+      return true;
+    }
+    
+    function getRankFromXP(xp) {
+      for (let i = payScale.length - 1; i >= 0; i--) {
+        if (xp >= payScale[i].min) return payScale[i];
+      }
+      return payScale[0];
+    }
+    
+    function calculateEarnings() {
+      return calculateEarningsFromState(state);
+    }
+    
+    function calculateEarningsFromState(s) {
+      let xp = 0;
+      Object.entries(s.weekly).forEach(([day, quests]) => {
+        Object.entries(quests).forEach(([quest, done]) => {
+          if (done) xp += questDetails[quest].xp;
+        });
+      });
+      Object.values(s.nightly).forEach(day => {
+        Object.values(day).forEach(done => {
+          if (done) xp += 5;
+        });
+      });
+      
+      const rank = getRankFromXP(xp);
+      let basePay = rank.pay;
+      
+      let streak = 0;
+      for (let i = 0; i < 7; i++) {
+        const day = s.nightly[i];
+        if (day.bedroom && day.living && day.other) streak++;
+      }
+      const multiplier = streak === 7 ? 1.5 : 1;
+      
+      const achievementBonus = s.newAchievementBonus || 0;
+      
+      const subtotal = basePay * multiplier;
+      const total = subtotal + achievementBonus;
+      
+      return { basePay, multiplier, achievementBonus, total, rank, streak };
+    }
+    
+    function checkAchievements() {
+      let newUnlocks = [];
+      achievements.forEach(ach => {
+        if (!state.unlockedAchievements.includes(ach.id) && ach.check(state)) {
+          state.unlockedAchievements.push(ach.id);
+          state.newAchievementBonus = (state.newAchievementBonus || 0) + ach.reward;
+          newUnlocks.push(ach);
+        }
+      });
+      
+      if (newUnlocks.length > 0) {
+        saveState();
+        newUnlocks.forEach(ach => {
+          setTimeout(() => {
+            showToast(`🏆 ${ach.name} +$${ach.reward}!`, 'achievement');
+          }, 500);
+        });
+      }
+      
+      return newUnlocks;
+    }
+    
+    function updateStats() {
+      const xp = calculateXP();
+      const level = Math.floor(xp / 100) + 1;
+      const progress = xp % 100;
+      const rank = getRankFromXP(xp);
+      
+      document.getElementById('level').textContent = level;
+      document.getElementById('xp').textContent = xp;
+      document.getElementById('progress').style.width = progress + '%';
+      document.getElementById('progress-text').textContent = `${progress}/100 to next level`;
+      document.getElementById('rank').textContent = rank.rank.toUpperCase();
+      document.getElementById('rank').style.color = rank.color;
+      
+      const rankCard = document.getElementById('rank-card');
+      rankCard.style.background = `linear-gradient(135deg, ${rank.color}22 0%, ${rank.color}11 100%)`;
+      rankCard.style.border = `1px solid ${rank.color}44`;
+      
+      updateWallet();
+      checkAchievements();
+    }
+    
+    function updateWallet() {
+      const earnings = calculateEarnings();
+      const streak = getNightlyStreak();
+      
+      document.getElementById('wallet-amount').textContent = `$${earnings.total.toFixed(2)}`;
+      document.getElementById('wallet-rank').textContent = earnings.rank.rank;
+      document.getElementById('wallet-base').textContent = `$${earnings.basePay.toFixed(2)}`;
+      document.getElementById('wallet-streak').textContent = earnings.multiplier > 1 ? `×${earnings.multiplier}` : '—';
+      document.getElementById('wallet-achievements').textContent = earnings.achievementBonus > 0 ? `+$${earnings.achievementBonus.toFixed(2)}` : '$0.00';
+      document.getElementById('streak-count').textContent = `${streak}/7`;
+      
+      const streakDays = document.getElementById('streak-days');
+      streakDays.innerHTML = '';
+      for (let i = 0; i < 7; i++) {
+        const day = state.nightly[i];
+        const complete = day.bedroom && day.living && day.other;
+        const div = document.createElement('div');
+        div.className = `streak-day ${complete ? 'complete' : ''}`;
+        div.textContent = complete ? '✓' : '';
+        streakDays.appendChild(div);
+      }
+      
+      const xp = calculateXP();
+      const tiersHtml = payScale.map(tier => `
+        <div class="pay-tier ${xp >= tier.min && xp <= tier.max ? 'current' : ''}">
+          <div>
+            <span class="pay-tier-name" style="color: ${tier.color}">${tier.rank}</span>
+            <span class="pay-tier-range">${tier.min}-${tier.max === 999 ? '∞' : tier.max} XP</span>
+          </div>
+          <span class="pay-tier-amount">$${tier.pay}</span>
+        </div>
+      `).join('');
+      document.getElementById('pay-tiers').innerHTML = tiersHtml;
+      
+      document.getElementById('lifetime-earned').textContent = `$${(state.lifetimeEarned + earnings.total).toFixed(2)}`;
+      document.getElementById('lifetime-weeks').textContent = state.lifetimeWeeks + 1;
+      document.getElementById('lifetime-perfect').textContent = state.lifetimePerfect + (checkPerfectWeek() ? 1 : 0);
+    }
+    
+    function renderAchievements() {
+      const grid = document.getElementById('achievements-grid');
+      const unlockedCount = state.unlockedAchievements.length;
+      document.getElementById('achievement-count').textContent = `${unlockedCount}/${achievements.length}`;
+      
+      grid.innerHTML = achievements.map(ach => {
+        const unlocked = state.unlockedAchievements.includes(ach.id);
+        return `
+          <div class="achievement-card ${unlocked ? 'unlocked' : ''}">
+            <div class="achievement-icon">${unlocked ? ach.icon : '🔒'}</div>
+            <div class="achievement-info">
+              <div class="achievement-name">${ach.name}</div>
+              <div class="achievement-desc">${ach.desc}</div>
+            </div>
+            <div class="achievement-reward">${unlocked ? '✓' : `+$${ach.reward}`}</div>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    function switchTab(tab) {
+      currentTab = tab;
+      document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', ['quests', 'wallet', 'achievements'][i] === tab);
+      });
+      document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.toggle('active', content.id === `tab-${tab}`);
+      });
+      
+      if (tab === 'achievements') {
+        renderAchievements();
+      }
+    }
+    
+    function renderDayTabs() {
+      const container = document.getElementById('day-tabs');
+      container.innerHTML = dayNames.map((name, i) => `
+        <button class="day-tab ${i >= 5 || i === 0 ? 'weekend' : ''} ${i === currentDay ? 'active' : ''}" 
+                onclick="selectDay(${i})">
+          ${name}
+        </button>
+      `).join('');
+    }
+    
+    function selectDay(day) {
+      currentDay = day;
+      renderDayTabs();
+      renderQuests();
+      renderNightly();
+    }
+    
+    function renderQuests() {
+      const container = document.getElementById('quests-list');
+      const dayQuests = weeklySchedule[currentDay];
+      
+      container.innerHTML = dayQuests.map(questKey => {
+        const quest = questDetails[questKey];
+        const completed = state.weekly[currentDay][questKey];
+        return `
+          <div class="quest-item ${completed ? 'completed' : ''}" onclick="toggleQuest('${questKey}')">
+            <div class="quest-icon">${completed ? '✅' : quest.icon}</div>
+            <div class="quest-info">
+              <div class="quest-name">${quest.name}</div>
+              <div class="quest-desc">${quest.desc}</div>
+            </div>
+            <div class="quest-xp">+${quest.xp} XP</div>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    function toggleQuest(questKey) {
+      const wasCompleted = state.weekly[currentDay][questKey];
+      state.weekly[currentDay][questKey] = !wasCompleted;
+      
+      saveState();
+      
+      if (!wasCompleted) {
+        showToast(`+${questDetails[questKey].xp} XP!`);
+      }
+      
+      renderQuests();
+      updateStats();
+    }
+    
+    function renderNightly() {
+      const container = document.getElementById('nightly-grid');
+      container.innerHTML = nightlyZones.map(zone => {
+        const completed = state.nightly[currentDay][zone.key];
+        return `
+          <div class="nightly-item ${completed ? 'completed' : ''}" onclick="toggleNightly('${zone.key}')">
+            <div class="nightly-icon">${completed ? '⭐' : zone.icon}</div>
+            <div class="nightly-label">${zone.label}</div>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    function toggleNightly(zoneKey) {
+      const wasCompleted = state.nightly[currentDay][zoneKey];
+      state.nightly[currentDay][zoneKey] = !wasCompleted;
+      saveState();
+      
+      if (!wasCompleted) {
+        showToast('+5 XP!');
+        
+        const day = state.nightly[currentDay];
+        if (day.bedroom && day.living && day.other) {
+          setTimeout(() => showToast('🔥 Full patrol complete!'), 800);
+        }
+      }
+      
+      renderNightly();
+      updateStats();
+    }
+    
+    function showToast(message, type = 'normal') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = `toast show ${type}`;
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+    
+    function showPayday() {
+      const earnings = calculateEarnings();
+      
+      document.getElementById('payday-amount').textContent = `$${earnings.total.toFixed(2)}`;
+      document.getElementById('payday-rank').textContent = earnings.rank.rank;
+      document.getElementById('payday-base').textContent = `$${earnings.basePay.toFixed(2)}`;
+      document.getElementById('payday-multiplier').textContent = earnings.multiplier > 1 ? `${earnings.multiplier}×` : '1×';
+      document.getElementById('payday-achievements').textContent = earnings.achievementBonus > 0 ? `+$${earnings.achievementBonus.toFixed(2)}` : '$0.00';
+      document.getElementById('payday-total').textContent = `$${earnings.total.toFixed(2)}`;
+      
+      document.getElementById('payday-modal').classList.add('show');
+    }
+    
+    function closePayday() {
+      document.getElementById('payday-modal').classList.remove('show');
+    }
+    
+    function resetWeek() {
+      if (confirm('Start a new week? This will reset all quests and add earnings to your lifetime total!')) {
+        const earnings = calculateEarnings();
+        state.lifetimeEarned += earnings.total;
+        state.lifetimeWeeks++;
+        if (checkPerfectWeek()) state.lifetimePerfect++;
+        
+        let allGarage = true;
+        [0, 3].forEach(d => {
+          if (!state.weekly[d].garage) allGarage = false;
+        });
+        if (allGarage) {
+          state.garageStreak = (state.garageStreak || 0) + 1;
+        } else {
+          state.garageStreak = 0;
+        }
+        
+        const newState = getInitialState();
+        newState.unlockedAchievements = state.unlockedAchievements;
+        newState.lifetimeEarned = state.lifetimeEarned;
+        newState.lifetimeWeeks = state.lifetimeWeeks;
+        newState.lifetimePerfect = state.lifetimePerfect;
+        newState.garageStreak = state.garageStreak;
+        newState.notificationsEnabled = state.notificationsEnabled;
+        newState.reminderTime = state.reminderTime;
+        newState.newAchievementBonus = 0;
+        
+        state = newState;
+        saveState();
+        render();
+        showToast('New week started! 🎮');
+      }
+    }
+    
+    async function toggleNotifications() {
+      const btn = document.getElementById('notify-btn');
+      
+      if (!state.notificationsEnabled) {
+        if ('Notification' in window) {
+          const permission = await Notification.requestPermission();
+          if (permission === 'granted') {
+            state.notificationsEnabled = true;
+            state.reminderTime = document.getElementById('reminder-time').value;
+            saveState();
+            scheduleNotification();
+            btn.textContent = '✅ Reminders On';
+            btn.classList.add('enabled');
+            showToast('Reminders enabled!');
+          }
+        }
+      } else {
+        state.notificationsEnabled = false;
+        saveState();
+        btn.textContent = '🔔 Enable Reminders';
+        btn.classList.remove('enabled');
+      }
+    }
+    
+    function scheduleNotification() {
+      if (!state.notificationsEnabled) return;
+      
+      const now = new Date();
+      const [hours, minutes] = state.reminderTime.split(':').map(Number);
+      let scheduledTime = new Date();
+      scheduledTime.setHours(hours, minutes, 0, 0);
+      
+      if (scheduledTime <= now) {
+        scheduledTime.setDate(scheduledTime.getDate() + 1);
+      }
+      
+      const delay = scheduledTime - now;
+      
+      setTimeout(() => {
+        if (state.notificationsEnabled && Notification.permission === 'granted') {
+          new Notification('🌙 Nightly Patrol Time!', {
+            body: 'Time to clear garbage and keep that streak alive! 🔥',
+            icon: 'icon-192.png',
+            tag: 'nightly-reminder'
+          });
+        }
+        scheduleNotification();
+      }, delay);
+    }
+    
+    document.getElementById('reminder-time').addEventListener('change', (e) => {
+      state.reminderTime = e.target.value;
+      saveState();
+      if (state.notificationsEnabled) {
+        scheduleNotification();
+      }
+    });
+    
+    let deferredPrompt;
+    
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      document.getElementById('install-prompt').classList.add('show');
+    });
+    
+    document.getElementById('install-btn').addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          document.getElementById('install-prompt').classList.remove('show');
+        }
+        deferredPrompt = null;
+      }
+    });
+    
+    function dismissInstall() {
+      document.getElementById('install-prompt').classList.remove('show');
+    }
+    
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+    
+    function render() {
+      renderDayTabs();
+      renderQuests();
+      renderNightly();
+      updateStats();
+      renderAchievements();
+      
+      const btn = document.getElementById('notify-btn');
+      const timeInput = document.getElementById('reminder-time');
+      timeInput.value = state.reminderTime || '20:00';
+      
+      if (state.notificationsEnabled) {
+        btn.textContent = '✅ Reminders On';
+        btn.classList.add('enabled');
+        scheduleNotification();
+      }
+    }
+    
+    render();
+  </script>
+</body>
+</html>
