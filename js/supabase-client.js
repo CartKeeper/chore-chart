@@ -66,6 +66,38 @@ export function setDeviceRole(role) {
 }
 
 // ============================================
+// Family Login (Parent Passcode)
+// ============================================
+
+export async function loginParentWithPin(familyName, pin) {
+  // Find family by name (case-insensitive)
+  const { data: families, error: famError } = await supabase
+    .from('families')
+    .select('*')
+    .ilike('name', familyName);
+
+  if (famError) throw famError;
+  if (!families || families.length === 0) return null;
+
+  // Check each matching family for a parent with this PIN
+  for (const family of families) {
+    const { data: parents, error: userError } = await supabase
+      .from('users')
+      .select('*')
+      .eq('family_id', family.id)
+      .eq('type', 'parent')
+      .eq('pin_hash', pin);
+
+    if (userError) throw userError;
+    if (parents && parents.length > 0) {
+      return family;
+    }
+  }
+
+  return null;
+}
+
+// ============================================
 // Family Operations
 // ============================================
 
@@ -143,6 +175,17 @@ export async function createUser({ familyId, type, name, avatar, pinHash }) {
 
   if (error) throw error;
   return data;
+}
+
+export async function getUserById(userId) {
+  const { data, error } = await supabase
+    .from('users')
+    .select('*, families(*)')
+    .eq('id', userId)
+    .single();
+
+  if (error && error.code !== 'PGRST116') throw error;
+  return data || null;
 }
 
 export async function getUserByDeviceId(deviceId) {
@@ -261,6 +304,44 @@ export async function deleteUser(userId) {
     .eq('id', userId);
 
   if (error) throw error;
+}
+
+export async function resetChildProgress(childId) {
+  // Delete all chore completions for this child
+  const { error: compError } = await supabase
+    .from('chore_completions')
+    .delete()
+    .eq('child_id', childId);
+
+  if (compError) throw compError;
+
+  // Delete all nightly completions for this child
+  const { error: nightlyError } = await supabase
+    .from('nightly_completions')
+    .delete()
+    .eq('child_id', childId);
+
+  if (nightlyError) throw nightlyError;
+
+  // Delete all bonus task completions for this child
+  const { error: bonusError } = await supabase
+    .from('bonus_task_completions')
+    .delete()
+    .eq('child_id', childId);
+
+  if (bonusError) throw bonusError;
+
+  // Reset XP and streaks to zero
+  const { error: userError } = await supabase
+    .from('users')
+    .update({
+      current_xp: 0,
+      current_streak: 0,
+      longest_streak: 0
+    })
+    .eq('id', childId);
+
+  if (userError) throw userError;
 }
 
 // ============================================
@@ -653,6 +734,26 @@ export async function claimAchievementReward(unlockId) {
   return data;
 }
 
+// Reset achievement unlocks for a child
+export async function resetAchievements(childId) {
+  const { error } = await supabase
+    .from('achievement_unlocks')
+    .delete()
+    .eq('child_id', childId);
+
+  if (error) throw error;
+}
+
+// Reset privilege unlocks for a child
+export async function resetPrivileges(childId) {
+  const { error } = await supabase
+    .from('privilege_unlocks')
+    .delete()
+    .eq('child_id', childId);
+
+  if (error) throw error;
+}
+
 // ============================================
 // Privileges
 // ============================================
@@ -811,6 +912,93 @@ export async function completeBonusTask({ taskId, childId, weekStart, xpEarned, 
     throw error;
   }
   return data;
+}
+
+// Request a bonus task completion (pending approval) — once per day
+export async function requestBonusTask({ taskId, childId, weekStart }) {
+  const today = new Date().toISOString().split('T')[0];
+  const { data, error } = await supabase
+    .from('bonus_task_completions')
+    .insert({
+      bonus_task_id: taskId,
+      child_id: childId,
+      week_start: weekStart,
+      completion_date: today,
+      xp_earned: 0,
+      amount_earned: 0,
+      status: 'pending'
+    })
+    .select('*, bonus_tasks(*)')
+    .single();
+
+  if (error) {
+    if (error.code === '23505') return null; // Already requested/completed today
+    throw error;
+  }
+  return data;
+}
+
+// Approve a pending bonus task — awards XP and money
+export async function approveBonusTask(completionId, xpEarned, amountEarned) {
+  const { data, error } = await supabase
+    .from('bonus_task_completions')
+    .update({
+      status: 'approved',
+      xp_earned: xpEarned,
+      amount_earned: amountEarned
+    })
+    .eq('id', completionId)
+    .select('*, bonus_tasks(*)')
+    .single();
+
+  if (error) throw error;
+
+  // Award XP
+  await updateUserXP(data.child_id, xpEarned);
+
+  return data;
+}
+
+// Deny a pending bonus task — removes the record
+export async function denyBonusTask(completionId) {
+  const { error } = await supabase
+    .from('bonus_task_completions')
+    .delete()
+    .eq('id', completionId);
+
+  if (error) throw error;
+}
+
+// Get all pending bonus task requests for a family
+export async function getPendingBonusTasks(familyId) {
+  // Get all children in the family
+  const { data: familyChildren, error: childError } = await supabase
+    .from('users')
+    .select('id, name, avatar')
+    .eq('family_id', familyId)
+    .eq('type', 'child');
+
+  if (childError) throw childError;
+  if (!familyChildren || familyChildren.length === 0) return [];
+
+  const childIds = familyChildren.map(c => c.id);
+  const childMap = {};
+  familyChildren.forEach(c => { childMap[c.id] = c; });
+
+  const { data, error } = await supabase
+    .from('bonus_task_completions')
+    .select('*, bonus_tasks(*)')
+    .in('child_id', childIds)
+    .eq('status', 'pending')
+    .order('completed_at', { ascending: false });
+
+  if (error) throw error;
+
+  // Attach child info manually to avoid FK join issues
+  return (data || []).map(d => ({
+    ...d,
+    users: childMap[d.child_id] || { name: 'Unknown', avatar: '🧒' }
+  }));
 }
 
 // ============================================

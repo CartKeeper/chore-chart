@@ -43,3 +43,32 @@ ALTER TABLE chore_chart.bonus_task_completions ENABLE ROW LEVEL SECURITY;
 -- Policies
 CREATE POLICY "Allow all on bonus_tasks" ON chore_chart.bonus_tasks FOR ALL USING (true) WITH CHECK (true);
 CREATE POLICY "Allow all on bonus_task_completions" ON chore_chart.bonus_task_completions FOR ALL USING (true) WITH CHECK (true);
+
+-- ============================================
+-- Money Maker Approval Flow (status column)
+-- Run this ALTER in Supabase SQL Editor
+-- ============================================
+-- Default 'approved' so existing completions remain valid.
+-- New child-initiated completions will explicitly set 'pending'.
+ALTER TABLE chore_chart.bonus_task_completions
+  ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'approved';
+
+CREATE INDEX IF NOT EXISTS idx_bonus_task_completions_status ON chore_chart.bonus_task_completions(status);
+
+-- ============================================
+-- Daily Money Makers (allow once per day instead of once per week)
+-- Run these in Supabase SQL Editor
+-- ============================================
+ALTER TABLE chore_chart.bonus_task_completions
+  ADD COLUMN IF NOT EXISTS completion_date DATE DEFAULT CURRENT_DATE;
+
+-- Drop the old weekly unique constraint
+ALTER TABLE chore_chart.bonus_task_completions
+  DROP CONSTRAINT IF EXISTS bonus_task_completions_bonus_task_id_child_id_week_start_key;
+
+-- Add new daily unique constraint
+ALTER TABLE chore_chart.bonus_task_completions
+  ADD CONSTRAINT bonus_task_completions_daily_unique
+  UNIQUE(bonus_task_id, child_id, completion_date);
+
+CREATE INDEX IF NOT EXISTS idx_bonus_task_completions_date ON chore_chart.bonus_task_completions(completion_date);

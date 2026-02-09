@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="theme-color" content="#0f0f1a">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Quest Log">
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="icons/icon-192.svg">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <title>Quest Log</title>
   <style>
     * {
@@ -16,15 +16,34 @@
       margin: 0;
       padding: 0;
       -webkit-tap-highlight-color: transparent;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    *::-webkit-scrollbar {
+      display: none;
+    }
+
+    html {
+      overscroll-behavior: none;
+      -webkit-text-size-adjust: 100%;
+      overflow-x: hidden;
+      touch-action: pan-y;
     }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
       min-height: 100vh;
+      min-height: 100dvh;
       color: #e2e8f0;
       padding: 16px;
       padding-bottom: 100px;
+      overscroll-behavior: none;
+      -webkit-overflow-scrolling: touch;
+      overflow-x: hidden;
+      max-width: 100vw;
+      touch-action: pan-y;
     }
 
     .grid-bg {
@@ -56,7 +75,7 @@
     }
 
     .header-tag {
-      font-size: 10px;
+      font-size: 12px;
       letter-spacing: 3px;
       color: #60a5fa;
       margin-bottom: 8px;
@@ -73,7 +92,7 @@
 
     .header p {
       color: #94a3b8;
-      font-size: 12px;
+      font-size: 14px;
       margin-top: 4px;
     }
 
@@ -108,21 +127,19 @@
       left: 16px;
       width: 40px;
       height: 40px;
-      border-radius: 50%;
-      border: 2px solid rgba(239, 68, 68, 0.5);
-      background: rgba(239, 68, 68, 0.1);
-      color: #f87171;
-      font-size: 18px;
+      border: none;
+      background: none;
+      font-size: 22px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.2s;
+      padding: 0;
     }
 
     .help-btn:hover {
-      background: rgba(239, 68, 68, 0.2);
-      border-color: #f87171;
+      transform: scale(1.15);
     }
 
 
@@ -139,10 +156,10 @@
 
     .tab-btn {
       flex: 1;
-      padding: 12px 8px;
+      padding: 14px 8px;
       border: none;
       border-radius: 10px;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
@@ -194,7 +211,7 @@
     }
 
     .stat-label {
-      font-size: 9px;
+      font-size: 12px;
       letter-spacing: 2px;
       margin-bottom: 2px;
     }
@@ -209,7 +226,7 @@
     .stat-card.xp .stat-label { color: #93c5fd; }
     .stat-card.xp .stat-value { color: #3b82f6; font-size: 26px; }
     .stat-card.rank .stat-label { color: #c4b5fd; }
-    .stat-card.rank .stat-value { font-size: 16px; }
+    .stat-card.rank .stat-value { font-size: 18px; }
 
     .progress-bar {
       height: 5px;
@@ -227,7 +244,7 @@
     }
 
     .progress-text {
-      font-size: 9px;
+      font-size: 12px;
       color: #64748b;
       margin-top: 4px;
     }
@@ -262,7 +279,7 @@
     }
 
     .wallet-title {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 700;
       color: #86efac;
       letter-spacing: 1px;
@@ -288,7 +305,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 13px;
+      font-size: 15px;
     }
 
     .wallet-row-label {
@@ -324,7 +341,7 @@
     }
 
     .streak-text {
-      font-size: 12px;
+      font-size: 14px;
       color: #c4b5fd;
     }
 
@@ -339,14 +356,14 @@
     }
 
     .streak-day {
-      width: 20px;
-      height: 20px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       background: rgba(71, 85, 105, 0.5);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 10px;
+      font-size: 12px;
     }
 
     .streak-day.complete {
@@ -398,7 +415,7 @@
     }
 
     .achievement-name {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 700;
       color: #64748b;
     }
@@ -408,7 +425,7 @@
     }
 
     .achievement-desc {
-      font-size: 11px;
+      font-size: 13px;
       color: #64748b;
       margin-top: 2px;
     }
@@ -437,8 +454,8 @@
       color: white;
       border: none;
       border-radius: 8px;
-      padding: 8px 14px;
-      font-size: 12px;
+      padding: 10px 16px;
+      font-size: 14px;
       font-weight: 700;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
@@ -453,8 +470,8 @@
       background: rgba(34, 197, 94, 0.2);
       color: #22c55e;
       border-radius: 8px;
-      padding: 6px 12px;
-      font-size: 11px;
+      padding: 8px 14px;
+      font-size: 13px;
       font-weight: 600;
     }
 
@@ -489,7 +506,7 @@
     }
 
     .trophy-summary-label {
-      font-size: 11px;
+      font-size: 13px;
       color: #64748b;
       text-transform: uppercase;
       margin-top: 4px;
@@ -520,7 +537,7 @@
     }
 
     .unclaimed-text {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 600;
       color: #22c55e;
     }
@@ -576,7 +593,7 @@
     }
 
     .privilege-name {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 700;
       color: #64748b;
     }
@@ -586,7 +603,7 @@
     }
 
     .privilege-desc {
-      font-size: 11px;
+      font-size: 13px;
       color: #64748b;
       margin-top: 2px;
     }
@@ -596,8 +613,8 @@
       color: white;
       border: none;
       border-radius: 8px;
-      padding: 8px 14px;
-      font-size: 12px;
+      padding: 10px 16px;
+      font-size: 14px;
       font-weight: 700;
       cursor: pointer;
     }
@@ -606,8 +623,8 @@
       background: rgba(168, 85, 247, 0.2);
       color: #a855f7;
       border-radius: 8px;
-      padding: 6px 12px;
-      font-size: 11px;
+      padding: 8px 14px;
+      font-size: 13px;
       font-weight: 600;
     }
 
@@ -643,7 +660,7 @@
     }
 
     .section-title {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 700;
       color: #f1f5f9;
     }
@@ -651,7 +668,7 @@
     .section-badge {
       padding: 4px 10px;
       border-radius: 20px;
-      font-size: 10px;
+      font-size: 12px;
       font-weight: 600;
     }
 
@@ -670,16 +687,24 @@
       gap: 6px;
       margin-bottom: 16px;
       overflow-x: auto;
+      overflow-y: hidden;
       padding-bottom: 4px;
+      -webkit-overflow-scrolling: touch;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .day-tabs::-webkit-scrollbar {
+      display: none;
     }
 
     .day-tab {
       flex: 1;
       min-width: 44px;
-      padding: 8px 4px;
+      padding: 10px 4px;
       border: none;
       border-radius: 10px;
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
@@ -722,8 +747,8 @@
     }
 
     .quest-help-slot {
-      width: 24px;
-      height: 24px;
+      width: 44px;
+      height: 44px;
       flex-shrink: 0;
       display: flex;
       align-items: center;
@@ -731,13 +756,15 @@
     }
 
     .quest-help-btn {
-      width: 24px;
-      height: 24px;
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      min-height: 44px;
+      border: 1px solid rgba(147, 197, 253, 0.3);
       border-radius: 50%;
-      border: 2px solid rgba(59, 130, 246, 0.5);
-      background: rgba(59, 130, 246, 0.2);
+      background: rgba(59, 130, 246, 0.15);
       color: #93c5fd;
-      font-size: 12px;
+      font-size: 18px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
@@ -748,8 +775,9 @@
     }
 
     .quest-help-btn:hover {
-      background: rgba(59, 130, 246, 0.4);
-      border-color: #60a5fa;
+      transform: scale(1.1);
+      color: #60a5fa;
+      background: rgba(59, 130, 246, 0.25);
     }
 
     .quest-item.completed {
@@ -768,7 +796,7 @@
     }
 
     .quest-name {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 700;
       color: #e2e8f0;
     }
@@ -778,16 +806,16 @@
     }
 
     .quest-desc {
-      font-size: 11px;
+      font-size: 13px;
       color: #94a3b8;
     }
 
     .quest-xp {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 700;
       color: #fbbf24;
       background: rgba(234, 179, 8, 0.15);
-      padding: 4px 10px;
+      padding: 6px 12px;
       border-radius: 20px;
     }
 
@@ -797,9 +825,9 @@
     }
 
     .nightly-info {
-      font-size: 12px;
+      font-size: 14px;
       color: #94a3b8;
-      padding: 12px;
+      padding: 14px;
       background: rgba(168, 85, 247, 0.1);
       border-radius: 10px;
       border-left: 3px solid #a855f7;
@@ -834,7 +862,7 @@
     }
 
     .nightly-label {
-      font-size: 10px;
+      font-size: 13px;
       font-weight: 600;
       color: #94a3b8;
     }
@@ -853,7 +881,7 @@
       flex: 1;
       padding: 14px;
       border-radius: 12px;
-      font-size: 12px;
+      font-size: 15px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
@@ -881,7 +909,7 @@
     }
 
     .pay-scale-title {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 700;
       color: #86efac;
       margin-bottom: 12px;
@@ -900,9 +928,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 8px 12px;
+      padding: 10px 14px;
       border-radius: 8px;
-      font-size: 12px;
+      font-size: 14px;
       background: rgba(30, 41, 59, 0.5);
     }
 
@@ -917,7 +945,7 @@
 
     .pay-tier-range {
       color: #64748b;
-      font-size: 11px;
+      font-size: 13px;
     }
 
     .pay-tier-amount {
@@ -953,7 +981,14 @@
       width: 100%;
       max-height: 85vh;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
       animation: modalPop 0.3s ease;
+    }
+
+    .modal::-webkit-scrollbar {
+      display: none;
     }
 
     @keyframes modalPop {
@@ -1000,7 +1035,7 @@
 
     .pin-error {
       color: #f87171;
-      font-size: 12px;
+      font-size: 14px;
       margin-top: 10px;
       display: none;
     }
@@ -1015,13 +1050,21 @@
       gap: 6px;
       margin-bottom: 20px;
       overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .settings-tabs::-webkit-scrollbar {
+      display: none;
     }
 
     .settings-tab {
-      padding: 8px 10px;
+      padding: 10px 14px;
       border: none;
       border-radius: 8px;
-      font-size: 10px;
+      font-size: 13px;
       font-weight: 700;
       cursor: pointer;
       background: rgba(59, 130, 246, 0.1);
@@ -1048,7 +1091,7 @@
 
     .form-label {
       display: block;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 600;
       color: #94a3b8;
       margin-bottom: 6px;
@@ -1073,12 +1116,12 @@
       display: flex;
       align-items: center;
       gap: 4px;
-      padding: 8px 12px;
+      padding: 10px 14px;
       background: rgba(30, 41, 59, 0.8);
       border: 1px solid rgba(59, 130, 246, 0.3);
       border-radius: 8px;
       cursor: pointer;
-      font-size: 13px;
+      font-size: 15px;
       color: #94a3b8;
       transition: all 0.2s;
     }
@@ -1115,7 +1158,7 @@
     }
 
     .earnings-tally-title {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 700;
       color: #e2e8f0;
       margin-bottom: 16px;
@@ -1135,10 +1178,10 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 8px 12px;
+      padding: 10px 14px;
       background: rgba(15, 23, 42, 0.5);
       border-radius: 8px;
-      font-size: 12px;
+      font-size: 14px;
     }
 
     .earnings-tally-label {
@@ -1204,13 +1247,13 @@
     }
 
     .item-name {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 600;
       color: #e2e8f0;
     }
 
     .item-desc {
-      font-size: 11px;
+      font-size: 13px;
       color: #64748b;
     }
 
@@ -1272,13 +1315,13 @@
     }
 
     .link-code-label {
-      font-size: 11px;
+      font-size: 13px;
       color: #86efac;
       margin-bottom: 8px;
     }
 
     .link-code-expires {
-      font-size: 11px;
+      font-size: 13px;
       color: #64748b;
       margin-top: 8px;
     }
@@ -1374,12 +1417,12 @@
     }
 
     .empty-text {
-      font-size: 14px;
+      font-size: 16px;
     }
 
     /* Help Content */
     .help-content {
-      font-size: 13px;
+      font-size: 15px;
       line-height: 1.6;
       color: #94a3b8;
     }
@@ -1389,7 +1432,7 @@
     }
 
     .help-section h3 {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 700;
       color: #f1f5f9;
       margin-bottom: 8px;
@@ -1445,8 +1488,8 @@
     .payday-row {
       display: flex;
       justify-content: space-between;
-      padding: 8px 0;
-      font-size: 13px;
+      padding: 10px 0;
+      font-size: 15px;
       border-bottom: 1px solid rgba(71, 85, 105, 0.3);
     }
 
@@ -1516,7 +1559,7 @@
     }
 
     .theme-card-desc {
-      font-size: 10px;
+      font-size: 12px;
       opacity: 0.7;
     }
 
@@ -1577,19 +1620,49 @@
       border-width: 2px !important;
     }
 
+    .theme-roblox .stat-card.level {
+      background: linear-gradient(135deg, rgba(0, 162, 255, 0.2) 0%, rgba(0, 162, 255, 0.05) 100%) !important;
+      border-color: rgba(0, 162, 255, 0.4) !important;
+    }
+
+    .theme-roblox .stat-card.xp {
+      background: linear-gradient(135deg, rgba(0, 212, 170, 0.2) 0%, rgba(0, 212, 170, 0.05) 100%) !important;
+      border-color: rgba(0, 212, 170, 0.4) !important;
+    }
+
+    .theme-roblox .stat-card.rank {
+      background: linear-gradient(135deg, rgba(255, 204, 0, 0.15) 0%, rgba(255, 204, 0, 0.05) 100%) !important;
+      border-color: rgba(255, 204, 0, 0.3) !important;
+    }
+
+    .theme-roblox .stat-value {
+      color: #ffffff !important;
+    }
+
+    .theme-roblox .stat-label {
+      color: #b8b8b8 !important;
+    }
+
     .theme-roblox .section {
       border-radius: 8px !important;
       background: rgba(45, 45, 45, 0.8) !important;
+      border-color: rgba(0, 162, 255, 0.2) !important;
     }
 
     .theme-roblox .quest-item {
       border-radius: 8px !important;
       border-width: 2px !important;
+      background: rgba(45, 45, 45, 0.6) !important;
+      border-color: rgba(0, 162, 255, 0.3) !important;
     }
 
     .theme-roblox .quest-item.completed {
       background: linear-gradient(135deg, rgba(0, 212, 170, 0.3) 0%, rgba(0, 212, 170, 0.1) 100%) !important;
       border-color: #00d4aa !important;
+    }
+
+    .theme-roblox .quest-name {
+      color: #ffffff !important;
     }
 
     .theme-roblox .btn-primary {
@@ -1600,8 +1673,28 @@
       letter-spacing: 1px;
     }
 
+    .theme-roblox .tab-btn {
+      color: #b8b8b8 !important;
+    }
+
     .theme-roblox .tab-btn.active {
       background: linear-gradient(135deg, #00a2ff, #00d4aa) !important;
+      color: #ffffff !important;
+    }
+
+    .theme-roblox .day-tab {
+      color: #b8b8b8 !important;
+    }
+
+    .theme-roblox .day-tab.active {
+      background: rgba(0, 162, 255, 0.3) !important;
+      color: #00a2ff !important;
+      border-color: rgba(0, 162, 255, 0.5) !important;
+    }
+
+    .theme-roblox .nightly-item {
+      background: rgba(45, 45, 45, 0.6) !important;
+      border-color: rgba(0, 162, 255, 0.3) !important;
     }
 
     .theme-roblox .nightly-item.completed {
@@ -1612,6 +1705,12 @@
     .theme-roblox .section-badge {
       background: rgba(0, 212, 170, 0.2) !important;
       color: #00d4aa !important;
+    }
+
+    .theme-roblox .quest-help-btn {
+      border-color: rgba(0, 162, 255, 0.4) !important;
+      background: rgba(0, 162, 255, 0.2) !important;
+      color: #00a2ff !important;
     }
 
     /* ============================================ */
@@ -2255,7 +2354,7 @@
     }
 
     .portal-subtitle {
-      font-size: 11px;
+      font-size: 13px;
       color: #94a3b8;
     }
 
@@ -2265,10 +2364,10 @@
     }
 
     .portal-btn {
-      padding: 10px 16px;
+      padding: 12px 18px;
       border-radius: 10px;
       border: none;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
@@ -2296,11 +2395,11 @@
       right: -4px;
       background: #ef4444;
       color: white;
-      font-size: 10px;
+      font-size: 12px;
       font-weight: 700;
-      min-width: 18px;
-      height: 18px;
-      border-radius: 9px;
+      min-width: 20px;
+      height: 20px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -2335,6 +2434,13 @@
     .notifications-list {
       max-height: 340px;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .notifications-list::-webkit-scrollbar {
+      display: none;
     }
 
     .notification-item {
@@ -2364,13 +2470,13 @@
     }
 
     .notification-text {
-      font-size: 13px;
+      font-size: 15px;
       color: #e2e8f0;
       margin-bottom: 4px;
     }
 
     .notification-time {
-      font-size: 11px;
+      font-size: 13px;
       color: #64748b;
     }
 
@@ -2378,7 +2484,7 @@
       padding: 30px;
       text-align: center;
       color: #64748b;
-      font-size: 13px;
+      font-size: 15px;
     }
 
     /* Child Selector */
@@ -2387,7 +2493,15 @@
       gap: 12px;
       margin-bottom: 16px;
       overflow-x: auto;
+      overflow-y: hidden;
       padding: 4px;
+      -webkit-overflow-scrolling: touch;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .child-selector::-webkit-scrollbar {
+      display: none;
     }
 
     .child-select-card {
@@ -2420,7 +2534,7 @@
     }
 
     .child-select-name {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 700;
       color: #e2e8f0;
     }
@@ -2455,7 +2569,7 @@
     }
 
     .child-stat-label {
-      font-size: 10px;
+      font-size: 12px;
       font-weight: 700;
       color: #64748b;
       text-transform: uppercase;
@@ -2485,7 +2599,7 @@
     }
 
     .week-day-name {
-      font-size: 10px;
+      font-size: 12px;
       font-weight: 700;
       color: #64748b;
       margin-bottom: 6px;
@@ -2506,7 +2620,15 @@
       gap: 6px;
       margin-bottom: 12px;
       overflow-x: auto;
+      overflow-y: hidden;
       padding-bottom: 4px;
+      -webkit-overflow-scrolling: touch;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .portal-nav::-webkit-scrollbar {
+      display: none;
     }
 
     .portal-nav.main-nav {
@@ -2542,8 +2664,8 @@
 
     .portal-nav-btn.secondary {
       flex: none;
-      padding: 8px 12px;
-      font-size: 11px;
+      padding: 10px 14px;
+      font-size: 13px;
       border-radius: 8px;
     }
 
@@ -2641,7 +2763,7 @@
     }
 
     .child-stat-label {
-      font-size: 9px;
+      font-size: 12px;
       color: #64748b;
       letter-spacing: 1px;
       margin-top: 2px;
@@ -2659,12 +2781,12 @@
     }
 
     .progress-label {
-      font-size: 11px;
+      font-size: 13px;
       color: #94a3b8;
     }
 
     .progress-value {
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 700;
       color: #e2e8f0;
     }
@@ -2703,7 +2825,7 @@
     }
 
     .chart-title {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 700;
       color: #94a3b8;
       margin-bottom: 12px;
@@ -2739,13 +2861,13 @@
     }
 
     .bar-label {
-      font-size: 9px;
+      font-size: 12px;
       color: #64748b;
       font-weight: 600;
     }
 
     .bar-value {
-      font-size: 9px;
+      font-size: 12px;
       color: #94a3b8;
     }
 
@@ -2775,7 +2897,7 @@
     }
 
     .activity-text {
-      font-size: 13px;
+      font-size: 15px;
       color: #e2e8f0;
     }
 
@@ -2784,12 +2906,12 @@
     }
 
     .activity-time {
-      font-size: 10px;
+      font-size: 13px;
       color: #64748b;
     }
 
     .activity-xp {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 700;
       color: #4ade80;
     }
@@ -2810,11 +2932,11 @@
       position: absolute;
       top: -4px;
       right: -4px;
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       background: #ef4444;
       border-radius: 50%;
-      font-size: 10px;
+      font-size: 12px;
       font-weight: 700;
       color: white;
       display: flex;
@@ -2864,7 +2986,7 @@
     }
 
     .summary-label {
-      font-size: 10px;
+      font-size: 12px;
       color: #64748b;
       letter-spacing: 1px;
       margin-top: 4px;
@@ -2926,12 +3048,12 @@
     }
 
     .money-maker-desc {
-      font-size: 11px;
+      font-size: 13px;
       color: #94a3b8;
     }
 
     .money-maker-xp {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 700;
       color: #fbbf24;
       background: rgba(234, 179, 8, 0.2);
@@ -2942,6 +3064,23 @@
     .money-maker-item.completed .money-maker-xp {
       color: #4ade80;
       background: rgba(34, 197, 94, 0.2);
+    }
+
+    .money-maker-item.pending {
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.15) 0%, rgba(234, 179, 8, 0.05) 100%);
+      border-color: rgba(234, 179, 8, 0.4);
+      pointer-events: none;
+      opacity: 0.85;
+    }
+
+    .money-maker-item.pending .money-maker-name {
+      color: #fbbf24;
+    }
+
+    .money-maker-item.pending .money-maker-xp {
+      color: #fbbf24;
+      background: rgba(234, 179, 8, 0.15);
+      font-size: 12px;
     }
   </style>
 </head>
@@ -2968,8 +3107,25 @@
         <div class="setup-icon">🛤️</div>
         <div class="setup-title">Who's setting up?</div>
         <div class="setup-desc">Parents set up first, then kids join with a code.</div>
-        <button class="btn btn-primary btn-lg" onclick="choosePath('new')">👨‍👩‍👧 I'm a Parent</button>
+        <button class="btn btn-primary btn-lg" onclick="choosePath('new')">👨‍👩‍👧 I'm a Parent (New Family)</button>
         <button class="btn btn-secondary btn-lg" onclick="choosePath('join')">🧒 I'm a Kid (Join with Code)</button>
+        <button class="btn btn-secondary btn-lg" onclick="choosePath('login')">🔑 Log In with Passcode</button>
+      </div>
+
+      <div class="setup-step" data-step="login">
+        <div class="setup-icon">🔑</div>
+        <div class="setup-title">Parent Login</div>
+        <div class="setup-desc">Enter your family name and parent PIN to access your family.</div>
+        <div class="form-group">
+          <label class="form-label">Family Name</label>
+          <input type="text" class="form-input" id="setup-login-family" placeholder="The Smith Family">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Parent PIN (4 digits)</label>
+          <input type="password" class="form-input" id="setup-login-pin" placeholder="••••" maxlength="4" inputmode="numeric">
+        </div>
+        <button class="btn btn-primary btn-lg" onclick="loginWithPin()">Log In</button>
+        <button class="btn btn-secondary btn-lg" onclick="goToStep('choose')">Back</button>
       </div>
 
       <div class="setup-step" data-step="create">
@@ -3052,7 +3208,7 @@
           </ol>
         </div>
         <div style="background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 12px; padding: 16px; margin: 20px 0;">
-          <div style="font-size: 11px; color: #c4b5fd; margin-bottom: 8px;">💡 To access Parent Portal later:</div>
+          <div style="font-size: 13px; color: #c4b5fd; margin-bottom: 8px;">💡 To access Parent Portal later:</div>
           <div style="font-size: 12px; color: #94a3b8;">Tap the title "MISSIONS" 5 times quickly</div>
         </div>
         <button class="btn btn-primary btn-lg" onclick="enterParentPortalFromSetup()">Back to Parent Portal</button>
@@ -3108,6 +3264,15 @@
       <!-- Overview Section (for selected child) -->
       <div class="portal-section active" id="portal-overview">
         <div class="child-stats-grid" id="selected-child-stats"></div>
+        <!-- Pending Approvals Section -->
+        <div class="section" id="pending-approvals-section" style="margin-top: 16px; display: none;">
+          <div class="section-header">
+            <span class="section-icon">⏳</span>
+            <span class="section-title">Pending Approvals</span>
+            <span id="pending-approvals-count" style="background: #ef4444; color: white; border-radius: 12px; padding: 2px 8px; font-size: 12px; font-weight: 700; margin-left: 8px;"></span>
+          </div>
+          <div id="pending-approvals-list" class="item-list"></div>
+        </div>
         <div class="section" style="margin-top: 16px;">
           <div class="section-header">
             <span class="section-icon">📊</span>
@@ -3274,6 +3439,19 @@
           <button class="btn btn-primary" style="margin-top: 12px;" onclick="showAddPrivilegeModal()">+ Add Privilege</button>
         </div>
         <div id="bonus-earnings-tally" class="earnings-tally-container"></div>
+
+        <!-- Testing: Reset Achievements & Privileges -->
+        <div class="section" style="margin-top: 24px; border-top: 1px solid rgba(239, 68, 68, 0.2); padding-top: 16px;">
+          <div class="section-header">
+            <span class="section-icon">🔧</span>
+            <span class="section-title">Testing Tools</span>
+          </div>
+          <p style="font-size: 12px; color: #94a3b8; margin-bottom: 12px;">Reset achievements and privilege unlocks for the selected child. Use when restarting for testing.</p>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button class="btn btn-secondary" style="background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3);" onclick="resetChildAchievements()">🔄 Reset Achievements</button>
+            <button class="btn btn-secondary" style="background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3);" onclick="resetChildPrivileges()">🔄 Reset Privileges</button>
+          </div>
+        </div>
       </div>
 
       <!-- Earnings Section (for selected child) -->
@@ -3286,6 +3464,9 @@
           <div id="portal-earnings-display"></div>
         </div>
         <div id="earnings-earnings-tally" class="earnings-tally-container"></div>
+        <div style="padding: 8px 0;">
+          <button class="btn btn-primary" onclick="showModal('allowance-calc-modal')">🧮 Allowance Calculator</button>
+        </div>
       </div>
     </div>
 
@@ -3517,12 +3698,16 @@
         <div id="chores-list" class="item-list"></div>
         <h4 style="color: #f1f5f9; margin: 20px 0 12px; font-size: 14px;">Add New Chore</h4>
         <div class="form-group">
+          <label class="form-label">Quick Templates</label>
+          <div id="settings-chore-templates-picker" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;"></div>
+        </div>
+        <div class="form-group">
           <label class="form-label">Chore Name</label>
           <input type="text" class="form-input" id="new-chore-name" placeholder="Take out trash">
         </div>
         <div class="form-group">
-          <label class="form-label">Description</label>
-          <input type="text" class="form-input" id="new-chore-desc" placeholder="Empty all trash cans">
+          <label class="form-label">Expectations</label>
+          <textarea class="form-input" id="new-chore-desc" placeholder="What exactly needs to be done? Be specific!" rows="3" style="resize: vertical;"></textarea>
         </div>
         <div style="display: flex; gap: 10px;">
           <div class="form-group" style="flex: 1;">
@@ -3537,6 +3722,9 @@
               <option value="🐕">🐕 Pets</option>
               <option value="🌿">🌿 Yard</option>
               <option value="💼">💼 Office</option>
+              <option value="🚿">🚿 Bathroom</option>
+              <option value="🏠">🏠 Home</option>
+              <option value="📚">📚 School</option>
               <option value="✨">✨ Other</option>
             </select>
           </div>
@@ -3584,7 +3772,7 @@
             <input type="time" class="form-input" id="settings-assign-reminder-time" style="flex: 1;">
             <button type="button" class="btn btn-secondary" style="padding: 12px; flex: 0;" onclick="document.getElementById('settings-assign-reminder-time').value=''">Clear</button>
           </div>
-          <p style="font-size: 10px; color: #64748b; margin-top: 4px;">Set a daily reminder notification for this chore</p>
+          <p style="font-size: 13px; color: #64748b; margin-top: 4px;">Set a daily reminder notification for this chore</p>
         </div>
         <button class="btn btn-primary btn-lg" onclick="assignChoreFromSettings()">Assign Chore</button>
         <h4 style="color: #f1f5f9; margin: 20px 0 12px; font-size: 14px;">Current Assignments</h4>
@@ -3664,6 +3852,10 @@
           <p>Complete all nightly patrols for 7 days = 1.5x pay!</p>
         </div>
         <div class="help-section">
+          <h3>💵 Money Makers</h3>
+          <p>Tap a Money Maker to request completion. A parent must approve it before XP and money are awarded.</p>
+        </div>
+        <div class="help-section">
           <h3>👨‍👩‍👧 Parent Access</h3>
           <p>Parents: Tap the title "<strong>MISSIONS</strong>" 5 times quickly to access the Parent Portal.</p>
         </div>
@@ -3692,10 +3884,47 @@
         <div style="font-size: 18px; font-weight: 700; color: #e2e8f0;" id="expectations-chore-name"></div>
       </div>
       <div style="background: rgba(30, 41, 59, 0.8); border-radius: 12px; padding: 16px; border: 1px solid rgba(59, 130, 246, 0.3);">
-        <div style="font-size: 11px; font-weight: 600; color: #60a5fa; margin-bottom: 8px; text-transform: uppercase;">What's expected:</div>
+        <div style="font-size: 13px; font-weight: 600; color: #60a5fa; margin-bottom: 8px; text-transform: uppercase;">What's expected:</div>
         <div id="expectations-content" style="color: #e2e8f0; font-size: 14px; line-height: 1.6; white-space: pre-wrap;"></div>
       </div>
       <button class="btn btn-primary btn-lg" style="margin-top: 16px;" onclick="closeModal('expectations-modal')">Got it!</button>
+    </div>
+  </div>
+
+  <!-- Allowance Calculator Modal -->
+  <div class="modal-overlay" id="allowance-calc-modal">
+    <div class="modal" style="max-width: 400px;">
+      <div class="modal-title">🧮 Allowance Calculator</div>
+      <div style="color: #94a3b8; font-size: 13px; margin-bottom: 16px;">Enter your target max weekly allowance and we'll show you the best pay scale and XP breakdown.</div>
+
+      <div class="form-group">
+        <label class="form-label">Target Max Weekly Allowance ($)</label>
+        <input type="number" class="form-input" id="calc-target-amount" placeholder="10.00" step="0.50" min="1" style="font-size: 20px; text-align: center;">
+      </div>
+
+      <button class="btn btn-primary btn-lg" onclick="runAllowanceCalc()">Calculate</button>
+
+      <div id="calc-results" style="display: none; margin-top: 20px;">
+        <div id="calc-breakdown" style="background: rgba(30, 41, 59, 0.5); border-radius: 12px; padding: 16px; margin-bottom: 16px;"></div>
+        <div id="calc-suggested-scale" style="background: rgba(30, 41, 59, 0.5); border-radius: 12px; padding: 16px; margin-bottom: 16px;"></div>
+        <button class="btn btn-primary btn-lg" onclick="applyCalcSuggestions()">Apply This Pay Scale</button>
+      </div>
+
+      <button class="btn btn-secondary btn-lg" style="margin-top: 12px;" onclick="closeModal('allowance-calc-modal')">Close</button>
+    </div>
+  </div>
+
+  <!-- Quest Complete Confirmation Modal -->
+  <div class="modal-overlay" id="quest-confirm-modal">
+    <div class="modal" style="max-width: 340px; text-align: center;">
+      <div style="font-size: 48px; margin-bottom: 12px;" id="quest-confirm-icon">⚔️</div>
+      <div class="modal-title" style="font-size: 18px;">Quest Complete?</div>
+      <div id="quest-confirm-name" style="color: #93c5fd; font-size: 16px; font-weight: 600; margin: 8px 0 4px;"></div>
+      <div id="quest-confirm-xp" style="color: #4ade80; font-size: 14px; margin-bottom: 20px;"></div>
+      <div style="display: flex; gap: 12px;">
+        <button class="btn btn-secondary btn-lg" style="flex: 1;" onclick="resolveQuestConfirm(false)">Not Yet</button>
+        <button class="btn btn-primary btn-lg" style="flex: 1;" onclick="resolveQuestConfirm(true)">Done! ✅</button>
+      </div>
     </div>
   </div>
 
@@ -3873,7 +4102,7 @@
         <label class="form-label">Reminder Time</label>
         <input type="time" class="form-input" id="edit-reminder-time" style="font-size: 18px; text-align: center;">
       </div>
-      <p style="font-size: 11px; color: #64748b; margin-bottom: 16px; text-align: center;">
+      <p style="font-size: 13px; color: #64748b; margin-bottom: 16px; text-align: center;">
         A notification will be sent at this time to remind about the chore.
       </p>
       <button class="btn btn-primary btn-lg" onclick="saveReminder()">Save Reminder</button>
@@ -3963,6 +4192,10 @@
     <div class="modal">
       <div class="modal-title">+ Add New Chore</div>
       <div class="form-group">
+        <label class="form-label">Quick Templates</label>
+        <div id="chore-templates-picker" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;"></div>
+      </div>
+      <div class="form-group">
         <label class="form-label">Chore Name</label>
         <input type="text" class="form-input" id="add-chore-name" placeholder="Take out trash">
       </div>
@@ -3983,6 +4216,9 @@
             <option value="🐕">🐕 Pets</option>
             <option value="🌿">🌿 Yard</option>
             <option value="💼">💼 Office</option>
+            <option value="🚿">🚿 Bathroom</option>
+            <option value="🏠">🏠 Home</option>
+            <option value="📚">📚 School</option>
             <option value="✨">✨ Other</option>
           </select>
         </div>
@@ -4055,7 +4291,7 @@
       <div class="form-group">
         <label class="form-label">Reminder Time (optional)</label>
         <input type="time" class="form-input" id="assign-reminder-time" placeholder="Leave blank for no reminder">
-        <p style="font-size: 11px; color: #64748b; margin-top: 4px;">Set a daily reminder for this chore</p>
+        <p style="font-size: 13px; color: #64748b; margin-top: 4px;">Set a daily reminder for this chore</p>
       </div>
       <button class="btn btn-primary btn-lg" onclick="saveAssignment()">Assign Chore</button>
       <button class="btn btn-secondary btn-lg" onclick="closeModal('assign-modal')">Cancel</button>
@@ -4125,7 +4361,7 @@
         <label class="form-label">Reminder Time (optional)</label>
         <input type="time" class="form-input" id="edit-assignment-reminder-time">
         <input type="hidden" id="edit-assignment-reminder-id">
-        <p style="font-size: 11px; color: #64748b; margin-top: 4px;">Set a daily reminder for this chore (leave blank for no reminder)</p>
+        <p style="font-size: 13px; color: #64748b; margin-top: 4px;">Set a daily reminder for this chore (leave blank for no reminder)</p>
       </div>
       <button class="btn btn-primary btn-lg" onclick="saveAssignmentEdit()">Save Changes</button>
       <button class="btn btn-secondary btn-lg" onclick="closeModal('edit-assignment-modal')">Cancel</button>
@@ -4243,6 +4479,7 @@
       generateFamilyLinkCode,
       findFamilyByLinkCode,
       createUser,
+      getUserById,
       getUserByDeviceId,
       linkDeviceToChild,
       getFamilyMembers,
@@ -4250,6 +4487,7 @@
       updateUserXP,
       updateUser,
       deleteUser,
+      resetChildProgress,
       createChoreTemplate,
       getChoreTemplates,
       deleteChoreTemplate,
@@ -4284,12 +4522,19 @@
       deleteBonusTask as deleteBonusTaskFromDB,
       getBonusTaskCompletions,
       completeBonusTask,
+      requestBonusTask,
+      approveBonusTask,
+      denyBonusTask,
+      getPendingBonusTasks,
+      resetAchievements,
+      resetPrivileges,
       getNightlyZonesFromDB,
       createNightlyZone,
       updateNightlyZone as updateNightlyZoneInDB,
       deleteNightlyZone as deleteNightlyZoneFromDB,
       getNightlyCompletions,
-      completeNightlyZone
+      completeNightlyZone,
+      loginParentWithPin
     } from './js/supabase-client.js';
 
     // Theme System with Game Vocabulary
@@ -4695,7 +4940,7 @@
     };
 
     // Pay scale
-    const PAY_SCALE = [
+    const DEFAULT_PAY_SCALE = [
       { name: 'F', minXP: 0, maxXP: 99, pay: 0, color: '#64748b' },
       { name: 'D', minXP: 100, maxXP: 199, pay: 2, color: '#f59e0b' },
       { name: 'C', minXP: 200, maxXP: 299, pay: 4, color: '#22c55e' },
@@ -4703,6 +4948,10 @@
       { name: 'A', minXP: 400, maxXP: 499, pay: 8, color: '#a855f7' },
       { name: 'S', minXP: 500, maxXP: 9999, pay: 10, color: '#ffd700' }
     ];
+
+    // Load saved pay scale or use defaults
+    const savedPayScale = localStorage.getItem('chore_chart_pay_scale');
+    const PAY_SCALE = savedPayScale ? JSON.parse(savedPayScale) : [...DEFAULT_PAY_SCALE];
 
     const AVATARS = ['🧒', '👦', '👧', '🦸', '🧙', '🐱', '🦊', '🐼'];
     const DAY_NAMES = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
@@ -4769,6 +5018,7 @@
     let bonusTaskCompletions = []; // This week's bonus task completions
     let nightlyZonesDB = []; // Nightly zones from database
     let nightlyCompletionsDB = []; // This week's nightly completions
+    let userReminders = []; // Current child's reminders (for sort order)
     let selectedAvatar = '🧒';
     let currentDay = new Date().getDay();
 
@@ -5038,74 +5288,122 @@
       const list = document.getElementById('money-makers-list');
       const xpSymbol = getVocab('xp');
       const completedText = getVocab('completed');
+      const today = new Date().toISOString().split('T')[0];
 
       // Use database-backed bonus tasks
       const makers = bonusTasks;
-      const completedIds = bonusTaskCompletions.map(c => c.bonus_task_id);
 
-      // Debug log
-      console.log('Money Makers from DB:', makers.length, makers);
-      console.log('Completions this week:', bonusTaskCompletions);
+      // Build a map of TODAY's completion status per task
+      const todayCompletionMap = {};
+      bonusTaskCompletions.forEach(c => {
+        const compDate = c.completion_date || (c.completed_at ? c.completed_at.split('T')[0] : '');
+        if (compDate === today) {
+          todayCompletionMap[c.bonus_task_id] = c.status || 'approved';
+        }
+      });
+
+      // Weekly tally: count approved completions per task this week
+      const weeklyCountMap = {};
+      const weeklyEarningsMap = {};
+      bonusTaskCompletions.forEach(c => {
+        if ((c.status || 'approved') === 'approved') {
+          weeklyCountMap[c.bonus_task_id] = (weeklyCountMap[c.bonus_task_id] || 0) + 1;
+          weeklyEarningsMap[c.bonus_task_id] = (weeklyEarningsMap[c.bonus_task_id] || 0) + (parseFloat(c.amount_earned) || 0);
+        }
+      });
 
       if (makers.length === 0) {
         list.innerHTML = `<div class="empty-state" style="padding: 20px;"><div class="empty-icon">💵</div><div class="empty-text">No bonus tasks available right now.<br>Check back later!</div></div>`;
         return;
       }
 
-      list.innerHTML = makers.map(m => {
-        const isCompleted = completedIds.includes(m.id);
+      // Weekly totals summary
+      const totalApproved = bonusTaskCompletions.filter(c => (c.status || 'approved') === 'approved').length;
+      const totalEarned = bonusTaskCompletions.filter(c => (c.status || 'approved') === 'approved').reduce((sum, c) => sum + (parseFloat(c.amount_earned) || 0), 0);
+      let summaryHtml = '';
+      if (totalApproved > 0) {
+        summaryHtml = `<div style="padding: 10px 14px; margin-bottom: 8px; background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 10px; font-size: 13px; color: #86efac; display: flex; justify-content: space-between; align-items: center;">
+          <span>This week: ${totalApproved} completed</span>
+          <span style="font-weight: 700; color: #4ade80;">${totalEarned > 0 ? '+$' + totalEarned.toFixed(2) : ''}</span>
+        </div>`;
+      }
+
+      list.innerHTML = summaryHtml + makers.map(m => {
+        const todayStatus = todayCompletionMap[m.id]; // 'pending', 'approved', or undefined
+        const isDoneToday = todayStatus === 'approved';
+        const isPending = todayStatus === 'pending';
+        const weekCount = weeklyCountMap[m.id] || 0;
         const xpValue = m.xp_value || 10;
         const amount = m.amount || 0;
         const rewardText = amount > 0 ? `$${amount.toFixed(2)}` : `+${xpValue} ${xpSymbol}`;
+
+        let icon = m.icon;
+        let statusText = rewardText;
+        let itemClass = '';
+        if (isDoneToday) {
+          icon = '✅';
+          statusText = completedText + '!';
+          itemClass = 'completed';
+        } else if (isPending) {
+          icon = '⏳';
+          statusText = 'Pending approval';
+          itemClass = 'pending';
+        }
+
+        const weeklyBadge = weekCount > 0 ? `<span style="font-size: 11px; color: #94a3b8; margin-left: 4px;">(${weekCount}x this week)</span>` : '';
+
         return `
-          <div class="money-maker-item ${isCompleted ? 'completed' : ''}" onclick="completeMoneyMaker('${m.id}', ${xpValue}, ${amount})">
-            <div class="money-maker-icon">${isCompleted ? '✅' : m.icon}</div>
+          <div class="money-maker-item ${itemClass}" onclick="completeMoneyMaker('${m.id}', ${xpValue}, ${amount})">
+            <div class="money-maker-icon">${icon}</div>
             <div class="money-maker-info">
-              <div class="money-maker-name">${m.name}</div>
+              <div class="money-maker-name">${m.name}${weeklyBadge}</div>
               <div class="money-maker-desc">${m.description || 'Complete for bonus!'}</div>
             </div>
-            <div class="money-maker-xp">${isCompleted ? completedText + '!' : rewardText}</div>
+            <div class="money-maker-xp" ${isPending ? 'style="color: #fbbf24;"' : ''}>${statusText}</div>
           </div>
         `;
       }).join('');
     }
 
     window.completeMoneyMaker = async function(id, xpValue, amount) {
-      const completedIds = bonusTaskCompletions.map(c => c.bonus_task_id);
+      const today = new Date().toISOString().split('T')[0];
 
-      if (completedIds.includes(id)) {
-        showToast('Already completed this week!', 'error');
+      // Check TODAY's completions only — each Money Maker can be done once per day
+      const todayCompletion = bonusTaskCompletions.find(c => {
+        const compDate = c.completion_date || (c.completed_at ? c.completed_at.split('T')[0] : '');
+        return c.bonus_task_id === id && compDate === today;
+      });
+
+      if (todayCompletion) {
+        if (todayCompletion.status === 'pending') {
+          showToast('Already requested today — waiting for parent approval', 'error');
+        } else {
+          showToast('Already completed today! Try again tomorrow.', 'error');
+        }
         return;
       }
 
       try {
-        // Record completion in database
-        const completion = await completeBonusTask({
+        // Submit as pending request — parent must approve
+        const completion = await requestBonusTask({
           taskId: id,
           childId: currentUser.id,
-          weekStart: getWeekStart(),
-          xpEarned: xpValue,
-          amountEarned: amount
+          weekStart: getWeekStart()
         });
 
         if (!completion) {
-          showToast('Already completed this week!', 'error');
+          showToast('Already requested today!', 'error');
           return;
         }
 
         // Add to local state
         bonusTaskCompletions.push(completion);
 
-        // Award XP
-        await updateUserXP(currentUser.id, xpValue);
-
-        const rewardMsg = amount > 0 ? `💵 +$${amount.toFixed(2)} & +${xpValue} XP!` : `💵 +${xpValue} XP Bonus!`;
-        showToast(rewardMsg);
+        showToast('Requested! Waiting for parent approval ⏳');
         renderMoneyMakersList();
-        updateStats();
       } catch (e) {
-        console.error('Error completing money maker:', e);
-        showToast('Failed to complete', 'error');
+        console.error('Error requesting money maker:', e);
+        showToast('Failed to request', 'error');
       }
     };
 
@@ -5168,6 +5466,7 @@
       try {
         const deviceRole = getDeviceRole();
         const cachedFamily = getCurrentFamily();
+        const cachedUser = getCurrentUser();
 
         // If device has a role and family, load accordingly
         if (deviceRole && cachedFamily) {
@@ -5175,19 +5474,64 @@
 
           if (deviceRole === 'parent') {
             // Parent device - go straight to portal
-            await loadAppData();
-            showParentPortalDirect();
+            try {
+              await loadAppData();
+            } catch (e) {
+              console.error('Parent loadAppData error (using cached):', e);
+            }
+            try {
+              await showParentPortalDirect();
+            } catch (e) {
+              console.error('showParentPortalDirect error:', e);
+              // Still show the portal even if some data failed to load
+              document.getElementById('loading-state').style.display = 'none';
+              document.getElementById('setup-wizard').style.display = 'none';
+              document.getElementById('main-app').style.display = 'none';
+              document.getElementById('parent-portal').style.display = 'block';
+              document.getElementById('family-name-display').textContent = currentFamily?.name || 'Family Dashboard';
+            }
             return;
           } else if (deviceRole === 'child') {
-            // Child device - load user and show child view
-            const deviceId = getDeviceId();
-            const user = await getUserByDeviceId(deviceId);
+            // Child device - try to load fresh user data, fall back to cached
+            let user = null;
+            try {
+              const deviceId = getDeviceId();
+              user = await getUserByDeviceId(deviceId);
+            } catch (e) {
+              console.error('getUserByDeviceId error (using cached):', e);
+            }
+
+            // If device ID lookup failed but we have a cached user ID, try fetching by ID
+            if (!user && cachedUser?.id) {
+              try {
+                user = await getUserById(cachedUser.id);
+                if (user) {
+                  // Re-link device to this child so future lookups work
+                  await linkDeviceToChild(user.id);
+                  console.log('Re-linked device to child:', user.name);
+                }
+              } catch (e) {
+                console.error('getUserById fallback error:', e);
+              }
+            }
+
             if (user) {
               currentUser = user;
-              currentFamily = user.families;
+              currentFamily = user.families || cachedFamily;
               setCurrentUser(user);
-              setCurrentFamily(user.families);
-              await loadAppData();
+              setCurrentFamily(currentFamily);
+            } else if (cachedUser) {
+              // Network failed but we have cached user data - use it
+              currentUser = cachedUser;
+              console.log('Using cached user data');
+            }
+
+            if (currentUser) {
+              try {
+                await loadAppData();
+              } catch (e) {
+                console.error('Child loadAppData error (using cached):', e);
+              }
               showMainApp();
               return;
             }
@@ -5196,7 +5540,25 @@
 
         // Fallback: check for existing user by device ID
         const deviceId = getDeviceId();
-        const user = await getUserByDeviceId(deviceId);
+        let user = null;
+        try {
+          user = await getUserByDeviceId(deviceId);
+        } catch (e) {
+          console.error('Fallback getUserByDeviceId error:', e);
+        }
+
+        // If device ID lookup failed, try by cached user ID
+        if (!user && cachedUser?.id) {
+          try {
+            user = await getUserById(cachedUser.id);
+            if (user) {
+              await linkDeviceToChild(user.id);
+              console.log('Fallback: re-linked device to child:', user.name);
+            }
+          } catch (e) {
+            console.error('Fallback getUserById error:', e);
+          }
+        }
 
         if (user) {
           currentUser = user;
@@ -5206,12 +5568,43 @@
           setDeviceRole('child'); // This device is linked to a child
           await loadAppData();
           showMainApp();
+        } else if (cachedFamily && cachedUser) {
+          // We have cached data but couldn't reach the server
+          currentUser = cachedUser;
+          currentFamily = cachedFamily;
+          setDeviceRole('child');
+          try {
+            await loadAppData();
+          } catch (e) {
+            console.error('Cached fallback loadAppData error:', e);
+          }
+          showMainApp();
         } else {
           showSetup();
         }
       } catch (error) {
         console.error('Init error:', error);
-        showSetup();
+        // Only show setup if we truly have NO cached data
+        const cachedFamily = getCurrentFamily();
+        const cachedUser = getCurrentUser();
+        const deviceRole = getDeviceRole();
+        if (deviceRole && cachedFamily) {
+          // We have cached session data - don't wipe it, try to recover
+          currentFamily = cachedFamily;
+          if (deviceRole === 'parent') {
+            document.getElementById('loading-state').style.display = 'none';
+            document.getElementById('setup-wizard').style.display = 'none';
+            document.getElementById('parent-portal').style.display = 'block';
+            document.getElementById('family-name-display').textContent = currentFamily?.name || 'Family Dashboard';
+          } else if (cachedUser) {
+            currentUser = cachedUser;
+            showMainApp();
+          } else {
+            showSetup();
+          }
+        } else {
+          showSetup();
+        }
       }
     }
 
@@ -5222,12 +5615,20 @@
       document.getElementById('main-app').style.display = 'none';
       document.getElementById('parent-portal').style.display = 'block';
       document.getElementById('family-name-display').textContent = currentFamily?.name || 'Family Dashboard';
-      await loadSettingsData();
+      try {
+        await loadSettingsData();
+      } catch (e) {
+        console.error('loadSettingsData error:', e);
+      }
       renderPortalChildSelector();
       if (children.length > 0 && !selectedPortalChildId) {
         selectedPortalChildId = children[0].id;
       }
-      await renderPortalOverview();
+      try {
+        await renderPortalOverview();
+      } catch (e) {
+        console.error('renderPortalOverview error:', e);
+      }
       setupRealtimeNotifications();
     }
 
@@ -5240,6 +5641,12 @@
           assignments = await getChildAssignments(currentUser.id);
           // Load full week's completions instead of just today
           completions = await getWeeklyCompletions(currentUser.id, getWeekStart());
+          // Load reminders for sort order
+          try {
+            userReminders = await getChildReminders(currentUser.id);
+          } catch (e) {
+            userReminders = [];
+          }
         }
         achievements = await getAchievements(currentFamily.id);
         privileges = await getPrivileges(currentFamily.id);
@@ -5305,6 +5712,53 @@
           showWeeklyWelcome();
         }
       }, 500);
+
+      // Start polling for bonus task approval changes (child side)
+      startBonusApprovalPoll();
+    }
+
+    let bonusApprovalPollInterval = null;
+    function startBonusApprovalPoll() {
+      if (bonusApprovalPollInterval) clearInterval(bonusApprovalPollInterval);
+      bonusApprovalPollInterval = setInterval(checkBonusApprovals, 15000);
+    }
+
+    async function checkBonusApprovals() {
+      if (!currentUser || !currentFamily) return;
+      try {
+        const freshCompletions = await getBonusTaskCompletions(currentUser.id, getWeekStart());
+
+        for (const fresh of freshCompletions) {
+          const existing = bonusTaskCompletions.find(c => c.id === fresh.id);
+          // Detect pending → approved transition
+          if (existing && (existing.status === 'pending') && (fresh.status === 'approved')) {
+            const taskName = fresh.bonus_tasks?.name || 'a bonus task';
+            const amount = parseFloat(fresh.amount_earned) || 0;
+            const xp = fresh.xp_earned || 0;
+            const rewardMsg = amount > 0 ? `💵 +$${amount.toFixed(2)} & +${xp} XP!` : `💵 +${xp} XP Bonus!`;
+            showToast(`${taskName} approved! ${rewardMsg}`);
+          }
+          // Detect denied (existing was pending, now gone from fresh list)
+        }
+
+        // Check for denied items (were pending locally but no longer in DB)
+        for (const existing of bonusTaskCompletions) {
+          if (existing.status === 'pending') {
+            const stillExists = freshCompletions.find(c => c.id === existing.id);
+            if (!stillExists) {
+              const taskName = existing.bonus_tasks?.name || 'a bonus task';
+              showToast(`${taskName} request was denied`, 'error');
+            }
+          }
+        }
+
+        // Update local state
+        bonusTaskCompletions = freshCompletions;
+        renderMoneyMakersList();
+        updateStats();
+      } catch (e) {
+        console.log('Error polling bonus approvals:', e);
+      }
     }
 
     // Setup functions
@@ -5314,7 +5768,9 @@
     };
 
     window.choosePath = function(path) {
-      goToStep(path === 'new' ? 'create' : 'join');
+      if (path === 'new') goToStep('create');
+      else if (path === 'login') goToStep('login');
+      else goToStep('join');
     };
 
     window.createNewFamily = async function() {
@@ -5363,6 +5819,31 @@
       } catch (error) {
         console.error('Join error:', error);
         showToast('Failed to join family', 'error');
+      }
+    };
+
+    window.loginWithPin = async function() {
+      const familyName = document.getElementById('setup-login-family').value.trim();
+      const pin = document.getElementById('setup-login-pin').value.trim();
+      if (!familyName) { showToast('Enter family name', 'error'); return; }
+      if (!pin || pin.length !== 4) { showToast('Enter 4-digit PIN', 'error'); return; }
+
+      try {
+        const family = await loginParentWithPin(familyName, pin);
+        if (!family) {
+          showToast('Family not found or incorrect PIN', 'error');
+          return;
+        }
+        currentFamily = family;
+        setCurrentFamily(family);
+        setDeviceRole('parent');
+        parentPinHash = pin;
+        children = await getChildren(family.id);
+        await showParentPortalDirect();
+        showToast('Welcome back!');
+      } catch (error) {
+        console.error('Login error:', error);
+        showToast('Login failed. Please try again.', 'error');
       }
     };
 
@@ -5600,6 +6081,23 @@
         return false;
       });
 
+      // Sort by reminder time (earliest first, no-reminder last)
+      todayAssignments.sort((a, b) => {
+        const getName = (x) => x.chore_templates?.name || '';
+        const getTime = (x) => {
+          const r = userReminders.find(r =>
+            r.message && r.message.startsWith('Time to do:') && r.message.includes(getName(x))
+          );
+          return r ? r.reminder_time : null;
+        };
+        const tA = getTime(a);
+        const tB = getTime(b);
+        if (tA && tB) return tA.localeCompare(tB);
+        if (tA) return -1;
+        if (tB) return 1;
+        return 0;
+      });
+
       if (todayAssignments.length === 0) {
         container.innerHTML = `<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-text">No quests for this day.<br>Parents: tap ⚙️ to add chores!</div></div>`;
         document.getElementById('xp-badge').textContent = '+0 XP';
@@ -5638,6 +6136,25 @@
       showModal('expectations-modal');
     };
 
+    // Quest completion confirmation modal
+    let questConfirmResolver = null;
+
+    window.resolveQuestConfirm = function(result) {
+      closeModal('quest-confirm-modal');
+      if (questConfirmResolver) {
+        questConfirmResolver(result);
+        questConfirmResolver = null;
+      }
+    };
+
+    function showQuestConfirm(choreName, choreIcon, xpValue) {
+      document.getElementById('quest-confirm-icon').textContent = choreIcon || '⚔️';
+      document.getElementById('quest-confirm-name').textContent = choreName;
+      document.getElementById('quest-confirm-xp').textContent = `+${xpValue} ${getVocab('xp')}`;
+      showModal('quest-confirm-modal');
+      return new Promise(resolve => { questConfirmResolver = resolve; });
+    }
+
     window.toggleQuest = async function(assignmentId, xpValue) {
       const actualToday = new Date().getDay();
       const selectedDate = getDateForDay(currentDay);
@@ -5653,6 +6170,15 @@
         showToast('Can only complete today\'s quests!', 'error');
         return;
       }
+
+      // Find the chore for the confirmation
+      const assignment = assignments.find(a => a.id === assignmentId);
+      const choreName = assignment?.chore_templates?.name || 'this quest';
+      const choreIcon = assignment?.chore_templates?.icon || '⚔️';
+
+      // Show themed confirmation modal
+      const confirmed = await showQuestConfirm(choreName, choreIcon, xpValue);
+      if (!confirmed) return;
 
       try {
         const result = await completeChore({
@@ -5701,6 +6227,13 @@
     }
 
     window.toggleNightly = async function(zoneKey) {
+      // Only allow completing nightly for the actual current day
+      const actualToday = new Date().getDay();
+      if (currentDay !== actualToday) {
+        showToast('Can only complete today\'s patrol!', 'error');
+        return;
+      }
+
       const zones = getNightlyZones();
       const zone = zones.find(z => z.key === zoneKey);
 
@@ -5791,6 +6324,8 @@
     async function checkAndUnlockAchievements() {
       if (!currentUser || !currentFamily || !achievements.length) return;
 
+      let anyUnlocked = false;
+
       try {
         // Get current stats
         const members = await getFamilyMembers(currentFamily.id);
@@ -5870,6 +6405,7 @@
             try {
               const unlock = await unlockAchievement(currentUser.id, achievement.id);
               if (unlock) {
+                anyUnlocked = true;
                 // Add to local state
                 achievementUnlocks.push(unlock);
 
@@ -5885,6 +6421,12 @@
               console.log('Achievement already unlocked or error:', e);
             }
           }
+        }
+
+        // Refresh wallet/payday if anything changed
+        if (anyUnlocked) {
+          await updateStats();
+          renderQuests();
         }
       } catch (e) {
         console.error('Error checking achievements:', e);
@@ -5942,8 +6484,10 @@
         const multiplier = streak === 7 ? 1.5 : 1;
         const basePay = rank.pay * multiplier;
 
-        // Add bonus task earnings for this week
-        const bonusEarnings = bonusTaskCompletions.reduce((sum, c) => sum + (parseFloat(c.amount_earned) || 0), 0);
+        // Add bonus task earnings for this week (only approved ones)
+        const bonusEarnings = bonusTaskCompletions
+          .filter(c => (c.status || 'approved') === 'approved')
+          .reduce((sum, c) => sum + (parseFloat(c.amount_earned) || 0), 0);
 
         // Add claimed achievement rewards (if any this week - optional enhancement)
         const total = basePay + bonusEarnings;
@@ -6207,10 +6751,19 @@
           card.classList.toggle('selected', card.dataset.theme === current);
         });
       }
+      if (id === 'add-chore-modal') {
+        renderChoreTemplates('chore-templates-picker', 'add-chore');
+      }
       if (id === 'payday-modal') {
-        // Show available bonus tasks from database
-        const completedIds = bonusTaskCompletions.map(c => c.bonus_task_id);
-        const available = bonusTasks.filter(m => !completedIds.includes(m.id));
+        // Show available bonus tasks (not yet done or requested today)
+        const today = new Date().toISOString().split('T')[0];
+        const todayCompletedIds = bonusTaskCompletions
+          .filter(c => {
+            const compDate = c.completion_date || (c.completed_at ? c.completed_at.split('T')[0] : '');
+            return compDate === today;
+          })
+          .map(c => c.bonus_task_id);
+        const available = bonusTasks.filter(m => !todayCompletedIds.includes(m.id));
 
         const section = document.getElementById('payday-bonus-section');
         const list = document.getElementById('payday-bonus-list');
@@ -6385,7 +6938,12 @@
       const child = children.find(c => c.id === selectedPortalChildId);
       if (!child) return;
 
-      const childCompletions = await getWeeklyCompletions(child.id, getWeekStart());
+      let childCompletions = [];
+      try {
+        childCompletions = await getWeeklyCompletions(child.id, getWeekStart());
+      } catch (e) {
+        console.error('Error loading completions:', e);
+      }
       const weeklyXP = childCompletions.reduce((sum, c) => sum + (c.xp_earned || 0), 0);
       const rank = PAY_SCALE.find(r => weeklyXP >= r.minXP && weeklyXP <= r.maxXP) || PAY_SCALE[0];
 
@@ -6428,7 +6986,77 @@
 
       // Load bedtime reminder for this child
       await loadBedtimeReminder();
+
+      // Load and render pending approvals
+      await renderPendingApprovals();
     }
+
+    async function renderPendingApprovals() {
+      const section = document.getElementById('pending-approvals-section');
+      const list = document.getElementById('pending-approvals-list');
+      const countBadge = document.getElementById('pending-approvals-count');
+      if (!section || !list) return;
+
+      try {
+        const pending = await getPendingBonusTasks(currentFamily.id);
+        if (pending.length === 0) {
+          section.style.display = 'none';
+          return;
+        }
+
+        section.style.display = 'block';
+        countBadge.textContent = pending.length;
+
+        list.innerHTML = pending.map(p => {
+          const taskName = p.bonus_tasks?.name || 'Unknown Task';
+          const taskIcon = p.bonus_tasks?.icon || '💵';
+          const amount = parseFloat(p.bonus_tasks?.amount) || 0;
+          const xpValue = p.bonus_tasks?.xp_value || 10;
+          const childName = p.users?.name || 'Unknown';
+          const childAvatar = p.users?.avatar || '🧒';
+          const rewardText = amount > 0 ? `$${amount.toFixed(2)} + ${xpValue} XP` : `${xpValue} XP`;
+          const timeAgo = getTimeAgo(new Date(p.completed_at));
+
+          return `
+            <div class="item-card" style="padding: 12px;">
+              <div class="item-icon">${childAvatar}</div>
+              <div class="item-info" style="flex: 1;">
+                <div class="item-name">${childName} — ${taskIcon} ${taskName}</div>
+                <div class="item-desc">${rewardText} • ${timeAgo}</div>
+              </div>
+              <button class="item-btn" style="background: rgba(34, 197, 94, 0.2); color: #4ade80; min-width: 44px; min-height: 44px;" onclick="approveMoneyMaker('${p.id}', ${xpValue}, ${amount})" title="Approve">✅</button>
+              <button class="item-btn" style="background: rgba(239, 68, 68, 0.2); color: #f87171; min-width: 44px; min-height: 44px;" onclick="denyMoneyMaker('${p.id}')" title="Deny">❌</button>
+            </div>
+          `;
+        }).join('');
+      } catch (e) {
+        console.error('Error loading pending approvals:', e);
+        section.style.display = 'none';
+      }
+    }
+
+    window.approveMoneyMaker = async function(completionId, xpEarned, amountEarned) {
+      try {
+        await approveBonusTask(completionId, xpEarned, amountEarned);
+        showToast('Approved! XP & reward granted ✅');
+        await renderPendingApprovals();
+        await renderPortalOverview();
+      } catch (e) {
+        console.error('Error approving money maker:', e);
+        showToast('Failed to approve', 'error');
+      }
+    };
+
+    window.denyMoneyMaker = async function(completionId) {
+      try {
+        await denyBonusTask(completionId);
+        showToast('Request denied ❌');
+        await renderPendingApprovals();
+      } catch (e) {
+        console.error('Error denying money maker:', e);
+        showToast('Failed to deny', 'error');
+      }
+    };
 
     // Render children management list - fetches fresh data from DB
     async function renderPortalChildren() {
@@ -6454,8 +7082,9 @@
             <div class="item-name">${child.name}</div>
             <div class="item-desc">XP: ${child.current_xp || 0} • Streak: ${child.current_streak || 0} days</div>
           </div>
-          <button class="item-btn" style="background: rgba(59, 130, 246, 0.2); color: #93c5fd;" onclick="editChild('${child.id}')">✏️</button>
-          <button class="item-btn" onclick="deleteChild('${child.id}')">🗑️</button>
+          <button class="item-btn" style="background: rgba(59, 130, 246, 0.2); color: #93c5fd;" onclick="editChild('${child.id}')" title="Edit">✏️</button>
+          <button class="item-btn" style="background: rgba(234, 179, 8, 0.2); color: #fbbf24;" onclick="resetChild('${child.id}')" title="Reset Progress">🔄</button>
+          <button class="item-btn" onclick="deleteChild('${child.id}')" title="Delete">🗑️</button>
         </div>
       `).join('');
 
@@ -6747,16 +7376,28 @@
       let dailyXP = 0;
       let weeklyXP = 0;
 
-      container.innerHTML = childAssignments.map(a => {
+      // Attach reminder info and sort by reminder time (earliest first, no-reminder last)
+      const assignmentsWithReminders = childAssignments.map(a => {
+        const choreName = a.chore_templates?.name || 'Unknown';
+        const reminder = childReminders.find(r =>
+          r.message && r.message.startsWith('Time to do:') && r.message.includes(choreName)
+        );
+        return { ...a, _reminderTime: reminder ? reminder.reminder_time : null };
+      });
+
+      assignmentsWithReminders.sort((a, b) => {
+        if (a._reminderTime && b._reminderTime) return a._reminderTime.localeCompare(b._reminderTime);
+        if (a._reminderTime) return -1;
+        if (b._reminderTime) return 1;
+        return 0;
+      });
+
+      container.innerHTML = assignmentsWithReminders.map(a => {
         const chore = a.chore_templates;
         const xpValue = chore?.xp_value || 0;
         const choreName = chore?.name || 'Unknown';
 
-        // Find reminder for this chore
-        const reminder = childReminders.find(r =>
-          r.message && r.message.startsWith('Time to do:') && r.message.includes(choreName)
-        );
-        const reminderTime = reminder ? formatTime(reminder.reminder_time) : '';
+        const reminderTime = a._reminderTime ? formatTime(a._reminderTime) : '';
 
         // Calculate weekly potential for this assignment
         if (a.recurrence_type === 'daily') {
@@ -6934,11 +7575,11 @@
         </div>
         <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid rgba(148, 163, 184, 0.2);">
           <div>
-            <div style="font-size: 11px; color: #64748b;">MAX WEEKLY</div>
+            <div style="font-size: 13px; color: #64748b;">MAX WEEKLY</div>
             <div style="font-size: 20px; font-weight: 700; color: #fbbf24;">${totalXP} XP → ${rank.name}</div>
           </div>
           <div style="text-align: right;">
-            <div style="font-size: 11px; color: #64748b;">POTENTIAL PAY</div>
+            <div style="font-size: 13px; color: #64748b;">POTENTIAL PAY</div>
             <div style="font-size: 20px; font-weight: 700; color: #22c55e;">$${(rank.pay * 1.5 + bonusCash).toFixed(2)}</div>
           </div>
         </div>
@@ -7031,20 +7672,20 @@
           <div style="display: flex; justify-content: space-around; margin-bottom: 20px;">
             <div>
               <div style="font-size: 24px; font-weight: 700; color: ${rank.color};">${rank.name}</div>
-              <div style="font-size: 11px; color: #64748b;">RANK</div>
+              <div style="font-size: 13px; color: #64748b;">RANK</div>
             </div>
             <div>
               <div style="font-size: 24px; font-weight: 700; color: #e2e8f0;">${weeklyXP}</div>
-              <div style="font-size: 11px; color: #64748b;">WEEKLY XP</div>
+              <div style="font-size: 13px; color: #64748b;">WEEKLY XP</div>
             </div>
             <div>
               <div style="font-size: 24px; font-weight: 700; color: #e2e8f0;">${multiplier > 1 ? '1.5x' : '1x'}</div>
-              <div style="font-size: 11px; color: #64748b;">MULTIPLIER</div>
+              <div style="font-size: 13px; color: #64748b;">MULTIPLIER</div>
             </div>
           </div>
 
           <div style="background: rgba(30, 41, 59, 0.5); border-radius: 12px; padding: 16px; text-align: left;">
-            <div style="font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 10px;">BREAKDOWN</div>
+            <div style="font-size: 13px; font-weight: 700; color: #64748b; margin-bottom: 10px;">BREAKDOWN</div>
             <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
               <span style="color: #94a3b8;">Base Pay (${rank.name} Rank)</span>
               <span style="color: #e2e8f0;">$${rank.pay.toFixed(2)}</span>
@@ -7063,6 +7704,153 @@
 
       renderEarningsTally(); // Clears the container since earnings already shows breakdown
     }
+
+    // Allowance Calculator
+    let suggestedPayScale = null;
+
+    window.runAllowanceCalc = async function() {
+      const targetInput = document.getElementById('calc-target-amount').value;
+      const target = parseFloat(targetInput);
+      if (!target || target <= 0) {
+        showToast('Enter a valid dollar amount', 'error');
+        return;
+      }
+
+      // Get current child's assignments
+      const childId = selectedPortalChildId;
+      if (!childId) {
+        showToast('Select a child first', 'error');
+        return;
+      }
+
+      const childAssigns = await getChildAssignments(childId);
+      const zones = getNightlyZones();
+
+      // Calculate total possible weekly XP
+      let dailyChoreXP = 0;
+      let weeklyChoreXP = 0;
+      const dailyChores = [];
+      const weeklyChores = [];
+
+      childAssigns.forEach(a => {
+        const xp = a.chore_templates?.xp_value || 0;
+        const name = a.chore_templates?.name || 'Unknown';
+        if (a.recurrence_type === 'daily') {
+          dailyChoreXP += xp;
+          if (!dailyChores.find(d => d.name === name)) {
+            dailyChores.push({ name, xp, perWeek: xp * 7 });
+          }
+        } else {
+          weeklyChoreXP += xp;
+          weeklyChores.push({ name, xp, day: DAY_NAMES[a.day_of_week] || '?', perWeek: xp });
+        }
+      });
+
+      const totalChoreXP = (dailyChoreXP * 7) + weeklyChoreXP;
+      const nightlyXPPerDay = zones.length * 5;
+      const totalNightlyXP = nightlyXPPerDay * 7;
+      const grandTotalXP = totalChoreXP + totalNightlyXP;
+
+      // Work backwards from target
+      // Max = S-rank pay × 1.5 (streak bonus)
+      // So S-rank pay = target / 1.5
+      const sPay = Math.round((target / 1.5) * 100) / 100;
+
+      // Build proportional pay scale
+      // S = 100%, A = 80%, B = 60%, C = 40%, D = 20%
+      const round50 = (v) => Math.round(v * 2) / 2; // round to nearest $0.50
+      suggestedPayScale = [
+        { name: 'F', minXP: 0, maxXP: Math.round(grandTotalXP * 0.19), pay: 0, color: '#64748b' },
+        { name: 'D', minXP: Math.round(grandTotalXP * 0.20), maxXP: Math.round(grandTotalXP * 0.39), pay: round50(sPay * 0.20), color: '#f59e0b' },
+        { name: 'C', minXP: Math.round(grandTotalXP * 0.40), maxXP: Math.round(grandTotalXP * 0.59), pay: round50(sPay * 0.40), color: '#22c55e' },
+        { name: 'B', minXP: Math.round(grandTotalXP * 0.60), maxXP: Math.round(grandTotalXP * 0.79), pay: round50(sPay * 0.60), color: '#3b82f6' },
+        { name: 'A', minXP: Math.round(grandTotalXP * 0.80), maxXP: Math.round(grandTotalXP * 0.89), pay: round50(sPay * 0.80), color: '#a855f7' },
+        { name: 'S', minXP: Math.round(grandTotalXP * 0.90), maxXP: 9999, pay: round50(sPay), color: '#ffd700' }
+      ];
+
+      // Build breakdown HTML
+      let breakdownHTML = `
+        <div style="font-size: 13px; font-weight: 700; color: #60a5fa; margin-bottom: 12px;">📊 XP BREAKDOWN FOR ${children.find(c => c.id === childId)?.name?.toUpperCase() || 'CHILD'}</div>
+      `;
+
+      if (dailyChores.length > 0) {
+        breakdownHTML += `<div style="font-size: 12px; color: #64748b; margin-bottom: 4px;">DAILY CHORES (×7 days)</div>`;
+        dailyChores.forEach(c => {
+          breakdownHTML += `<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="color:#94a3b8;">${c.name} (${c.xp}/day)</span><span style="color:#e2e8f0;">${c.perWeek} XP</span></div>`;
+        });
+      }
+
+      if (weeklyChores.length > 0) {
+        breakdownHTML += `<div style="font-size: 12px; color: #64748b; margin: 8px 0 4px;">WEEKLY CHORES</div>`;
+        weeklyChores.forEach(c => {
+          breakdownHTML += `<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="color:#94a3b8;">${c.name} (${c.day})</span><span style="color:#e2e8f0;">${c.perWeek} XP</span></div>`;
+        });
+      }
+
+      breakdownHTML += `<div style="font-size: 12px; color: #64748b; margin: 8px 0 4px;">NIGHTLY PATROL (${zones.length} zones × 5 XP × 7 days)</div>`;
+      breakdownHTML += `<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="color:#94a3b8;">Nightly zones</span><span style="color:#e2e8f0;">${totalNightlyXP} XP</span></div>`;
+
+      breakdownHTML += `
+        <div style="display:flex;justify-content:space-between;padding-top:10px;border-top:1px solid rgba(255,255,255,0.1);margin-top:8px;">
+          <span style="color:#22c55e;font-weight:700;">MAX POSSIBLE XP</span>
+          <span style="color:#22c55e;font-weight:700;">${grandTotalXP} XP</span>
+        </div>
+      `;
+
+      document.getElementById('calc-breakdown').innerHTML = breakdownHTML;
+
+      // Build suggested pay scale HTML
+      let scaleHTML = `
+        <div style="font-size: 13px; font-weight: 700; color: #fbbf24; margin-bottom: 12px;">💰 SUGGESTED PAY SCALE</div>
+        <div style="font-size: 12px; color: #94a3b8; margin-bottom: 12px;">Target: <strong style="color: #22c55e;">$${target.toFixed(2)}</strong> max (S-rank + nightly streak)</div>
+      `;
+
+      suggestedPayScale.forEach(tier => {
+        const maxLabel = tier.maxXP === 9999 ? '+' : `-${tier.maxXP}`;
+        scaleHTML += `
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;padding:8px;border-radius:8px;background:rgba(255,255,255,0.03);">
+            <div>
+              <span style="color:${tier.color};font-weight:800;font-size:18px;margin-right:8px;">${tier.name}</span>
+              <span style="color:#64748b;font-size:12px;">${tier.minXP}${maxLabel} XP</span>
+            </div>
+            <span style="color:#e2e8f0;font-weight:700;">$${tier.pay.toFixed(2)}</span>
+          </div>
+        `;
+      });
+
+      scaleHTML += `
+        <div style="margin-top:12px;padding:10px;border-radius:8px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);">
+          <div style="display:flex;justify-content:space-between;">
+            <span style="color:#94a3b8;">S-rank base</span>
+            <span style="color:#e2e8f0;">$${round50(sPay).toFixed(2)}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;">
+            <span style="color:#94a3b8;">× 1.5 streak bonus</span>
+            <span style="color:#22c55e;font-weight:700;">$${(round50(sPay) * 1.5).toFixed(2)}</span>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('calc-suggested-scale').innerHTML = scaleHTML;
+      document.getElementById('calc-results').style.display = 'block';
+    };
+
+    window.applyCalcSuggestions = function() {
+      if (!suggestedPayScale) return;
+
+      // Update PAY_SCALE in memory
+      PAY_SCALE.length = 0;
+      suggestedPayScale.forEach(t => PAY_SCALE.push({...t}));
+
+      // Persist to localStorage
+      localStorage.setItem('chore_chart_pay_scale', JSON.stringify(PAY_SCALE));
+
+      closeModal('allowance-calc-modal');
+      showToast('Pay scale updated!');
+
+      // Re-render earnings
+      renderPortalEarnings();
+    };
 
     // Money Makers / Bonus - Database-backed
     function renderPortalBonus() {
@@ -7401,6 +8189,127 @@
     };
 
     // Add chore from portal
+    // Chore quick templates
+    const CHORE_TEMPLATES = [
+      {
+        name: 'Clean Your Room',
+        icon: '🛏️',
+        xp: 20,
+        description: '1. Pick up ALL laundry and put in the hamper\n2. Remove all items from the floor\n3. Vacuum the entire floor including under the bed\n4. Remove all trash and throw away\n5. Wipe down all flat surfaces (desk, nightstand, dresser)\n6. Make your bed'
+      },
+      {
+        name: 'Clean the Bathroom',
+        icon: '🚿',
+        xp: 25,
+        description: '1. Pick up all laundry and put in the hamper\n2. Remove all items from the floor\n3. Sweep and mop the floor\n4. Remove all trash and throw away\n5. Wipe down all flat surfaces (counter, sink area)\n6. Wipe down the mirror\n7. Clean the toilet (inside and outside)\n8. Hang up towels neatly'
+      },
+      {
+        name: 'Clean the Office',
+        icon: '💼',
+        xp: 20,
+        description: '1. Pick up ALL laundry and put in the hamper\n2. Remove all items from the floor\n3. Vacuum the entire floor\n4. Remove all trash and throw away\n5. Wipe down all flat surfaces (desk, shelves, tables)\n6. Organize papers and supplies neatly'
+      },
+      {
+        name: 'Clean the Living Room',
+        icon: '🏠',
+        xp: 20,
+        description: '1. Pick up all items from the floor and put them away\n2. Vacuum the entire floor and under furniture\n3. Remove all trash and throw away\n4. Wipe down all flat surfaces (coffee table, end tables, TV stand)\n5. Fluff and straighten couch cushions\n6. Fold and put away any blankets'
+      },
+      {
+        name: 'Take Out Trash',
+        icon: '🗑️',
+        xp: 10,
+        description: '1. Empty all trash cans in the house\n2. Replace with new trash bags\n3. Take full bags out to the bin\n4. Bring bin to curb on trash day'
+      },
+      {
+        name: 'Do the Dishes',
+        icon: '🍽️',
+        xp: 15,
+        description: '1. Load all dirty dishes into the dishwasher\n2. Hand wash anything that can\'t go in the dishwasher\n3. Wipe down counters and sink\n4. Unload dishwasher when done (if running)'
+      },
+      {
+        name: 'Do Laundry',
+        icon: '🧺',
+        xp: 15,
+        description: '1. Sort laundry by color (darks, lights, whites)\n2. Load washing machine and start cycle\n3. Move to dryer when done\n4. Fold all clothes when dry\n5. Put folded clothes away in drawers/closet'
+      },
+      {
+        name: 'Yard Work',
+        icon: '🌿',
+        xp: 25,
+        description: '1. Mow the lawn (front and back)\n2. Pick up sticks and debris\n3. Pull weeds from garden beds\n4. Sweep walkways and driveway\n5. Water plants if needed'
+      },
+      {
+        name: 'Feed & Walk the Dog',
+        icon: '🐕',
+        xp: 10,
+        description: '1. Fill food bowl with correct amount\n2. Fill water bowl with fresh water\n3. Take dog for a walk (at least 15 minutes)\n4. Clean up after the dog'
+      },
+      {
+        name: 'Homework Time',
+        icon: '📚',
+        xp: 15,
+        description: '1. Complete all assigned homework\n2. Study for any upcoming tests\n3. Read for at least 20 minutes\n4. Organize backpack for tomorrow'
+      }
+    ];
+
+    function renderChoreTemplates(containerId, formPrefix) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = CHORE_TEMPLATES.map((t, i) => `
+        <button type="button" onclick="applyChoreTemplate(${i}, '${formPrefix}')" style="
+          display: inline-flex; align-items: center; gap: 6px;
+          padding: 8px 14px; border-radius: 10px; border: 1px solid rgba(59, 130, 246, 0.3);
+          background: rgba(59, 130, 246, 0.1); color: #93c5fd;
+          font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+        ">${t.icon} ${t.name}</button>
+      `).join('');
+    }
+
+    window.applyChoreTemplate = function(index, formPrefix) {
+      const t = CHORE_TEMPLATES[index];
+      if (!t) return;
+
+      document.getElementById(formPrefix + '-name').value = t.name;
+
+      const descEl = document.getElementById(formPrefix + '-desc');
+      if (descEl) descEl.value = t.description;
+
+      const iconEl = document.getElementById(formPrefix + '-icon');
+      if (iconEl) {
+        // Try to select the matching option
+        const options = Array.from(iconEl.options);
+        const match = options.find(o => o.value === t.icon);
+        if (match) {
+          iconEl.value = t.icon;
+        } else {
+          // Add a new option for icons not in the list
+          const opt = document.createElement('option');
+          opt.value = t.icon;
+          opt.textContent = t.icon;
+          iconEl.appendChild(opt);
+          iconEl.value = t.icon;
+        }
+      }
+
+      const xpEl = document.getElementById(formPrefix + '-xp');
+      if (xpEl) {
+        const options = Array.from(xpEl.options);
+        const match = options.find(o => parseInt(o.value) === t.xp);
+        if (match) {
+          xpEl.value = t.xp.toString();
+        }
+      }
+
+      showToast(t.name + ' template loaded');
+    };
+
+    // Render settings templates on first load
+    setTimeout(() => {
+      const picker = document.getElementById('settings-chore-templates-picker');
+      if (picker) renderChoreTemplates('settings-chore-templates-picker', 'new-chore');
+    }, 1000);
+
     window.addChoreFromPortal = async function() {
       const name = document.getElementById('add-chore-name').value.trim();
       const desc = document.getElementById('add-chore-desc').value.trim();
@@ -7630,7 +8539,9 @@
 
     // Notification system with polling fallback
     let notifications = [];
-    let lastCheckedCompletions = new Map(); // Track seen completions by ID
+    let lastCheckedCompletions = new Map(); // Track seen chore completions by ID
+    let lastCheckedNightly = new Map(); // Track seen nightly completions by ID
+    let lastCheckedBonus = new Map(); // Track seen bonus completions by ID
     let notificationPollInterval = null;
 
     function setupRealtimeNotifications() {
@@ -7654,27 +8565,38 @@
           const completions = await getWeeklyCompletions(child.id, getWeekStart());
           completions.forEach(c => lastCheckedCompletions.set(c.id, true));
         } catch (e) {
-          console.log('Error initializing completions:', e);
+          console.log('Error initializing chore completions:', e);
+        }
+        try {
+          const nightlyComps = await getNightlyCompletions(child.id, getWeekStart());
+          nightlyComps.forEach(c => lastCheckedNightly.set(c.id, true));
+        } catch (e) {
+          console.log('Error initializing nightly completions:', e);
+        }
+        try {
+          const bonusComps = await getBonusTaskCompletions(child.id, getWeekStart());
+          bonusComps.forEach(c => lastCheckedBonus.set(c.id, true));
+        } catch (e) {
+          console.log('Error initializing bonus completions:', e);
         }
       }
-      console.log('Initialized seen completions:', lastCheckedCompletions.size);
+      console.log('Initialized seen completions:', lastCheckedCompletions.size, 'chores,', lastCheckedNightly.size, 'nightly,', lastCheckedBonus.size, 'bonus');
     }
 
     async function checkForNewCompletions() {
       if (!currentFamily || children.length === 0) return;
 
       for (const child of children) {
+        // Check chore completions
         try {
           const completions = await getWeeklyCompletions(child.id, getWeekStart());
 
           for (const completion of completions) {
-            // Check if this is a new completion we haven't seen
             if (!lastCheckedCompletions.has(completion.id)) {
               lastCheckedCompletions.set(completion.id, true);
 
               const choreName = completion.chore_assignments?.chore_templates?.name || 'a chore';
 
-              // Add to notifications list
               addNotification({
                 icon: child.avatar || '🧒',
                 text: `<strong>${child.name}</strong> completed ${choreName}`,
@@ -7682,17 +8604,93 @@
                 time: new Date(completion.completed_at)
               });
 
-              // Send browser notification
               sendNotification(
                 `${child.name} completed a quest!`,
                 `${choreName} (+${completion.xp_earned} XP)`
               );
-
-              console.log('New completion detected:', choreName);
             }
           }
         } catch (e) {
-          console.log('Error checking completions for', child.name, e);
+          console.log('Error checking chore completions for', child.name, e);
+        }
+
+        // Check nightly zone completions
+        try {
+          const nightlyComps = await getNightlyCompletions(child.id, getWeekStart());
+
+          for (const comp of nightlyComps) {
+            if (!lastCheckedNightly.has(comp.id)) {
+              lastCheckedNightly.set(comp.id, true);
+
+              const zoneName = comp.nightly_zones?.name || 'a zone';
+              const zoneIcon = comp.nightly_zones?.icon || '🌙';
+
+              addNotification({
+                icon: child.avatar || '🧒',
+                text: `<strong>${child.name}</strong> completed ${zoneName} ${zoneIcon}`,
+                subtext: '+5 XP',
+                time: new Date(comp.completed_at || comp.created_at || new Date())
+              });
+
+              sendNotification(
+                `${child.name} completed nightly patrol!`,
+                `${zoneIcon} ${zoneName} (+5 XP)`
+              );
+            }
+          }
+        } catch (e) {
+          console.log('Error checking nightly completions for', child.name, e);
+        }
+
+        // Check bonus task completions (pending + approved)
+        try {
+          const bonusComps = await getBonusTaskCompletions(child.id, getWeekStart());
+
+          for (const comp of bonusComps) {
+            if (!lastCheckedBonus.has(comp.id)) {
+              lastCheckedBonus.set(comp.id, true);
+
+              const taskName = comp.bonus_tasks?.name || 'a bonus task';
+              const taskIcon = comp.bonus_tasks?.icon || '💵';
+              const status = comp.status || 'approved';
+
+              if (status === 'pending') {
+                const taskXP = comp.bonus_tasks?.xp_value || 10;
+                const taskAmount = parseFloat(comp.bonus_tasks?.amount) || 0;
+                addNotification({
+                  icon: child.avatar || '🧒',
+                  text: `<strong>${child.name}</strong> requested ${taskName} ${taskIcon}`,
+                  subtext: 'Needs approval',
+                  time: new Date(comp.completed_at),
+                  pendingCompletionId: comp.id,
+                  pendingXP: taskXP,
+                  pendingAmount: taskAmount
+                });
+
+                sendNotification(
+                  `${child.name} requested a Money Maker`,
+                  `${taskIcon} ${taskName} — Tap to approve`
+                );
+              } else {
+                const amount = parseFloat(comp.amount_earned) || 0;
+                const subtext = amount > 0 ? `+$${amount.toFixed(2)}` : `+${comp.xp_earned} XP`;
+
+                addNotification({
+                  icon: child.avatar || '🧒',
+                  text: `<strong>${child.name}</strong> completed ${taskName} ${taskIcon}`,
+                  subtext,
+                  time: new Date(comp.completed_at)
+                });
+
+                sendNotification(
+                  `${child.name} completed a Money Maker!`,
+                  `${taskIcon} ${taskName} (${subtext})`
+                );
+              }
+            }
+          }
+        } catch (e) {
+          console.log('Error checking bonus completions for', child.name, e);
         }
       }
 
@@ -7733,15 +8731,25 @@
         return;
       }
 
-      list.innerHTML = notifications.slice(0, 20).map(n => `
-        <div class="notification-item ${n.read ? '' : 'unread'}" onclick="markNotificationRead('${n.id}')">
-          <div class="notification-icon">${n.icon}</div>
-          <div class="notification-content">
-            <div class="notification-text">${n.text}</div>
-            <div class="notification-time">${n.subtext} • ${getTimeAgo(n.time)}</div>
+      list.innerHTML = notifications.slice(0, 20).map(n => {
+        const pendingActions = n.pendingCompletionId ? `
+          <div style="display: flex; gap: 8px; margin-top: 8px;">
+            <button onclick="event.stopPropagation(); approveFromNotification('${n.id}', '${n.pendingCompletionId}', ${n.pendingXP}, ${n.pendingAmount})" style="flex: 1; padding: 8px; border: none; border-radius: 8px; background: rgba(34, 197, 94, 0.2); color: #4ade80; font-weight: 700; font-size: 13px; cursor: pointer; min-height: 44px;">✅ Approve</button>
+            <button onclick="event.stopPropagation(); denyFromNotification('${n.id}', '${n.pendingCompletionId}')" style="flex: 1; padding: 8px; border: none; border-radius: 8px; background: rgba(239, 68, 68, 0.2); color: #f87171; font-weight: 700; font-size: 13px; cursor: pointer; min-height: 44px;">❌ Deny</button>
           </div>
-        </div>
-      `).join('');
+        ` : '';
+
+        return `
+          <div class="notification-item ${n.read ? '' : 'unread'}" onclick="markNotificationRead('${n.id}')">
+            <div class="notification-icon">${n.icon}</div>
+            <div class="notification-content">
+              <div class="notification-text">${n.text}</div>
+              <div class="notification-time">${n.subtext} • ${getTimeAgo(n.time)}</div>
+              ${pendingActions}
+            </div>
+          </div>
+        `;
+      }).join('');
     }
 
     window.toggleNotifications = function() {
@@ -7761,6 +8769,47 @@
       const notif = notifications.find(n => n.id == id);
       if (notif) notif.read = true;
       updateNotificationBadge();
+    };
+
+    window.approveFromNotification = async function(notifId, completionId, xpEarned, amountEarned) {
+      try {
+        await approveBonusTask(completionId, xpEarned, amountEarned);
+        // Remove the pending actions from this notification
+        const notif = notifications.find(n => n.id == notifId);
+        if (notif) {
+          notif.pendingCompletionId = null;
+          notif.subtext = 'Approved ✅';
+          notif.read = true;
+        }
+        renderNotificationsList();
+        updateNotificationBadge();
+        showToast('Approved! XP & reward granted ✅');
+        // Refresh pending approvals in overview
+        await renderPendingApprovals();
+      } catch (e) {
+        console.error('Error approving from notification:', e);
+        showToast('Failed to approve', 'error');
+      }
+    };
+
+    window.denyFromNotification = async function(notifId, completionId) {
+      try {
+        await denyBonusTask(completionId);
+        // Remove the pending actions from this notification
+        const notif = notifications.find(n => n.id == notifId);
+        if (notif) {
+          notif.pendingCompletionId = null;
+          notif.subtext = 'Denied ❌';
+          notif.read = true;
+        }
+        renderNotificationsList();
+        updateNotificationBadge();
+        showToast('Request denied ❌');
+        await renderPendingApprovals();
+      } catch (e) {
+        console.error('Error denying from notification:', e);
+        showToast('Failed to deny', 'error');
+      }
     };
 
     window.clearNotifications = function() {
@@ -7798,8 +8847,9 @@
             <div class="item-name">${c.name}</div>
             <div class="item-desc">XP: ${c.current_xp || 0} • Streak: ${c.current_streak || 0} days</div>
           </div>
-          <button class="item-btn" style="background: rgba(59, 130, 246, 0.2); color: #93c5fd;" onclick="editChild('${c.id}')">✏️</button>
-          <button class="item-btn" onclick="deleteChild('${c.id}')">🗑️</button>
+          <button class="item-btn" style="background: rgba(59, 130, 246, 0.2); color: #93c5fd;" onclick="editChild('${c.id}')" title="Edit">✏️</button>
+          <button class="item-btn" style="background: rgba(234, 179, 8, 0.2); color: #fbbf24;" onclick="resetChild('${c.id}')" title="Reset Progress">🔄</button>
+          <button class="item-btn" onclick="deleteChild('${c.id}')" title="Delete">🗑️</button>
         </div>
       `).join('') : '<div class="empty-state"><div class="empty-text">No children yet</div></div>';
 
@@ -7929,6 +8979,52 @@
       } catch (e) {
         console.error(e);
         showToast('Failed to update', 'error');
+      }
+    };
+
+    window.resetChild = async function(id) {
+      const child = children.find(c => c.id === id);
+      if (!child) return;
+
+      if (!confirm(`Reset all progress for ${child.name}? This will clear all XP, streaks, and completion history. This cannot be undone.`)) return;
+
+      try {
+        await resetChildProgress(id);
+        await loadSettingsData();
+        renderPortalChildSelector();
+        await renderPortalOverview();
+        showToast(child.name + ' progress reset');
+      } catch (e) {
+        console.error(e);
+        showToast('Failed to reset progress', 'error');
+      }
+    };
+
+    window.resetChildAchievements = async function() {
+      if (!selectedPortalChildId) { showToast('Select a child first', 'error'); return; }
+      const child = children.find(c => c.id === selectedPortalChildId);
+      if (!child) return;
+      if (!confirm(`Reset all achievements for ${child.name}? This cannot be undone.`)) return;
+      try {
+        await resetAchievements(selectedPortalChildId);
+        showToast(child.name + ' achievements reset');
+      } catch (e) {
+        console.error(e);
+        showToast('Failed to reset achievements', 'error');
+      }
+    };
+
+    window.resetChildPrivileges = async function() {
+      if (!selectedPortalChildId) { showToast('Select a child first', 'error'); return; }
+      const child = children.find(c => c.id === selectedPortalChildId);
+      if (!child) return;
+      if (!confirm(`Reset all privilege unlocks for ${child.name}? This cannot be undone.`)) return;
+      try {
+        await resetPrivileges(selectedPortalChildId);
+        showToast(child.name + ' privileges reset');
+      } catch (e) {
+        console.error(e);
+        showToast('Failed to reset privileges', 'error');
       }
     };
 

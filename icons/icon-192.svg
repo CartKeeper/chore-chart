@@ -1,4 +1,43 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
-  <rect width="192" height="192" fill="#1a1a2e"/>
-  <text x="96" y="110" font-size="80" text-anchor="middle" fill="#fff">✨</text>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="shield" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="sword" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#94a3b8"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="192" height="192" rx="38" fill="url(#bg)"/>
+  <!-- Outer glow ring -->
+  <circle cx="96" cy="96" r="72" fill="none" stroke="rgba(59,130,246,0.15)" stroke-width="2"/>
+  <!-- Shield body -->
+  <path d="M96 38 L138 58 L138 100 Q138 138 96 158 Q54 138 54 100 L54 58 Z" fill="url(#shield)" stroke="#60a5fa" stroke-width="2"/>
+  <!-- Shield inner highlight -->
+  <path d="M96 48 L130 64 L130 98 Q130 130 96 148 Q62 130 62 98 L62 64 Z" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <!-- Shield star -->
+  <polygon points="96,68 102,86 120,86 106,97 111,115 96,105 81,115 86,97 72,86 90,86" fill="url(#gold)"/>
+  <!-- Sword (behind shield, angled) -->
+  <g transform="rotate(-35, 96, 96)">
+    <!-- Blade -->
+    <rect x="92" y="20" width="8" height="80" rx="2" fill="url(#sword)"/>
+    <!-- Blade tip -->
+    <polygon points="92,20 100,20 96,10" fill="#e2e8f0"/>
+    <!-- Guard -->
+    <rect x="82" y="98" width="28" height="6" rx="3" fill="url(#gold)"/>
+    <!-- Grip -->
+    <rect x="93" y="104" width="6" height="20" rx="2" fill="#92400e"/>
+    <!-- Pommel -->
+    <circle cx="96" cy="128" r="5" fill="url(#gold)"/>
+  </g>
 </svg>
