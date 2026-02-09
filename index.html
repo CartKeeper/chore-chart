@@ -3959,6 +3959,11 @@
         <input type="text" class="form-input" id="edit-child-venmo" placeholder="@username">
         <p style="font-size: 11px; color: #64748b; margin-top: 4px;">Used for quick Venmo payments on payday</p>
       </div>
+      <div class="form-group">
+        <label class="form-label">Cash App $Cashtag (optional)</label>
+        <input type="text" class="form-input" id="edit-child-cashapp" placeholder="$cashtag">
+        <p style="font-size: 11px; color: #64748b; margin-top: 4px;">Used for quick Cash App payments on payday</p>
+      </div>
       <div style="display: flex; gap: 10px; margin-top: 20px;">
         <button class="btn btn-secondary btn-lg" style="flex: 1;" onclick="closeModal('edit-child-modal')">Cancel</button>
         <button class="btn btn-primary btn-lg" style="flex: 1;" onclick="saveChildEdit()">Save</button>
@@ -7682,22 +7687,38 @@
 
       const total = basePay + bonusEarnings;
 
-      // Venmo deep link
+      // Payment deep links
       const venmoUsername = getVenmoUsername(selectedPortalChildId);
+      const cashAppTag = getCashAppTag(selectedPortalChildId);
       const weekLabel = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-      const venmoNote = `Quest Log - Week of ${weekLabel} allowance`;
-      const venmoLink = venmoUsername
-        ? `venmo://paycharge?txn=pay&recipients=${encodeURIComponent(venmoUsername)}&amount=${total.toFixed(2)}&note=${encodeURIComponent(venmoNote)}`
-        : null;
+      const payNote = `Quest Log - Week of ${weekLabel} allowance`;
 
-      const venmoButtonHtml = venmoLink
-        ? `<a href="${venmoLink}" style="display: block; margin-top: 16px; padding: 14px; background: linear-gradient(135deg, #008CFF, #0074D9); color: white; text-align: center; border-radius: 12px; font-weight: 700; font-size: 16px; text-decoration: none; min-height: 44px; line-height: 20px;">
+      let payButtonsHtml = '';
+      const hasAnyPayment = venmoUsername || cashAppTag;
+
+      if (venmoUsername) {
+        const venmoLink = `venmo://paycharge?txn=pay&recipients=${encodeURIComponent(venmoUsername)}&amount=${total.toFixed(2)}&note=${encodeURIComponent(payNote)}`;
+        payButtonsHtml += `
+          <a href="${venmoLink}" style="display: block; margin-top: 16px; padding: 14px; background: linear-gradient(135deg, #008CFF, #0074D9); color: white; text-align: center; border-radius: 12px; font-weight: 700; font-size: 16px; text-decoration: none; min-height: 44px; line-height: 20px;">
             💸 Pay $${total.toFixed(2)} via Venmo
           </a>
-          <div style="text-align: center; font-size: 11px; color: #64748b; margin-top: 6px;">Opens Venmo app → @${venmoUsername}</div>`
-        : `<div style="margin-top: 16px; padding: 12px; background: rgba(100, 116, 139, 0.1); border-radius: 10px; text-align: center; font-size: 12px; color: #64748b;">
-            Set a Venmo username in Edit Child (✏️) to enable quick pay
+          <div style="text-align: center; font-size: 11px; color: #64748b; margin-top: 4px;">Opens Venmo → @${venmoUsername}</div>`;
+      }
+
+      if (cashAppTag) {
+        const cashAppLink = `https://cash.app/$${cashAppTag}/${total.toFixed(2)}`;
+        payButtonsHtml += `
+          <a href="${cashAppLink}" style="display: block; margin-top: ${venmoUsername ? '10' : '16'}px; padding: 14px; background: linear-gradient(135deg, #00D632, #00B82E); color: white; text-align: center; border-radius: 12px; font-weight: 700; font-size: 16px; text-decoration: none; min-height: 44px; line-height: 20px;">
+            💵 Pay $${total.toFixed(2)} via Cash App
+          </a>
+          <div style="text-align: center; font-size: 11px; color: #64748b; margin-top: 4px;">Opens Cash App → $${cashAppTag}</div>`;
+      }
+
+      if (!hasAnyPayment) {
+        payButtonsHtml = `<div style="margin-top: 16px; padding: 12px; background: rgba(100, 116, 139, 0.1); border-radius: 10px; text-align: center; font-size: 12px; color: #64748b;">
+            Set Venmo or Cash App in Edit Child (✏️) to enable quick pay
           </div>`;
+      }
 
       container.innerHTML = `
         <div style="text-align: center; padding: 20px;">
@@ -7741,7 +7762,7 @@
             </div>
           </div>
 
-          ${venmoButtonHtml}
+          ${payButtonsHtml}
         </div>
       `;
 
@@ -8994,11 +9015,26 @@
     function setVenmoUsername(childId, username) {
       const map = JSON.parse(localStorage.getItem('chore_chart_venmo') || '{}');
       if (username) {
-        map[childId] = username.replace(/^@/, ''); // strip leading @
+        map[childId] = username.replace(/^@/, '');
       } else {
         delete map[childId];
       }
       localStorage.setItem('chore_chart_venmo', JSON.stringify(map));
+    }
+
+    function getCashAppTag(childId) {
+      const map = JSON.parse(localStorage.getItem('chore_chart_cashapp') || '{}');
+      return map[childId] || '';
+    }
+
+    function setCashAppTag(childId, cashtag) {
+      const map = JSON.parse(localStorage.getItem('chore_chart_cashapp') || '{}');
+      if (cashtag) {
+        map[childId] = cashtag.replace(/^\$/, '');
+      } else {
+        delete map[childId];
+      }
+      localStorage.setItem('chore_chart_cashapp', JSON.stringify(map));
     }
 
     window.editChild = function(id) {
@@ -9008,6 +9044,7 @@
       document.getElementById('edit-child-id').value = id;
       document.getElementById('edit-child-name').value = child.name;
       document.getElementById('edit-child-venmo').value = getVenmoUsername(id);
+      document.getElementById('edit-child-cashapp').value = getCashAppTag(id);
       selectedEditAvatar = child.avatar || '🧒';
 
       // Setup avatar picker
@@ -9028,10 +9065,12 @@
       const id = document.getElementById('edit-child-id').value;
       const name = document.getElementById('edit-child-name').value.trim();
       const venmo = document.getElementById('edit-child-venmo').value.trim();
+      const cashapp = document.getElementById('edit-child-cashapp').value.trim();
       if (!name) { showToast('Enter name', 'error'); return; }
 
-      // Save Venmo username locally
+      // Save payment usernames locally
       setVenmoUsername(id, venmo);
+      setCashAppTag(id, cashapp);
 
       try {
         await updateUser(id, { name, avatar: selectedEditAvatar });
