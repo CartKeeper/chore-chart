@@ -103,11 +103,11 @@
 
         <div class="card mb-md">
           <div class="input-group">
-            <label>Child's Name</label>
+            <label for="newChildName">Child's Name</label>
             <input type="text" id="newChildName" class="input" placeholder="Enter name">
           </div>
           <div class="input-group">
-            <label>Avatar</label>
+            <label for="avatarPicker">Avatar</label>
             <div class="icon-picker" id="avatarPicker"></div>
           </div>
           <button class="btn btn-secondary" style="width: 100%;" id="addChildBtn">Add Child</button>
@@ -125,18 +125,18 @@
       <header class="parent-header">
         <h1 id="familyNameHeader">Family Dashboard</h1>
         <div class="header-actions">
-          <button class="btn btn-sm btn-secondary" id="linkDeviceBtn">Link Device</button>
+          <button class="btn btn-sm btn-secondary" id="linkDeviceBtn" aria-label="Link device">Link Device</button>
           <button class="btn btn-sm btn-secondary" id="settingsBtn">Settings</button>
         </div>
       </header>
 
       <!-- Navigation -->
-      <nav class="parent-nav">
-        <button class="parent-nav-item active" data-view="dashboard">Dashboard</button>
-        <button class="parent-nav-item" data-view="chores">Chores</button>
-        <button class="parent-nav-item" data-view="assignments">Assignments</button>
-        <button class="parent-nav-item" data-view="reminders">Reminders</button>
-        <button class="parent-nav-item" data-view="earnings">Earnings</button>
+      <nav class="parent-nav" role="tablist">
+        <button class="parent-nav-item active" data-view="dashboard" role="tab" aria-selected="true">Dashboard</button>
+        <button class="parent-nav-item" data-view="chores" role="tab" aria-selected="false">Chores</button>
+        <button class="parent-nav-item" data-view="assignments" role="tab" aria-selected="false">Assignments</button>
+        <button class="parent-nav-item" data-view="reminders" role="tab" aria-selected="false">Reminders</button>
+        <button class="parent-nav-item" data-view="earnings" role="tab" aria-selected="false">Earnings</button>
       </nav>
 
       <!-- Child Selector -->
@@ -230,15 +230,15 @@
   </div>
 
   <!-- Help Button (required per CLAUDE.md) -->
-  <button id="helpBtn" class="help-btn" title="Help">
+  <button id="helpBtn" class="help-btn" title="Help" aria-label="Help">
     <span>🛟</span>
   </button>
 
   <!-- Help Modal -->
-  <div id="helpModal" class="modal-overlay">
+  <div id="helpModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="helpModal-title">
     <div class="modal">
       <div class="modal-header">
-        <h3>Parent Portal Help</h3>
+        <h3 id="helpModal-title">Parent Portal Help</h3>
         <button class="modal-close" onclick="closeModal('helpModal')">&times;</button>
       </div>
       <div class="modal-content">
@@ -263,10 +263,10 @@
   </div>
 
   <!-- Link Device Modal -->
-  <div id="linkModal" class="modal-overlay">
+  <div id="linkModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="linkModal-title">
     <div class="modal">
       <div class="modal-header">
-        <h3>Link a Device</h3>
+        <h3 id="linkModal-title">Link a Device</h3>
         <button class="modal-close" onclick="closeModal('linkModal')">&times;</button>
       </div>
       <div class="link-code-display">
@@ -281,22 +281,22 @@
   </div>
 
   <!-- Add Chore Modal -->
-  <div id="choreModal" class="modal-overlay">
+  <div id="choreModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="choreModal-title">
     <div class="modal">
       <div class="modal-header">
-        <h3 id="choreModalTitle">Add Chore</h3>
+        <h3 id="choreModal-title">Add Chore</h3>
         <button class="modal-close" onclick="closeModal('choreModal')">&times;</button>
       </div>
       <div class="input-group">
-        <label>Chore Name</label>
+        <label for="choreName">Chore Name</label>
         <input type="text" id="choreName" class="input" placeholder="e.g., Make bed">
       </div>
       <div class="input-group">
-        <label>Description (optional)</label>
+        <label for="choreDescription">Description (optional)</label>
         <input type="text" id="choreDescription" class="input" placeholder="Additional details">
       </div>
       <div class="input-group">
-        <label>XP Value</label>
+        <label for="choreXP">XP Value</label>
         <input type="number" id="choreXP" class="input" value="10" min="1" max="100">
       </div>
       <div class="input-group">
@@ -309,22 +309,22 @@
   </div>
 
   <!-- Add Assignment Modal -->
-  <div id="assignmentModal" class="modal-overlay">
+  <div id="assignmentModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="assignmentModal-title">
     <div class="modal">
       <div class="modal-header">
-        <h3>Assign Chore</h3>
+        <h3 id="assignmentModal-title">Assign Chore</h3>
         <button class="modal-close" onclick="closeModal('assignmentModal')">&times;</button>
       </div>
       <div class="input-group">
-        <label>Select Chore</label>
+        <label for="assignmentChore">Select Chore</label>
         <select id="assignmentChore" class="input"></select>
       </div>
       <div class="input-group">
-        <label>Assign To</label>
+        <label for="assignmentChild">Assign To</label>
         <select id="assignmentChild" class="input"></select>
       </div>
       <div class="input-group">
-        <label>Schedule</label>
+        <label for="assignmentSchedule">Schedule</label>
         <select id="assignmentSchedule" class="input">
           <option value="daily">Daily</option>
           <option value="weekly">Specific Days</option>
@@ -352,22 +352,22 @@
   </div>
 
   <!-- Add Reminder Modal -->
-  <div id="reminderModal" class="modal-overlay">
+  <div id="reminderModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="reminderModal-title">
     <div class="modal">
       <div class="modal-header">
-        <h3>Add Reminder</h3>
+        <h3 id="reminderModal-title">Add Reminder</h3>
         <button class="modal-close" onclick="closeModal('reminderModal')">&times;</button>
       </div>
       <div class="input-group">
-        <label>For Child</label>
+        <label for="reminderChild">For Child</label>
         <select id="reminderChild" class="input"></select>
       </div>
       <div class="input-group">
-        <label>Time</label>
+        <label for="reminderTime">Time</label>
         <input type="time" id="reminderTime" class="input" value="20:00">
       </div>
       <div class="input-group">
-        <label>Type</label>
+        <label for="reminderType">Type</label>
         <select id="reminderType" class="input">
           <option value="nightly">Nightly Reminder</option>
           <option value="morning">Morning Reminder</option>
@@ -375,7 +375,7 @@
         </select>
       </div>
       <div class="input-group">
-        <label>Message (optional)</label>
+        <label for="reminderMessage">Message (optional)</label>
         <input type="text" id="reminderMessage" class="input" placeholder="e.g., Time to do your chores!">
       </div>
       <button class="btn btn-primary" style="width: 100%;" id="saveReminderBtn">Save Reminder</button>
@@ -383,7 +383,7 @@
   </div>
 
   <!-- Toast Container -->
-  <div id="toastContainer" class="toast-container"></div>
+  <div id="toastContainer" class="toast-container" aria-live="polite" role="status"></div>
 
   <script type="module">
     import {
@@ -842,8 +842,13 @@
     // Navigation
     document.querySelectorAll('.parent-nav-item').forEach(item => {
       item.onclick = () => {
-        document.querySelectorAll('.parent-nav-item').forEach(i => i.classList.remove('active'));
+        // Update visual state
+        document.querySelectorAll('.parent-nav-item').forEach(i => {
+          i.classList.remove('active');
+          i.setAttribute('aria-selected', 'false');
+        });
         item.classList.add('active');
+        item.setAttribute('aria-selected', 'true');
 
         const view = item.dataset.view;
         document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
@@ -885,7 +890,7 @@
     }
 
     document.getElementById('addChoreBtn').onclick = () => {
-      document.getElementById('choreModalTitle').textContent = 'Add Chore';
+      document.getElementById('choreModal-title').textContent = 'Add Chore';
       document.getElementById('choreName').value = '';
       document.getElementById('choreDescription').value = '';
       document.getElementById('choreXP').value = '10';
@@ -916,7 +921,7 @@
       const chore = choreTemplates.find(c => c.id === id);
       if (!chore) return;
 
-      document.getElementById('choreModalTitle').textContent = 'Edit Chore';
+      document.getElementById('choreModal-title').textContent = 'Edit Chore';
       document.getElementById('choreName').value = chore.name;
       document.getElementById('choreDescription').value = chore.description || '';
       document.getElementById('choreXP').value = chore.xp_value;
@@ -1265,14 +1270,36 @@
     }
 
     // Modal helpers
+    let lastFocusedElement = null;
+
     function openModal(id) {
-      document.getElementById(id).classList.add('active');
+      lastFocusedElement = document.activeElement;
+      const modal = document.getElementById(id);
+      modal.classList.add('active');
+
+      // Focus first focusable element in modal
+      setTimeout(() => {
+        const titleElement = modal.querySelector('.modal-title, h3');
+        const firstButton = modal.querySelector('button, input, select');
+        if (titleElement) {
+          titleElement.setAttribute('tabindex', '-1');
+          titleElement.focus();
+        } else if (firstButton) {
+          firstButton.focus();
+        }
+      }, 50);
     }
 
     window.closeModal = function(id) {
       document.getElementById(id).classList.remove('active');
       if (id === 'linkModal' && linkCodeTimer) {
         clearInterval(linkCodeTimer);
+      }
+
+      // Restore focus to element that opened the modal
+      if (lastFocusedElement) {
+        lastFocusedElement.focus();
+        lastFocusedElement = null;
       }
     };
 
@@ -1304,6 +1331,14 @@
         .then(reg => console.log('SW registered'))
         .catch(err => console.log('SW registration failed:', err));
     }
+
+    // Keyboard accessibility (WCAG 2.1.1)
+    document.addEventListener('keydown', function(e) {
+      if ((e.key === 'Enter' || e.key === ' ') && e.target.getAttribute('role') === 'button') {
+        e.preventDefault();
+        e.target.click();
+      }
+    });
 
     // Start
     init();

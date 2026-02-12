@@ -10,7 +10,7 @@
 
   --text-primary: #e2e8f0;
   --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --text-muted: #94a3b8;
 
   --accent-blue: #3b82f6;
   --accent-purple: #8b5cf6;
@@ -612,6 +612,17 @@ select.input {
   }
 }
 
+/* Focus indicators (WCAG 2.4.7) */
+.btn:focus-visible,
+.tab:focus-visible,
+.modal-close:focus-visible,
+.help-btn:focus-visible,
+[role="button"]:focus-visible,
+[role="tab"]:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
+}
+
 .xp-popup {
   position: fixed;
   font-size: 1.5rem;
@@ -621,4 +632,13 @@ select.input {
   animation: xpGain 1s ease-out forwards;
   pointer-events: none;
   z-index: 1000;
+}
+
+/* Reduced motion (WCAG 2.3.3) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

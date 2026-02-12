@@ -1,6 +1,6 @@
 // Offline-first Sync Engine for Chore Chart
 import { supabase, completeChore } from './supabase-client.js';
-import { generateOfflineId } from './constants.js';
+import { generateOfflineId, toLocalDateString } from './constants.js';
 
 const PENDING_QUEUE_KEY = 'chore_chart_pending_queue';
 const CACHE_KEY = 'chore_chart_cache';
@@ -70,7 +70,7 @@ function clearCache() {
 
 export async function completeChoreOffline(assignmentId, childId, xpEarned) {
   const offlineId = generateOfflineId();
-  const today = new Date().toISOString().split('T')[0];
+  const today = toLocalDateString(new Date());
 
   // Add to pending queue
   addToPendingQueue({

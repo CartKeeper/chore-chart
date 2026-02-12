@@ -1,5 +1,6 @@
 // Supabase Client Configuration
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import { toLocalDateString } from './constants.js';
 
 const SUPABASE_URL = 'https://anksgmvundwmggysztjh.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFua3NnbXZ1bmR3bWdneXN6dGpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg4ODQ2NjAsImV4cCI6MjA4NDQ2MDY2MH0.opmqicid41-6AY1kQZBHflELZy6ZDKEsRi1fwehGbhA';
@@ -490,8 +491,8 @@ export async function completeChore({ assignmentId, childId, xpEarned, offlineId
     .insert({
       assignment_id: assignmentId,
       child_id: childId,
-      completion_date: today.toISOString().split('T')[0],
-      week_start: weekStart.toISOString().split('T')[0],
+      completion_date: toLocalDateString(today),
+      week_start: toLocalDateString(weekStart),
       xp_earned: xpEarned,
       offline_id: offlineId
     })
@@ -513,7 +514,7 @@ export async function completeChore({ assignmentId, childId, xpEarned, offlineId
 }
 
 export async function getTodaysCompletions(childId) {
-  const today = new Date().toISOString().split('T')[0];
+  const today = toLocalDateString(new Date());
 
   const { data, error } = await supabase
     .from('chore_completions')
@@ -916,7 +917,7 @@ export async function completeBonusTask({ taskId, childId, weekStart, xpEarned, 
 
 // Request a bonus task completion (pending approval) — once per day
 export async function requestBonusTask({ taskId, childId, weekStart }) {
-  const today = new Date().toISOString().split('T')[0];
+  const today = toLocalDateString(new Date());
   const { data, error } = await supabase
     .from('bonus_task_completions')
     .insert({

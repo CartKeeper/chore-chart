@@ -76,9 +76,20 @@ export function getWeekStart(date = new Date()) {
   return d;
 }
 
-// Format date as YYYY-MM-DD
+// Format date as YYYY-MM-DD using LOCAL timezone (not UTC)
+// IMPORTANT: toISOString() converts to UTC which shifts the date
+// forward after ~4-7pm in US timezones, causing data mismatches.
+export function toLocalDateString(d) {
+  const date = d instanceof Date ? d : new Date(d);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+// Format date as YYYY-MM-DD (alias for backward compat)
 export function formatDate(date) {
-  return date.toISOString().split('T')[0];
+  return toLocalDateString(date);
 }
 
 // Get day of week name

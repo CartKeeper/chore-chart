@@ -383,7 +383,7 @@
 
 .activity-time {
   font-size: 0.875rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
 }
 
 /* Earnings table */
@@ -700,5 +700,26 @@
 
 .notification-description {
   font-size: 0.875rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
+}
+
+/* Focus indicators (WCAG 2.4.7) */
+.parent-nav-item:focus-visible,
+.child-selector-item:focus-visible,
+.pin-key:focus-visible,
+.fab:focus-visible,
+.day-picker-btn:focus-visible,
+.icon-option:focus-visible,
+.reminder-toggle:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
+}
+
+/* Reduced motion (WCAG 2.3.3) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

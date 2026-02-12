@@ -91,7 +91,7 @@
     }
 
     .header p {
-      color: #94a3b8;
+      color: #cbd5e1;
       font-size: 14px;
       margin-top: 4px;
     }
@@ -164,7 +164,7 @@
       cursor: pointer;
       transition: all 0.2s;
       background: transparent;
-      color: #64748b;
+      color: #94a3b8;
     }
 
     .tab-btn.active {
@@ -245,7 +245,7 @@
 
     .progress-text {
       font-size: 12px;
-      color: #64748b;
+      color: #94a3b8;
       margin-top: 4px;
     }
 
@@ -309,7 +309,7 @@
     }
 
     .wallet-row-label {
-      color: #94a3b8;
+      color: #cbd5e1;
     }
 
     .wallet-row-value {
@@ -417,7 +417,7 @@
     .achievement-name {
       font-size: 16px;
       font-weight: 700;
-      color: #64748b;
+      color: #94a3b8;
     }
 
     .achievement-card.unlocked .achievement-name {
@@ -426,14 +426,14 @@
 
     .achievement-desc {
       font-size: 13px;
-      color: #64748b;
+      color: #94a3b8;
       margin-top: 2px;
     }
 
     .achievement-reward {
       font-size: 14px;
       font-weight: 800;
-      color: #64748b;
+      color: #94a3b8;
     }
 
     .achievement-card.unlocked .achievement-reward {
@@ -502,12 +502,12 @@
     }
 
     .trophy-summary-value.potential {
-      color: #64748b;
+      color: #94a3b8;
     }
 
     .trophy-summary-label {
       font-size: 13px;
-      color: #64748b;
+      color: #94a3b8;
       text-transform: uppercase;
       margin-top: 4px;
       letter-spacing: 0.5px;
@@ -595,7 +595,7 @@
     .privilege-name {
       font-size: 16px;
       font-weight: 700;
-      color: #64748b;
+      color: #94a3b8;
     }
 
     .privilege-card.unlocked .privilege-name {
@@ -604,7 +604,7 @@
 
     .privilege-desc {
       font-size: 13px;
-      color: #64748b;
+      color: #94a3b8;
       margin-top: 2px;
     }
 
@@ -807,7 +807,7 @@
 
     .quest-desc {
       font-size: 13px;
-      color: #94a3b8;
+      color: #cbd5e1;
     }
 
     .quest-xp {
@@ -864,7 +864,7 @@
     .nightly-label {
       font-size: 13px;
       font-weight: 600;
-      color: #94a3b8;
+      color: #cbd5e1;
     }
 
     .nightly-item.completed .nightly-label {
@@ -944,7 +944,7 @@
     }
 
     .pay-tier-range {
-      color: #64748b;
+      color: #94a3b8;
       font-size: 13px;
     }
 
@@ -1002,6 +1002,10 @@
       color: #f1f5f9;
       margin-bottom: 20px;
       text-align: center;
+    }
+
+    .modal-title:focus {
+      outline: none;
     }
 
     /* PIN Input */
@@ -1093,7 +1097,7 @@
       display: block;
       font-size: 14px;
       font-weight: 600;
-      color: #94a3b8;
+      color: #cbd5e1;
       margin-bottom: 6px;
     }
 
@@ -1185,7 +1189,7 @@
     }
 
     .earnings-tally-label {
-      color: #94a3b8;
+      color: #cbd5e1;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -1254,7 +1258,7 @@
 
     .item-desc {
       font-size: 13px;
-      color: #64748b;
+      color: #94a3b8;
     }
 
     .item-btn {
@@ -1322,7 +1326,7 @@
 
     .link-code-expires {
       font-size: 13px;
-      color: #64748b;
+      color: #94a3b8;
       margin-top: 8px;
     }
 
@@ -1379,7 +1383,7 @@
 
     .setup-desc {
       font-size: 14px;
-      color: #94a3b8;
+      color: #cbd5e1;
       margin-bottom: 24px;
     }
 
@@ -1387,7 +1391,7 @@
     .loading {
       text-align: center;
       padding: 60px 20px;
-      color: #94a3b8;
+      color: #cbd5e1;
     }
 
     .loading-spinner {
@@ -1408,7 +1412,7 @@
     .empty-state {
       text-align: center;
       padding: 40px 20px;
-      color: #64748b;
+      color: #94a3b8;
     }
 
     .empty-icon {
@@ -1424,7 +1428,7 @@
     .help-content {
       font-size: 15px;
       line-height: 1.6;
-      color: #94a3b8;
+      color: #cbd5e1;
     }
 
     .help-section {
@@ -2477,13 +2481,13 @@
 
     .notification-time {
       font-size: 13px;
-      color: #64748b;
+      color: #94a3b8;
     }
 
     .notification-empty {
       padding: 30px;
       text-align: center;
-      color: #64748b;
+      color: #94a3b8;
       font-size: 15px;
     }
 
@@ -3049,7 +3053,7 @@
 
     .money-maker-desc {
       font-size: 13px;
-      color: #94a3b8;
+      color: #cbd5e1;
     }
 
     .money-maker-xp {
@@ -3081,6 +3085,41 @@
       color: #fbbf24;
       background: rgba(234, 179, 8, 0.15);
       font-size: 12px;
+    }
+
+    /* Focus indicators (WCAG 2.4.7) */
+    .btn:focus-visible,
+    .tab-btn:focus-visible,
+    .portal-nav-btn:focus-visible,
+    .settings-btn:focus-visible,
+    .help-btn:focus-visible,
+    .item-btn:focus-visible,
+    .theme-card:focus-visible,
+    .quest-item:focus-visible,
+    .nightly-item:focus-visible,
+    .money-maker-item:focus-visible,
+    .day-tab:focus-visible,
+    .settings-tab:focus-visible,
+    .avatar-option:focus-visible,
+    .avatar-btn:focus-visible,
+    .notification-btn:focus-visible,
+    .quest-help-btn:focus-visible,
+    .achievement-claim-btn:focus-visible,
+    .privilege-use-btn:focus-visible,
+    .pin-digit:focus-visible,
+    [role="button"]:focus-visible,
+    [role="tab"]:focus-visible {
+      outline: 2px solid #60a5fa;
+      outline-offset: 2px;
+    }
+
+    /* Reduced motion (WCAG 2.3.3) */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
     }
   </style>
 </head>
@@ -3117,11 +3156,11 @@
         <div class="setup-title">Parent Login</div>
         <div class="setup-desc">Enter your family name and parent PIN to access your family.</div>
         <div class="form-group">
-          <label class="form-label">Family Name</label>
+          <label class="form-label" for="setup-login-family">Family Name</label>
           <input type="text" class="form-input" id="setup-login-family" placeholder="The Smith Family">
         </div>
         <div class="form-group">
-          <label class="form-label">Parent PIN (4 digits)</label>
+          <label class="form-label" for="setup-login-pin">Parent PIN (4 digits)</label>
           <input type="password" class="form-input" id="setup-login-pin" placeholder="••••" maxlength="4" inputmode="numeric">
         </div>
         <button class="btn btn-primary btn-lg" onclick="loginWithPin()">Log In</button>
@@ -3133,11 +3172,11 @@
         <div class="setup-title">Parent Setup</div>
         <div class="setup-desc">Create your family and set a PIN for parent access.</div>
         <div class="form-group">
-          <label class="form-label">Family Name</label>
+          <label class="form-label" for="setup-family-name">Family Name</label>
           <input type="text" class="form-input" id="setup-family-name" placeholder="The Smith Family">
         </div>
         <div class="form-group">
-          <label class="form-label">Parent PIN (4 digits)</label>
+          <label class="form-label" for="setup-parent-pin">Parent PIN (4 digits)</label>
           <input type="password" class="form-input" id="setup-parent-pin" placeholder="••••" maxlength="4" inputmode="numeric">
         </div>
         <button class="btn btn-primary btn-lg" onclick="createNewFamily()">Create Family</button>
@@ -3149,7 +3188,7 @@
         <div class="setup-title">Join Family</div>
         <div class="setup-desc">Enter the 6-digit code from your parent.</div>
         <div class="form-group">
-          <label class="form-label">Family Code</label>
+          <label class="form-label" for="setup-link-code">Family Code</label>
           <input type="text" class="form-input" id="setup-link-code" placeholder="123456" maxlength="6" inputmode="numeric" style="text-align: center; font-size: 24px; letter-spacing: 8px;">
         </div>
         <button class="btn btn-primary btn-lg" onclick="joinWithCode()">Join Family</button>
@@ -3161,7 +3200,7 @@
         <div class="setup-title">Add a Child</div>
         <div class="setup-desc">Who will be completing quests?</div>
         <div class="form-group">
-          <label class="form-label">Child's Name</label>
+          <label class="form-label" for="setup-child-name">Child's Name</label>
           <input type="text" class="form-input" id="setup-child-name" placeholder="Carter">
         </div>
         <div class="form-group">
@@ -3224,11 +3263,11 @@
           <div class="portal-subtitle">Parent Portal</div>
         </div>
         <div class="portal-actions">
-          <button class="portal-btn notification" id="notification-bell" onclick="toggleNotifications()" title="Notifications">
+          <button class="portal-btn notification" id="notification-bell" onclick="toggleNotifications()" title="Notifications" aria-label="Notifications">
             🔔
-            <span class="notification-badge" id="notification-badge" style="display: none;">0</span>
+            <span class="notification-badge" id="notification-badge" style="display: none;" aria-live="polite">0</span>
           </button>
-          <button class="portal-btn settings" onclick="generateLinkCode()" title="Link Device">🔗</button>
+          <button class="portal-btn settings" onclick="generateLinkCode()" title="Link Device" aria-label="Link device">🔗</button>
         </div>
         <!-- Notifications Dropdown -->
         <div class="notifications-dropdown" id="notifications-dropdown" style="display: none;">
@@ -3243,22 +3282,22 @@
       </div>
 
       <!-- Main Navigation Tabs -->
-      <div class="portal-nav main-nav">
-        <button class="portal-nav-btn active" data-tab="overview" onclick="switchPortalTab('overview')">📊 Overview</button>
-        <button class="portal-nav-btn" data-tab="children" onclick="switchPortalTab('children')">👨‍👩‍👧 Children</button>
-        <button class="portal-nav-btn" data-tab="activity" onclick="switchPortalTab('activity')">📋 Activity</button>
+      <div class="portal-nav main-nav" role="tablist">
+        <button class="portal-nav-btn active" role="tab" aria-selected="true" data-tab="overview" onclick="switchPortalTab('overview')">📊 Overview</button>
+        <button class="portal-nav-btn" role="tab" aria-selected="false" data-tab="children" onclick="switchPortalTab('children')">👨‍👩‍👧 Children</button>
+        <button class="portal-nav-btn" role="tab" aria-selected="false" data-tab="activity" onclick="switchPortalTab('activity')">📋 Activity</button>
       </div>
 
       <!-- Child Selector - Below main tabs, above management tabs -->
       <div class="child-selector" id="portal-child-selector"></div>
 
       <!-- Management Tabs (scrollable) -->
-      <div class="portal-nav secondary-nav">
-        <button class="portal-nav-btn secondary" data-tab="chores" onclick="switchPortalTab('chores')">📝 Chores</button>
-        <button class="portal-nav-btn secondary" data-tab="assignments" onclick="switchPortalTab('assignments')">📅 Assign</button>
-        <button class="portal-nav-btn secondary" data-tab="nightly" onclick="switchPortalTab('nightly')">🌙 Nightly</button>
-        <button class="portal-nav-btn secondary" data-tab="bonus" onclick="switchPortalTab('bonus')">💵 Rewards</button>
-        <button class="portal-nav-btn secondary" data-tab="earnings" onclick="switchPortalTab('earnings')">💰 Earnings</button>
+      <div class="portal-nav secondary-nav" role="tablist">
+        <button class="portal-nav-btn secondary" role="tab" aria-selected="false" data-tab="chores" onclick="switchPortalTab('chores')">📝 Chores</button>
+        <button class="portal-nav-btn secondary" role="tab" aria-selected="false" data-tab="assignments" onclick="switchPortalTab('assignments')">📅 Assign</button>
+        <button class="portal-nav-btn secondary" role="tab" aria-selected="false" data-tab="nightly" onclick="switchPortalTab('nightly')">🌙 Nightly</button>
+        <button class="portal-nav-btn secondary" role="tab" aria-selected="false" data-tab="bonus" onclick="switchPortalTab('bonus')">💵 Rewards</button>
+        <button class="portal-nav-btn secondary" role="tab" aria-selected="false" data-tab="earnings" onclick="switchPortalTab('earnings')">💰 Earnings</button>
       </div>
 
       <!-- Overview Section (for selected child) -->
@@ -3291,7 +3330,7 @@
           </div>
           <div id="portal-children-list" class="item-list"></div>
           <div class="form-group" style="margin-top: 16px;">
-            <label class="form-label">Add New Child</label>
+            <label class="form-label" for="portal-new-child-name">Add New Child</label>
             <input type="text" class="form-input" id="portal-new-child-name" placeholder="Child's name">
           </div>
           <button class="btn btn-primary" style="margin-top: 8px;" onclick="addChildFromPortal()">+ Add Child</button>
@@ -3365,7 +3404,7 @@
           <p style="font-size: 12px; color: #94a3b8; margin-bottom: 12px;">Configure zones for nightly patrol. Kids check each zone before bed for a streak bonus.</p>
           <div id="portal-nightly-zones-list" class="item-list"></div>
           <div class="form-group" style="margin-top: 16px;">
-            <label class="form-label">Add New Zone</label>
+            <label class="form-label" for="portal-new-zone-name">Add New Zone</label>
             <div style="display: flex; gap: 10px;">
               <select class="form-select" id="portal-new-zone-icon" style="width: 80px;">
                 <option value="🛏️">🛏️</option>
@@ -3394,11 +3433,11 @@
           </div>
           <p style="font-size: 12px; color: #94a3b8; margin-bottom: 12px;">Set a nightly reminder with a checklist of things to do before bed.</p>
           <div class="form-group">
-            <label class="form-label">Reminder Time</label>
+            <label class="form-label" for="bedtime-reminder-time">Reminder Time</label>
             <input type="time" class="form-input" id="bedtime-reminder-time" style="max-width: 150px;">
           </div>
           <div class="form-group">
-            <label class="form-label">Bedtime Checklist</label>
+            <label class="form-label" for="bedtime-reminder-message">Bedtime Checklist</label>
             <textarea class="form-input" id="bedtime-reminder-message" rows="4" placeholder="Example:
 • Brush teeth
 • Put in rubberbands
@@ -3478,22 +3517,22 @@
       </div>
 
       <div class="header">
-        <button class="help-btn" onclick="showModal('help-modal')">🛟</button>
-        <button class="notification-btn" id="notification-toggle-btn" onclick="toggleNotifications()" style="position: absolute; top: 16px; right: 56px; background: rgba(255,255,255,0.1); border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer;">🔕</button>
-        <button class="settings-btn" onclick="showModal('theme-modal')">🎨</button>
+        <button class="help-btn" onclick="showModal('help-modal')" aria-label="Help">🛟</button>
+        <button class="notification-btn" id="notification-toggle-btn" onclick="toggleNotifications()" aria-label="Toggle notifications" style="position: absolute; top: 16px; right: 56px; background: rgba(255,255,255,0.1); border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer;">🔕</button>
+        <button class="settings-btn" onclick="showModal('theme-modal')" aria-label="Change theme">🎨</button>
         <div class="header-tag">⚡ QUEST LOG ⚡</div>
         <h1 id="app-title" onclick="handleTitleTap()">MISSIONS</h1>
         <p>Complete quests. Earn XP. Get paid.</p>
       </div>
 
-      <div class="tab-nav">
-        <button class="tab-btn active" onclick="switchTab('quests')">🎯 Quests</button>
-        <button class="tab-btn" onclick="switchTab('wallet')">💰 Wallet</button>
-        <button class="tab-btn" onclick="switchTab('trophies')">🏆 Trophies</button>
+      <div class="tab-nav" role="tablist">
+        <button class="tab-btn active" role="tab" aria-selected="true" onclick="switchTab('quests')">🎯 Quests</button>
+        <button class="tab-btn" role="tab" aria-selected="false" onclick="switchTab('wallet')">💰 Wallet</button>
+        <button class="tab-btn" role="tab" aria-selected="false" onclick="switchTab('trophies')">🏆 Trophies</button>
       </div>
 
       <!-- QUESTS TAB -->
-      <div class="tab-content active" id="tab-quests">
+      <div class="tab-content active" id="tab-quests" role="tabpanel">
         <div class="stats-grid">
           <div class="stat-card level">
             <div class="stat-label">LEVEL</div>
@@ -3544,7 +3583,7 @@
       </div>
 
       <!-- WALLET TAB -->
-      <div class="tab-content" id="tab-wallet">
+      <div class="tab-content" id="tab-wallet" role="tabpanel">
         <div class="wallet-card">
           <div class="wallet-header">
             <span>💰</span>
@@ -3607,7 +3646,7 @@
       </div>
 
       <!-- TROPHIES TAB -->
-      <div class="tab-content" id="tab-trophies">
+      <div class="tab-content" id="tab-trophies" role="tabpanel">
         <!-- Trophy Rewards Summary -->
         <div class="trophy-summary" id="trophy-summary">
           <div class="trophy-summary-stat">
@@ -3655,9 +3694,9 @@
   </div>
 
   <!-- PIN Modal -->
-  <div class="modal-overlay" id="pin-modal">
+  <div class="modal-overlay" id="pin-modal" role="dialog" aria-modal="true" aria-labelledby="pin-modal-title">
     <div class="modal" style="max-width: 320px;">
-      <div class="modal-title">🔐 Parent Access</div>
+      <div class="modal-title" id="pin-modal-title">🔐 Parent Access</div>
       <div class="pin-container">
         <p style="color: #94a3b8; font-size: 13px; margin-bottom: 16px;">Enter your 4-digit PIN</p>
         <div class="pin-input" id="pin-inputs"></div>
@@ -3668,9 +3707,9 @@
   </div>
 
   <!-- Settings Modal -->
-  <div class="modal-overlay" id="settings-modal">
+  <div class="modal-overlay" id="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title">
     <div class="modal">
-      <div class="modal-title">⚙️ Parent Settings</div>
+      <div class="modal-title" id="settings-modal-title">⚙️ Parent Settings</div>
       <div class="settings-tabs">
         <button class="settings-tab active" onclick="switchSettingsTab('family')">👨‍👩‍👧 Family</button>
         <button class="settings-tab" onclick="switchSettingsTab('chores')">📋 Chores</button>
@@ -3683,7 +3722,7 @@
         <h4 style="color: #f1f5f9; margin: 0 0 12px; font-size: 14px;">Children</h4>
         <div id="children-list" class="item-list"></div>
         <div class="form-group">
-          <label class="form-label">Add New Child</label>
+          <label class="form-label" for="new-child-name">Add New Child</label>
           <input type="text" class="form-input" id="new-child-name" placeholder="Child's name">
         </div>
         <button class="btn btn-primary btn-lg" onclick="addChild()">+ Add Child</button>
@@ -3702,16 +3741,16 @@
           <div id="settings-chore-templates-picker" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;"></div>
         </div>
         <div class="form-group">
-          <label class="form-label">Chore Name</label>
+          <label class="form-label" for="new-chore-name">Chore Name</label>
           <input type="text" class="form-input" id="new-chore-name" placeholder="Take out trash">
         </div>
         <div class="form-group">
-          <label class="form-label">Expectations</label>
+          <label class="form-label" for="new-chore-desc">Expectations</label>
           <textarea class="form-input" id="new-chore-desc" placeholder="What exactly needs to be done? Be specific!" rows="3" style="resize: vertical;"></textarea>
         </div>
         <div style="display: flex; gap: 10px;">
           <div class="form-group" style="flex: 1;">
-            <label class="form-label">Icon</label>
+            <label class="form-label" for="new-chore-icon">Icon</label>
             <select class="form-select" id="new-chore-icon">
               <option value="🗑️">🗑️ Trash</option>
               <option value="🍽️">🍽️ Dishes</option>
@@ -3729,7 +3768,7 @@
             </select>
           </div>
           <div class="form-group" style="flex: 1;">
-            <label class="form-label">XP Value</label>
+            <label class="form-label" for="new-chore-xp">XP Value</label>
             <select class="form-select" id="new-chore-xp">
               <option value="5">5 XP</option>
               <option value="10" selected>10 XP</option>
@@ -3746,15 +3785,15 @@
 
       <div class="settings-content" id="settings-assign">
         <div class="form-group">
-          <label class="form-label">Child</label>
+          <label class="form-label" for="settings-assign-child">Child</label>
           <select class="form-select" id="settings-assign-child"></select>
         </div>
         <div class="form-group">
-          <label class="form-label">Chore</label>
+          <label class="form-label" for="settings-assign-chore">Chore</label>
           <select class="form-select" id="settings-assign-chore"></select>
         </div>
         <div class="form-group">
-          <label class="form-label">Schedule</label>
+          <label class="form-label" for="settings-assign-schedule">Schedule</label>
           <select class="form-select" id="settings-assign-schedule">
             <option value="daily">Daily</option>
             <option value="weekly-0">Weekly - Sunday</option>
@@ -3767,7 +3806,7 @@
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label">Reminder Time (optional)</label>
+          <label class="form-label" for="settings-assign-reminder-time">Reminder Time (optional)</label>
           <div style="display: flex; gap: 10px; align-items: center;">
             <input type="time" class="form-input" id="settings-assign-reminder-time" style="flex: 1;">
             <button type="button" class="btn btn-secondary" style="padding: 12px; flex: 0;" onclick="document.getElementById('settings-assign-reminder-time').value=''">Clear</button>
@@ -3784,11 +3823,11 @@
         <div id="nightly-zones-list" class="item-list"></div>
         <h4 style="color: #f1f5f9; margin: 20px 0 12px; font-size: 14px;">Add New Zone</h4>
         <div class="form-group">
-          <label class="form-label">Zone Name</label>
+          <label class="form-label" for="new-zone-name">Zone Name</label>
           <input type="text" class="form-input" id="new-zone-name" placeholder="Kitchen">
         </div>
         <div class="form-group">
-          <label class="form-label">Icon</label>
+          <label class="form-label" for="new-zone-icon">Icon</label>
           <select class="form-select" id="new-zone-icon">
             <option value="🛏️">🛏️ Bedroom</option>
             <option value="📺">📺 Living Room</option>
@@ -3815,7 +3854,7 @@
   </div>
 
   <!-- In-App Reminder Modal -->
-  <div class="modal-overlay" id="reminder-popup-modal">
+  <div class="modal-overlay" id="reminder-popup-modal" role="dialog" aria-modal="true" aria-labelledby="reminder-popup-title">
     <div class="modal" style="text-align: center;">
       <div style="font-size: 48px; margin-bottom: 16px;">😴</div>
       <div class="modal-title" id="reminder-popup-title">Bedtime Reminder</div>
@@ -3825,9 +3864,9 @@
   </div>
 
   <!-- Help Modal -->
-  <div class="modal-overlay" id="help-modal">
+  <div class="modal-overlay" id="help-modal" role="dialog" aria-modal="true" aria-labelledby="help-modal-title">
     <div class="modal">
-      <div class="modal-title">🛟 Help</div>
+      <div class="modal-title" id="help-modal-title">🛟 Help</div>
       <div class="help-content">
         <div class="help-section">
           <h3>🎯 Completing Quests</h3>
@@ -3865,10 +3904,10 @@
   </div>
 
   <!-- Achievement Unlocked Modal -->
-  <div class="modal-overlay" id="achievement-unlocked-modal">
+  <div class="modal-overlay" id="achievement-unlocked-modal" role="dialog" aria-modal="true" aria-labelledby="achievement-unlocked-modal-title">
     <div class="modal" style="text-align: center;">
       <div style="font-size: 64px; margin-bottom: 16px;" id="unlocked-achievement-icon">🏆</div>
-      <div class="modal-title" style="color: #fbbf24;">Achievement Unlocked!</div>
+      <div class="modal-title" id="achievement-unlocked-modal-title" style="color: #fbbf24;">Achievement Unlocked!</div>
       <div style="font-size: 20px; font-weight: 700; color: #e2e8f0; margin-bottom: 8px;" id="unlocked-achievement-name"></div>
       <div style="font-size: 14px; color: #94a3b8; margin-bottom: 16px;" id="unlocked-achievement-desc"></div>
       <div style="font-size: 18px; font-weight: 700; color: #22c55e; margin-bottom: 16px;" id="unlocked-achievement-reward"></div>
@@ -3877,9 +3916,9 @@
   </div>
 
   <!-- Expectations Modal -->
-  <div class="modal-overlay" id="expectations-modal">
+  <div class="modal-overlay" id="expectations-modal" role="dialog" aria-modal="true" aria-labelledby="expectations-modal-title">
     <div class="modal">
-      <div class="modal-title">📋 Expectations</div>
+      <div class="modal-title" id="expectations-modal-title">📋 Expectations</div>
       <div style="text-align: center; margin-bottom: 16px;">
         <div style="font-size: 18px; font-weight: 700; color: #e2e8f0;" id="expectations-chore-name"></div>
       </div>
@@ -3892,13 +3931,13 @@
   </div>
 
   <!-- Allowance Calculator Modal -->
-  <div class="modal-overlay" id="allowance-calc-modal">
+  <div class="modal-overlay" id="allowance-calc-modal" role="dialog" aria-modal="true" aria-labelledby="allowance-calc-modal-title">
     <div class="modal" style="max-width: 400px;">
-      <div class="modal-title">🧮 Allowance Calculator</div>
+      <div class="modal-title" id="allowance-calc-modal-title">🧮 Allowance Calculator</div>
       <div style="color: #94a3b8; font-size: 13px; margin-bottom: 16px;">Enter your target max weekly allowance and we'll show you the best pay scale and XP breakdown.</div>
 
       <div class="form-group">
-        <label class="form-label">Target Max Weekly Allowance ($)</label>
+        <label class="form-label" for="calc-target-amount">Target Max Weekly Allowance ($)</label>
         <input type="number" class="form-input" id="calc-target-amount" placeholder="10.00" step="0.50" min="1" style="font-size: 20px; text-align: center;">
       </div>
 
@@ -3915,10 +3954,10 @@
   </div>
 
   <!-- Quest Complete Confirmation Modal -->
-  <div class="modal-overlay" id="quest-confirm-modal">
+  <div class="modal-overlay" id="quest-confirm-modal" role="dialog" aria-modal="true" aria-labelledby="quest-confirm-modal-title">
     <div class="modal" style="max-width: 340px; text-align: center;">
       <div style="font-size: 48px; margin-bottom: 12px;" id="quest-confirm-icon">⚔️</div>
-      <div class="modal-title" style="font-size: 18px;">Quest Complete?</div>
+      <div class="modal-title" id="quest-confirm-modal-title" style="font-size: 18px;">Quest Complete?</div>
       <div id="quest-confirm-name" style="color: #93c5fd; font-size: 16px; font-weight: 600; margin: 8px 0 4px;"></div>
       <div id="quest-confirm-xp" style="color: #4ade80; font-size: 14px; margin-bottom: 20px;"></div>
       <div style="display: flex; gap: 12px;">
@@ -3929,12 +3968,12 @@
   </div>
 
   <!-- Edit Child Modal -->
-  <div class="modal-overlay" id="edit-child-modal">
+  <div class="modal-overlay" id="edit-child-modal" role="dialog" aria-modal="true" aria-labelledby="edit-child-modal-title">
     <div class="modal">
-      <div class="modal-title">✏️ Edit Child</div>
+      <div class="modal-title" id="edit-child-modal-title">✏️ Edit Child</div>
       <input type="hidden" id="edit-child-id">
       <div class="form-group">
-        <label class="form-label">Name</label>
+        <label class="form-label" for="edit-child-name">Name</label>
         <input type="text" class="form-input" id="edit-child-name" placeholder="Child's name">
       </div>
       <div class="form-group">
@@ -3955,12 +3994,12 @@
         </div>
       </div>
       <div class="form-group">
-        <label class="form-label">Venmo Username (optional)</label>
+        <label class="form-label" for="edit-child-venmo">Venmo Username (optional)</label>
         <input type="text" class="form-input" id="edit-child-venmo" placeholder="@username">
         <p style="font-size: 11px; color: #64748b; margin-top: 4px;">Used for quick Venmo payments on payday</p>
       </div>
       <div class="form-group">
-        <label class="form-label">Cash App $Cashtag (optional)</label>
+        <label class="form-label" for="edit-child-cashapp">Cash App $Cashtag (optional)</label>
         <input type="text" class="form-input" id="edit-child-cashapp" placeholder="$cashtag">
         <p style="font-size: 11px; color: #64748b; margin-top: 4px;">Used for quick Cash App payments on payday</p>
       </div>
@@ -3972,10 +4011,10 @@
   </div>
 
   <!-- Payday Modal -->
-  <div class="modal-overlay" id="payday-modal">
+  <div class="modal-overlay" id="payday-modal" role="dialog" aria-modal="true" aria-labelledby="payday-modal-title">
     <div class="modal payday-modal">
       <div class="payday-icon">💵</div>
-      <div class="payday-title">PAYDAY!</div>
+      <div class="payday-title" id="payday-modal-title">PAYDAY!</div>
       <div class="payday-subtitle">Here's what you've earned this week</div>
       <div class="payday-amount" id="payday-amount">$0.00</div>
       <div class="payday-details">
@@ -4009,47 +4048,47 @@
   </div>
 
   <!-- Theme Selector Modal -->
-  <div class="modal-overlay" id="theme-modal">
+  <div class="modal-overlay" id="theme-modal" role="dialog" aria-modal="true" aria-labelledby="theme-modal-title">
     <div class="modal">
-      <div class="modal-title">🎨 Choose Your Style</div>
+      <div class="modal-title" id="theme-modal-title">🎨 Choose Your Style</div>
       <p style="color: #94a3b8; font-size: 13px; margin-bottom: 20px; text-align: center;">Pick a theme that matches your vibe!</p>
       <div class="theme-grid">
-        <div class="theme-card" data-theme="default" onclick="selectTheme('default')" style="background: linear-gradient(135deg, #1a1a2e, #16213e); border-color: rgba(59, 130, 246, 0.3);">
+        <div class="theme-card" data-theme="default" role="button" tabindex="0" onclick="selectTheme('default')" style="background: linear-gradient(135deg, #1a1a2e, #16213e); border-color: rgba(59, 130, 246, 0.3);">
           <div class="theme-card-icon">⚔️</div>
           <div class="theme-card-name" style="color: #60a5fa;">Quest Log</div>
           <div class="theme-card-desc" style="color: #94a3b8;">Earn XP • Classic RPG</div>
         </div>
-        <div class="theme-card" data-theme="roblox" onclick="selectTheme('roblox')" style="background: linear-gradient(135deg, #2d2d2d, #1a1a1a); border-color: rgba(0, 162, 255, 0.3);">
+        <div class="theme-card" data-theme="roblox" role="button" tabindex="0" onclick="selectTheme('roblox')" style="background: linear-gradient(135deg, #2d2d2d, #1a1a1a); border-color: rgba(0, 162, 255, 0.3);">
           <div class="theme-card-icon">🧱</div>
           <div class="theme-card-name" style="color: #00a2ff;">Roblox</div>
           <div class="theme-card-desc" style="color: #00d4aa;">Earn R$ • Obbies</div>
         </div>
-        <div class="theme-card" data-theme="fortnite" onclick="selectTheme('fortnite')" style="background: linear-gradient(135deg, #1b263b, #0d1b2a); border-color: rgba(157, 78, 221, 0.3);">
+        <div class="theme-card" data-theme="fortnite" role="button" tabindex="0" onclick="selectTheme('fortnite')" style="background: linear-gradient(135deg, #1b263b, #0d1b2a); border-color: rgba(157, 78, 221, 0.3);">
           <div class="theme-card-icon">🎯</div>
           <div class="theme-card-name" style="color: #e0aaff;">Battle Pass</div>
           <div class="theme-card-desc" style="color: #06ffa5;">Earn V-Bucks • Challenges</div>
         </div>
-        <div class="theme-card" data-theme="minecraft" onclick="selectTheme('minecraft')" style="background: linear-gradient(135deg, #3d2914, #2d1f0f); border-color: rgba(93, 140, 46, 0.3);">
+        <div class="theme-card" data-theme="minecraft" role="button" tabindex="0" onclick="selectTheme('minecraft')" style="background: linear-gradient(135deg, #3d2914, #2d1f0f); border-color: rgba(93, 140, 46, 0.3);">
           <div class="theme-card-icon">⛏️</div>
           <div class="theme-card-name" style="color: #7cb342;">Minecraft</div>
           <div class="theme-card-desc" style="color: #c9b896;">Earn ◆ • Survival</div>
         </div>
-        <div class="theme-card" data-theme="barbie" onclick="selectTheme('barbie')" style="background: linear-gradient(135deg, #ff69b4, #ff1493); border-color: rgba(255, 182, 193, 0.5);">
+        <div class="theme-card" data-theme="barbie" role="button" tabindex="0" onclick="selectTheme('barbie')" style="background: linear-gradient(135deg, #ff69b4, #ff1493); border-color: rgba(255, 182, 193, 0.5);">
           <div class="theme-card-icon">💖</div>
           <div class="theme-card-name" style="color: #fff;">Barbie</div>
           <div class="theme-card-desc" style="color: #ffe4ec;">Earn ✨ • Dreamhouse</div>
         </div>
-        <div class="theme-card" data-theme="animalcrossing" onclick="selectTheme('animalcrossing')" style="background: linear-gradient(135deg, #7ed6a5, #4db6ac); border-color: rgba(165, 214, 167, 0.5);">
+        <div class="theme-card" data-theme="animalcrossing" role="button" tabindex="0" onclick="selectTheme('animalcrossing')" style="background: linear-gradient(135deg, #7ed6a5, #4db6ac); border-color: rgba(165, 214, 167, 0.5);">
           <div class="theme-card-icon">🍃</div>
           <div class="theme-card-name" style="color: #fff;">Animal Crossing</div>
           <div class="theme-card-desc" style="color: #e8f5e9;">Earn 🔔 • Island Life</div>
         </div>
-        <div class="theme-card" data-theme="gacha" onclick="selectTheme('gacha')" style="background: linear-gradient(135deg, #e1bee7, #ce93d8); border-color: rgba(186, 104, 200, 0.5);">
+        <div class="theme-card" data-theme="gacha" role="button" tabindex="0" onclick="selectTheme('gacha')" style="background: linear-gradient(135deg, #e1bee7, #ce93d8); border-color: rgba(186, 104, 200, 0.5);">
           <div class="theme-card-icon">🌸</div>
           <div class="theme-card-name" style="color: #4a148c;">Gacha Life</div>
           <div class="theme-card-desc" style="color: #6a1b9a;">Earn 💎 • Create OCs</div>
         </div>
-        <div class="theme-card" data-theme="princess" onclick="selectTheme('princess')" style="background: linear-gradient(135deg, #9575cd, #7e57c2); border-color: rgba(179, 157, 219, 0.5);">
+        <div class="theme-card" data-theme="princess" role="button" tabindex="0" onclick="selectTheme('princess')" style="background: linear-gradient(135deg, #9575cd, #7e57c2); border-color: rgba(179, 157, 219, 0.5);">
           <div class="theme-card-icon">👑</div>
           <div class="theme-card-name" style="color: #ffd700;">Princess</div>
           <div class="theme-card-desc" style="color: #e1bee7;">Earn 👑 • Royal Quest</div>
@@ -4060,10 +4099,10 @@
   </div>
 
   <!-- Weekly Reset Welcome Modal -->
-  <div class="modal-overlay" id="weekly-welcome-modal">
+  <div class="modal-overlay" id="weekly-welcome-modal" role="dialog" aria-modal="true" aria-labelledby="weekly-welcome-modal-title">
     <div class="modal" style="text-align: center;">
       <div style="font-size: 60px; margin-bottom: 16px;">🌟</div>
-      <div class="modal-title" style="color: #fbbf24;">New Week, New Quests!</div>
+      <div class="modal-title" id="weekly-welcome-modal-title" style="color: #fbbf24;">New Week, New Quests!</div>
       <p style="color: #94a3b8; font-size: 14px; margin-bottom: 20px;">
         Your weekly progress has been reset. Time to earn XP and climb the ranks!
       </p>
@@ -4099,9 +4138,9 @@
   </div>
 
   <!-- Edit Reminder Modal -->
-  <div class="modal-overlay" id="edit-reminder-modal">
+  <div class="modal-overlay" id="edit-reminder-modal" role="dialog" aria-modal="true" aria-labelledby="edit-reminder-modal-title">
     <div class="modal" style="max-width: 340px;">
-      <div class="modal-title">⏰ Set Reminder</div>
+      <div class="modal-title" id="edit-reminder-modal-title">⏰ Set Reminder</div>
       <input type="hidden" id="edit-reminder-assignment-id">
       <input type="hidden" id="edit-reminder-chore-name">
       <input type="hidden" id="edit-reminder-child-name">
@@ -4109,7 +4148,7 @@
       <input type="hidden" id="edit-reminder-schedule">
       <p style="color: #94a3b8; font-size: 13px; margin-bottom: 16px; text-align: center;" id="edit-reminder-desc"></p>
       <div class="form-group">
-        <label class="form-label">Reminder Time</label>
+        <label class="form-label" for="edit-reminder-time">Reminder Time</label>
         <input type="time" class="form-input" id="edit-reminder-time" style="font-size: 18px; text-align: center;">
       </div>
       <p style="font-size: 13px; color: #64748b; margin-bottom: 16px; text-align: center;">
@@ -4122,16 +4161,16 @@
   </div>
 
   <!-- Edit Zone Modal -->
-  <div class="modal-overlay" id="edit-zone-modal">
+  <div class="modal-overlay" id="edit-zone-modal" role="dialog" aria-modal="true" aria-labelledby="edit-zone-modal-title">
     <div class="modal">
-      <div class="modal-title">🌙 Edit Zone</div>
+      <div class="modal-title" id="edit-zone-modal-title">🌙 Edit Zone</div>
       <input type="hidden" id="edit-zone-key">
       <div class="form-group">
-        <label class="form-label">Zone Name</label>
+        <label class="form-label" for="edit-zone-name">Zone Name</label>
         <input type="text" class="form-input" id="edit-zone-name" placeholder="Kitchen">
       </div>
       <div class="form-group">
-        <label class="form-label">Icon</label>
+        <label class="form-label" for="edit-zone-icon">Icon</label>
         <select class="form-select" id="edit-zone-icon">
           <option value="🛏️">🛏️ Bedroom</option>
           <option value="📺">📺 Living Room</option>
@@ -4151,21 +4190,21 @@
   </div>
 
   <!-- Edit Chore Modal -->
-  <div class="modal-overlay" id="edit-chore-modal">
+  <div class="modal-overlay" id="edit-chore-modal" role="dialog" aria-modal="true" aria-labelledby="edit-chore-modal-title">
     <div class="modal">
-      <div class="modal-title">✏️ Edit Chore</div>
+      <div class="modal-title" id="edit-chore-modal-title">✏️ Edit Chore</div>
       <input type="hidden" id="edit-chore-id">
       <div class="form-group">
-        <label class="form-label">Chore Name</label>
+        <label class="form-label" for="edit-chore-name">Chore Name</label>
         <input type="text" class="form-input" id="edit-chore-name" placeholder="Take out trash">
       </div>
       <div class="form-group">
-        <label class="form-label">Expectations</label>
+        <label class="form-label" for="edit-chore-desc">Expectations</label>
         <textarea class="form-input" id="edit-chore-desc" placeholder="What exactly needs to be done? Be specific!" rows="3" style="resize: vertical;"></textarea>
       </div>
       <div style="display: flex; gap: 10px;">
         <div class="form-group" style="flex: 1;">
-          <label class="form-label">Icon</label>
+          <label class="form-label" for="edit-chore-icon">Icon</label>
           <select class="form-select" id="edit-chore-icon">
             <option value="🗑️">🗑️ Trash</option>
             <option value="🍽️">🍽️ Dishes</option>
@@ -4180,7 +4219,7 @@
           </select>
         </div>
         <div class="form-group" style="flex: 1;">
-          <label class="form-label">XP Value</label>
+          <label class="form-label" for="edit-chore-xp">XP Value</label>
           <select class="form-select" id="edit-chore-xp">
             <option value="5">5 XP</option>
             <option value="10">10 XP</option>
@@ -4198,24 +4237,24 @@
   </div>
 
   <!-- Add Chore Modal -->
-  <div class="modal-overlay" id="add-chore-modal">
+  <div class="modal-overlay" id="add-chore-modal" role="dialog" aria-modal="true" aria-labelledby="add-chore-modal-title">
     <div class="modal">
-      <div class="modal-title">+ Add New Chore</div>
+      <div class="modal-title" id="add-chore-modal-title">+ Add New Chore</div>
       <div class="form-group">
         <label class="form-label">Quick Templates</label>
         <div id="chore-templates-picker" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;"></div>
       </div>
       <div class="form-group">
-        <label class="form-label">Chore Name</label>
+        <label class="form-label" for="add-chore-name">Chore Name</label>
         <input type="text" class="form-input" id="add-chore-name" placeholder="Take out trash">
       </div>
       <div class="form-group">
-        <label class="form-label">Expectations</label>
+        <label class="form-label" for="add-chore-desc">Expectations</label>
         <textarea class="form-input" id="add-chore-desc" placeholder="What exactly needs to be done? Be specific!" rows="3" style="resize: vertical;"></textarea>
       </div>
       <div style="display: flex; gap: 10px;">
         <div class="form-group" style="flex: 1;">
-          <label class="form-label">Icon</label>
+          <label class="form-label" for="add-chore-icon">Icon</label>
           <select class="form-select" id="add-chore-icon">
             <option value="🗑️">🗑️ Trash</option>
             <option value="🍽️">🍽️ Dishes</option>
@@ -4233,7 +4272,7 @@
           </select>
         </div>
         <div class="form-group" style="flex: 1;">
-          <label class="form-label">XP Value</label>
+          <label class="form-label" for="add-chore-xp">XP Value</label>
           <select class="form-select" id="add-chore-xp">
             <option value="5">5 XP</option>
             <option value="10" selected>10 XP</option>
@@ -4254,15 +4293,15 @@
     <div class="modal">
       <div class="modal-title">📅 Assign Chore</div>
       <div class="form-group">
-        <label class="form-label">Child</label>
+        <label class="form-label" for="assign-child">Child</label>
         <select class="form-select" id="assign-child"></select>
       </div>
       <div class="form-group">
-        <label class="form-label">Chore</label>
+        <label class="form-label" for="assign-chore">Chore</label>
         <select class="form-select" id="assign-chore"></select>
       </div>
       <div class="form-group">
-        <label class="form-label">Schedule</label>
+        <label class="form-label" for="assign-schedule">Schedule</label>
         <select class="form-select" id="assign-schedule" onchange="toggleDayPicker()">
           <option value="daily">Daily</option>
           <option value="weekly">Specific Day</option>
@@ -4270,7 +4309,7 @@
         </select>
       </div>
       <div class="form-group" id="day-picker-group" style="display: none;">
-        <label class="form-label">Day of Week</label>
+        <label class="form-label" for="assign-day">Day of Week</label>
         <select class="form-select" id="assign-day">
           <option value="0">Sunday</option>
           <option value="1">Monday</option>
@@ -4299,7 +4338,7 @@
         </label>
       </div>
       <div class="form-group">
-        <label class="form-label">Reminder Time (optional)</label>
+        <label class="form-label" for="assign-reminder-time">Reminder Time (optional)</label>
         <input type="time" class="form-input" id="assign-reminder-time" placeholder="Leave blank for no reminder">
         <p style="font-size: 13px; color: #64748b; margin-top: 4px;">Set a daily reminder for this chore</p>
       </div>
@@ -4313,11 +4352,11 @@
     <div class="modal">
       <div class="modal-title">⏰ Add Reminder</div>
       <div class="form-group">
-        <label class="form-label">Reminder Time</label>
+        <label class="form-label" for="add-reminder-time">Reminder Time</label>
         <input type="time" class="form-input" id="add-reminder-time" value="20:00">
       </div>
       <div class="form-group">
-        <label class="form-label">Type</label>
+        <label class="form-label" for="add-reminder-type">Type</label>
         <select class="form-select" id="add-reminder-type">
           <option value="nightly">Nightly Reminder</option>
           <option value="morning">Morning Reminder</option>
@@ -4325,7 +4364,7 @@
         </select>
       </div>
       <div class="form-group">
-        <label class="form-label">Message (optional)</label>
+        <label class="form-label" for="add-reminder-message">Message (optional)</label>
         <input type="text" class="form-input" id="add-reminder-message" placeholder="Time to do your chores!">
       </div>
       <button class="btn btn-primary btn-lg" onclick="saveNewReminder()">Add Reminder</button>
@@ -4343,14 +4382,14 @@
         <div id="edit-assignment-chore-name" style="padding: 10px; background: rgba(30, 41, 59, 0.6); border-radius: 8px; color: #e2e8f0;"></div>
       </div>
       <div class="form-group">
-        <label class="form-label">Schedule</label>
+        <label class="form-label" for="edit-assignment-schedule">Schedule</label>
         <select class="form-select" id="edit-assignment-schedule" onchange="toggleEditDaySelect()">
           <option value="daily">Daily</option>
           <option value="weekly">Specific Day</option>
         </select>
       </div>
       <div class="form-group" id="edit-day-group" style="display: none;">
-        <label class="form-label">Day of Week</label>
+        <label class="form-label" for="edit-assignment-day">Day of Week</label>
         <select class="form-select" id="edit-assignment-day">
           <option value="0">Sunday</option>
           <option value="1">Monday</option>
@@ -4368,7 +4407,7 @@
         </label>
       </div>
       <div class="form-group">
-        <label class="form-label">Reminder Time (optional)</label>
+        <label class="form-label" for="edit-assignment-reminder-time">Reminder Time (optional)</label>
         <input type="time" class="form-input" id="edit-assignment-reminder-time">
         <input type="hidden" id="edit-assignment-reminder-id">
         <p style="font-size: 13px; color: #64748b; margin-top: 4px;">Set a daily reminder for this chore (leave blank for no reminder)</p>
@@ -4379,20 +4418,20 @@
   </div>
 
   <!-- Add Bonus/Money Maker Modal -->
-  <div class="modal-overlay" id="add-bonus-modal">
+  <div class="modal-overlay" id="add-bonus-modal" role="dialog" aria-modal="true" aria-labelledby="add-bonus-modal-title">
     <div class="modal">
-      <div class="modal-title">💵 Add Money Maker</div>
+      <div class="modal-title" id="add-bonus-modal-title">💵 Add Money Maker</div>
       <div class="form-group">
-        <label class="form-label">Task Name</label>
+        <label class="form-label" for="add-bonus-name">Task Name</label>
         <input type="text" class="form-input" id="add-bonus-name" placeholder="Mow the lawn">
       </div>
       <div class="form-group">
-        <label class="form-label">Description</label>
+        <label class="form-label" for="add-bonus-desc">Description</label>
         <input type="text" class="form-input" id="add-bonus-desc" placeholder="Front and back yard">
       </div>
       <div style="display: flex; gap: 10px;">
         <div class="form-group" style="flex: 1;">
-          <label class="form-label">Icon</label>
+          <label class="form-label" for="add-bonus-icon">Icon</label>
           <select class="form-select" id="add-bonus-icon">
             <option value="💵">💵 Cash</option>
             <option value="🌿">🌿 Yard</option>
@@ -4405,7 +4444,7 @@
           </select>
         </div>
         <div class="form-group" style="flex: 1;">
-          <label class="form-label">Reward ($)</label>
+          <label class="form-label" for="add-bonus-amount">Reward ($)</label>
           <select class="form-select" id="add-bonus-amount">
             <option value="1">$1.00</option>
             <option value="2">$2.00</option>
@@ -4423,20 +4462,20 @@
   </div>
 
   <!-- Add Privilege Modal -->
-  <div class="modal-overlay" id="add-privilege-modal">
+  <div class="modal-overlay" id="add-privilege-modal" role="dialog" aria-modal="true" aria-labelledby="add-privilege-modal-title">
     <div class="modal">
-      <div class="modal-title">🎁 Add Privilege</div>
+      <div class="modal-title" id="add-privilege-modal-title">🎁 Add Privilege</div>
       <div class="form-group">
-        <label class="form-label">Privilege Name</label>
+        <label class="form-label" for="add-privilege-name">Privilege Name</label>
         <input type="text" class="form-input" id="add-privilege-name" placeholder="Extra screen time">
       </div>
       <div class="form-group">
-        <label class="form-label">Description</label>
+        <label class="form-label" for="add-privilege-desc">Description</label>
         <input type="text" class="form-input" id="add-privilege-desc" placeholder="30 extra minutes of screen time">
       </div>
       <div style="display: flex; gap: 10px;">
         <div class="form-group" style="flex: 1;">
-          <label class="form-label">Icon</label>
+          <label class="form-label" for="add-privilege-icon">Icon</label>
           <select class="form-select" id="add-privilege-icon">
             <option value="🎮">🎮 Gaming</option>
             <option value="📺">📺 TV</option>
@@ -4449,7 +4488,7 @@
           </select>
         </div>
         <div class="form-group" style="flex: 1;">
-          <label class="form-label">Unlock When</label>
+          <label class="form-label" for="add-privilege-unlock-type">Unlock When</label>
           <select class="form-select" id="add-privilege-unlock-type">
             <option value="manual">Manual (Parent grants)</option>
             <option value="xp_threshold">XP Threshold</option>
@@ -4458,7 +4497,7 @@
         </div>
       </div>
       <div class="form-group" id="privilege-xp-group" style="display: none;">
-        <label class="form-label">XP Required</label>
+        <label class="form-label" for="add-privilege-xp">XP Required</label>
         <select class="form-select" id="add-privilege-xp">
           <option value="100">100 XP</option>
           <option value="250">250 XP</option>
@@ -4473,7 +4512,7 @@
   </div>
 
   <!-- Toast -->
-  <div class="toast" id="toast">+XP!</div>
+  <div class="toast" id="toast" role="status" aria-live="polite">+XP!</div>
 
   <script type="module">
     import {
@@ -4546,6 +4585,16 @@
       completeNightlyZone,
       loginParentWithPin
     } from './js/supabase-client.js';
+
+    // Local date string helper — avoids toISOString() UTC timezone shift
+    // that causes dates to roll forward after ~4-7pm in US timezones.
+    function toLocalDateString(d) {
+      const date = d instanceof Date ? d : new Date(d);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
 
     // Theme System with Game Vocabulary
     const THEME_KEY = 'chore_chart_theme';
@@ -5099,7 +5148,7 @@
     function getPreviousWeekStart() {
       const d = new Date();
       d.setDate(d.getDate() - d.getDay() - 7);
-      return d.toISOString().split('T')[0];
+      return toLocalDateString(d);
     }
 
     async function showWeeklyWelcome() {
@@ -5258,7 +5307,7 @@
 
     function sendChoreReminder(reminder) {
       // Check if we already sent this reminder today
-      const sentKey = `reminder_sent_${reminder.assignmentId}_${new Date().toISOString().split('T')[0]}`;
+      const sentKey = `reminder_sent_${reminder.assignmentId}_${toLocalDateString(new Date())}`;
       if (localStorage.getItem(sentKey)) return;
 
       // Mark as sent
@@ -5298,7 +5347,7 @@
       const list = document.getElementById('money-makers-list');
       const xpSymbol = getVocab('xp');
       const completedText = getVocab('completed');
-      const today = new Date().toISOString().split('T')[0];
+      const today = toLocalDateString(new Date());
 
       // Use database-backed bonus tasks
       const makers = bonusTasks;
@@ -5363,7 +5412,7 @@
         const weeklyBadge = weekCount > 0 ? `<span style="font-size: 11px; color: #94a3b8; margin-left: 4px;">(${weekCount}x this week)</span>` : '';
 
         return `
-          <div class="money-maker-item ${itemClass}" onclick="completeMoneyMaker('${m.id}', ${xpValue}, ${amount})">
+          <div class="money-maker-item ${itemClass}" role="button" tabindex="0" onclick="completeMoneyMaker('${m.id}', ${xpValue}, ${amount})">
             <div class="money-maker-icon">${icon}</div>
             <div class="money-maker-info">
               <div class="money-maker-name">${m.name}${weeklyBadge}</div>
@@ -5376,7 +5425,7 @@
     }
 
     window.completeMoneyMaker = async function(id, xpValue, amount) {
-      const today = new Date().toISOString().split('T')[0];
+      const today = toLocalDateString(new Date());
 
       // Check TODAY's completions only — each Money Maker can be done once per day
       const todayCompletion = bonusTaskCompletions.find(c => {
@@ -6074,10 +6123,10 @@
 
     function getDateForDay(dayOfWeek) {
       // Get the date for a specific day of the current week
-      const weekStart = new Date(getWeekStart());
-      const date = new Date(weekStart);
-      date.setDate(weekStart.getDate() + dayOfWeek);
-      return date.toISOString().split('T')[0];
+      // Calculate directly from current date to avoid string→Date UTC parsing issues
+      const d = new Date();
+      d.setDate(d.getDate() - d.getDay() + dayOfWeek);
+      return toLocalDateString(d);
     }
 
     function renderQuests() {
@@ -6124,7 +6173,7 @@
         const done = completions.some(c => c.assignment_id === a.id && c.completion_date === selectedDate);
         const hasExpectations = chore.description && chore.description.trim();
         return `
-          <div class="quest-item ${done ? 'completed' : ''}" onclick="toggleQuest('${a.id}', ${chore.xp_value})">
+          <div class="quest-item ${done ? 'completed' : ''}" role="button" tabindex="0" onclick="toggleQuest('${a.id}', ${chore.xp_value})">
             <div class="quest-icon">${done ? '✅' : chore.icon}</div>
             <div class="quest-info">
               <div class="quest-name">${chore.name}</div>
@@ -6168,7 +6217,7 @@
     window.toggleQuest = async function(assignmentId, xpValue) {
       const actualToday = new Date().getDay();
       const selectedDate = getDateForDay(currentDay);
-      const todayDate = new Date().toISOString().split('T')[0];
+      const todayDate = toLocalDateString(new Date());
 
       // Check if already completed for this day
       if (completions.some(c => c.assignment_id === assignmentId && c.completion_date === selectedDate)) {
@@ -6207,6 +6256,7 @@
         }
       } catch (error) {
         console.error('Complete error:', error);
+        showToast('Failed to save — try again', 'error');
       }
     };
 
@@ -6228,7 +6278,7 @@
         }
 
         return `
-          <div class="nightly-item ${isCompleted ? 'completed' : ''}" onclick="toggleNightly('${z.key}')">
+          <div class="nightly-item ${isCompleted ? 'completed' : ''}" role="button" tabindex="0" onclick="toggleNightly('${z.key}')">
             <div class="nightly-icon">${isCompleted ? '⭐' : z.icon}</div>
             <div class="nightly-label">${z.label || z.name}</div>
           </div>
@@ -6305,7 +6355,7 @@
     function getWeekStart() {
       const d = new Date();
       d.setDate(d.getDate() - d.getDay());
-      return d.toISOString().split('T')[0];
+      return toLocalDateString(d);
     }
 
     function getNightlyStreak() {
@@ -6734,7 +6784,9 @@
     // Tab switching
     window.switchTab = function(tab) {
       document.querySelectorAll('.tab-btn').forEach((btn, i) => {
-        btn.classList.toggle('active', ['quests', 'wallet', 'trophies'][i] === tab);
+        const isActive = ['quests', 'wallet', 'trophies'][i] === tab;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
       });
       document.querySelectorAll('.tab-content').forEach(c => {
         c.classList.toggle('active', c.id === `tab-${tab}`);
@@ -6746,9 +6798,23 @@
       }
     };
 
+    // Modal focus management (WCAG 2.4.3)
+    let _previouslyFocusedElement = null;
+
     // Modal functions
     window.showModal = function(id) {
-      document.getElementById(id).classList.add('show');
+      _previouslyFocusedElement = document.activeElement;
+      const modal = document.getElementById(id);
+      modal.classList.add('show');
+      // Move focus into modal
+      const title = modal.querySelector('.modal-title');
+      if (title) {
+        title.setAttribute('tabindex', '-1');
+        setTimeout(() => title.focus(), 100);
+      } else {
+        const focusTarget = modal.querySelector('button, input, select, textarea');
+        if (focusTarget) setTimeout(() => focusTarget.focus(), 100);
+      }
       if (id === 'pin-modal') {
         document.getElementById('pin-error').classList.remove('show');
         document.querySelectorAll('.pin-digit').forEach(i => i.value = '');
@@ -6766,7 +6832,7 @@
       }
       if (id === 'payday-modal') {
         // Show available bonus tasks (not yet done or requested today)
-        const today = new Date().toISOString().split('T')[0];
+        const today = toLocalDateString(new Date());
         const todayCompletedIds = bonusTaskCompletions
           .filter(c => {
             const compDate = c.completion_date || (c.completed_at ? c.completed_at.split('T')[0] : '');
@@ -6791,6 +6857,11 @@
 
     window.closeModal = function(id) {
       document.getElementById(id).classList.remove('show');
+      // Return focus to previously focused element
+      if (_previouslyFocusedElement && _previouslyFocusedElement.focus) {
+        _previouslyFocusedElement.focus();
+        _previouslyFocusedElement = null;
+      }
     };
 
     // PIN handling
@@ -6878,7 +6949,11 @@
 
     window.switchPortalTab = function(tab) {
       document.querySelectorAll('.portal-nav-btn').forEach(b => {
-        b.classList.toggle('active', b.dataset.tab === tab);
+        const isActive = b.dataset.tab === tab;
+        b.classList.toggle('active', isActive);
+        if (b.hasAttribute('role')) {
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        }
       });
       document.querySelectorAll('.portal-section').forEach(s => {
         s.classList.toggle('active', s.id === `portal-${tab}`);
@@ -7152,7 +7227,7 @@
         return;
       }
 
-      const todayDate = new Date().toISOString().split('T')[0];
+      const todayDate = toLocalDateString(new Date());
       const sorted = [...allCompletions].sort((a, b) => new Date(b.completed_at) - new Date(a.completed_at));
 
       feed.innerHTML = sorted.slice(0, 20).map(completion => {
@@ -8556,7 +8631,7 @@
       if (minutes < 60) return `${minutes}m ago`;
       const hours = Math.floor(minutes / 60);
       if (hours < 24) return `${hours}h ago`;
-      return formatDate(date.toISOString().split('T')[0]);
+      return formatDate(toLocalDateString(date));
     }
 
     function formatDate(dateStr) {
@@ -9405,6 +9480,14 @@
       toast.className = `toast show ${type}`;
       setTimeout(() => toast.classList.remove('show'), 2500);
     }
+
+    // Keyboard accessibility: allow Enter/Space to activate role="button" elements (WCAG 2.1.1)
+    document.addEventListener('keydown', function(e) {
+      if ((e.key === 'Enter' || e.key === ' ') && e.target.getAttribute('role') === 'button') {
+        e.preventDefault();
+        e.target.click();
+      }
+    });
 
     // Service Worker
     if ('serviceWorker' in navigator) {
